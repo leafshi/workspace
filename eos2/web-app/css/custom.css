@@ -1,0 +1,124 @@
+body {
+	max-width: 100%;
+	min-height:100%;
+	margin: 0 0px 10px 0px;
+}
+body > .main {
+	height: auto;
+	min-height:100%;
+	padding-bottom: 10px; /* 必须使用和footer相同的高度 */ 
+}
+/*Header*/
+.header{
+	background-color:#0094B6;
+}
+
+.header .global_title{
+	padding : 20px 0px 20px 10px;
+	font-family: 'Arial', 'Helvetica';
+	font-weight: bodd;
+	font-size: 32pt;
+	color: #FFF;
+	text-decoration: none;
+}
+/*content*/
+.blank_line{
+	background-color:#CECECE;
+	height : 5px;
+	border : 0px solid #6B83AF;
+	margin : 0px;
+	padding: 0px;
+	font-size:0pt;
+}
+
+/*Footer*/
+.footer{
+	background-color:#0094B6;
+	padding : 0px;
+	position: relative;
+	clear:both;
+	margin-top: -10px; /* footer高度的负值 */
+		height: 10px;
+
+}
+
+
+/*menu*/
+
+.menu h1 {
+	border-bottom: 1px solid #CCCCCC;
+	margin: 0.8em 1em 0.3em;
+	padding: 0 0.25em;
+}
+
+.menu ol {
+	list-style-type:upper-roman;
+	margin:0px;
+	list-style-position:inside;
+}
+
+.menu ol li {
+	display: block;
+	margin : 0px 30px 10px 0px;
+}
+
+.nav .last {
+	float:right;
+	margin-right : 0px;
+}
+
+
+caption{
+  caption-side:top;
+  text-align : left;
+  font-size : 18px;
+  color : red;
+}
+
+/*search product dialog*/
+
+#search_product_dialog td{
+	nowarp:nowarp;
+}
+
+label{
+	color : green;
+}
+
+.number input, .number span{
+	text-align:right;
+	width : 50px;
+	padding-right : 25px;
+}
+
+td, td label, th, th label{
+	nowarp : nowarp;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+#salesOrder_detail_list .odd{
+	border-left:2px solid red;
+}
+
+#salesOrder_detail_list .even{
+	border-left:2px solid green;
+}
+
+tfoot td{
+	background-color : #CCC;
+	color: green;
+}
+
+.hide_detail{
+	display:none;
+}
+
+/*只读属性的背景色*/
+input, textarea{
+    background-color:expression(this.readOnly==true?"#009966":"#FFFFFF");
+}
+
+input[readonly], textarea[readonly]{
+    background-color:#009966;
+}

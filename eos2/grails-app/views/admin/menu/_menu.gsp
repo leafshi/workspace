@@ -1,0 +1,175 @@
+<g:javascript src="menu.js"/>
+<link rel="stylesheet" href="${resource(dir:'css',file:'menu.css')}" />
+<div id="menu">
+    <ul class="menu">
+    
+        <!--BEGIN HOME-->
+        <li><a class="parent" href="${createLink(uri: '/')}"><span><g:message code="default.home.label"/></span></a></li>
+        <!--END HOME-->
+        
+        <!--current object -->
+        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'auth', 'report'].contains(controllerName)}">
+			<g:set var="entityName" value="${message(code: controllerName+'.label')}" />
+			<shiro:hasPermission permission="${controllerName}:list">
+			<li><g:link class="${controllerName}" action="list"><span style="color:blue;"><g:message code="default.list.label" args="[entityName]" /></span></g:link></li>
+			</shiro:hasPermission>
+			
+			<shiro:hasPermission permission="${controllerName}:create">
+			<li><g:link class="${controllerName}" action="create"><span style="color:blue;"><g:message code="default.new.label" args="[entityName]" /><span></g:link></li>
+			</shiro:hasPermission>
+        </g:if>
+        
+        <g:if test="${['report'].contains(controllerName) && ['view'].contains(actionName)}">
+			<shiro:hasPermission permission="${controllerName}:run">
+			<li><g:link class="${controllerName}" action="run" onClick="javascript:document.forms.paramForm.submit();return false;"><span style="color:blue;"><g:message code="birt.view.ChangeParameters"/><span></g:link></li>
+			</shiro:hasPermission>
+	
+			<shiro:hasPermission permission="${controllerName}:downloadAs">
+			<li><g:link class="${controllerName}" action="downloadAs" id="${id}.xls" params="${reportParams}"><span style="color:blue;">XLS<span></g:link></li>
+			</shiro:hasPermission>		
+        </g:if>
+        <!--end current object-->
+        <!--BEGIN SETUP-->
+        <shiro:hasPermission permission="menu:setting">
+        <li>
+        	<a href="#" onclick="javascript:none()" class="parent"><span><g:message code="menu.setting.label" default="Setting"/></span></a>
+			<ul>
+			
+				<shiro:hasPermission permission="profile:index">
+				<li><a href="${createLink(controller: 'profile', action : 'index')}"><span><g:message code="profile.label" default="Profile"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="recordType:index">
+				<li><a href="${createLink(controller: 'recordType', action : 'index')}"><span><g:message code="recordType.label" default="RecordType"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="group:index">
+				<li><a href="${createLink(controller: 'group', action : 'index')}"><span><g:message code="group.label" default="Group"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="shareRole:index">
+				<li><a href="${createLink(controller: 'shareRole', action : 'index')}"><span><g:message code="shareRole.label" default="ShareRole"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="obConfig:index">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'obConfig', action : 'index')}"><span><g:message code="obConfig.label" default="Outbound Config"/></span></a></li>
+				</shiro:hasPermission>
+						
+			</ul>
+        </li>
+        </shiro:hasPermission>
+        <!--END SETUP-->
+        
+        <!--BEGIN b2b-->
+        <shiro:hasPermission permission="menu:b2b">
+        <li>
+        	<a href="#" onclick="javascript:none()" class="parent"><span><g:message code="menu.b2b.label" default="B2B"/></span></a>
+			<ul>
+
+				<shiro:hasPermission permission="product:index">
+				<li><a href="${createLink(controller: 'product', action : 'index')}"><span><g:message code="product.label" default="Product"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="category:index">
+				<li><a href="${createLink(controller: 'category', action : 'index')}"><span><g:message code="category.label" default="Category"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="bom:index">
+				<li><a href="${createLink(controller: 'bom', action : 'index')}"><span><g:message code="bom.label" default="BOM"/></span></a></li>
+				</shiro:hasPermission>
+				
+				
+
+				<shiro:hasPermission permission="industry:index">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'industry', action : 'index')}"><span><g:message code="industry.label" default="Industry"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="department:index">
+				<li><a href="${createLink(controller: 'department', action : 'index')}"><span><g:message code="department.label" default="Department"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="dealer:index">
+				<li><a href="${createLink(controller: 'dealer', action : 'index')}"><span><g:message code="dealer.label" default="Dealer"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="staff:index">
+				<li><a href="${createLink(controller: 'staff', action : 'index')}"><span><g:message code="staff.label" default="Staff"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="contract:index">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'contract', action : 'index')}"><span><g:message code="contract.label" default="Contract"/></span></a></li>
+				</shiro:hasPermission>
+
+			</ul>
+        </li>
+        </shiro:hasPermission>
+        <!--END b2b-->
+        
+        <!--BEGIN workflow-->
+        <shiro:hasPermission permission="menu:workflow">
+		<shiro:hasPermission permission="workflow:index">
+		<li><a href="${createLink(controller: 'workflow', action : 'index')}"><span><g:message code="workflow.label" default="Workflow"/></span></a></li>
+		</shiro:hasPermission>
+		</shiro:hasPermission>
+		<!--end workflow-->		
+		
+		
+        <!--BEGIN MY ORDER-->
+        <shiro:hasPermission permission="menu:mySalesOrder">
+        <li>
+			<a class="parent" onclick="javascript:none()" href="#"><span><g:message code="menu.myOrder.lable" default="My Order"/></span></a>
+			<g:include controller="menu" action="mySalesOrderList" />
+		</li>
+		</shiro:hasPermission>
+		
+		<shiro:hasPermission permission="menu:createSalesOrder">
+        <li>
+			<a href="#" onclick="javascript:none()" class="parent"><span><g:message code="menu.create.order.label" default="Create SalesOrder"/></span></a>
+			<ul>
+				<shiro:hasPermission permission="salesOrder220:create">
+				<li><a href="${createLink(controller: 'salesOrder220', action : 'create')}"><span><g:message code="menu.createSalesOrder220.label"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="salesOrder221:create">
+				<li><a href="${createLink(controller: 'salesOrder221', action : 'create')}"><span><g:message code="menu.createSalesOrder221.label"/></span></a></li>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="salesOrder224:create">
+				<li><a href="${createLink(controller: 'salesOrder224', action : 'create')}"><span><g:message code="menu.createSalesOrder224.label"/></span></a></li>
+				</shiro:hasPermission>
+			</ul>
+        </li>
+        </shiro:hasPermission>
+		<!--END MY ORDER-->
+		
+        <!--BEGIN MY ORDER-->
+        <shiro:hasPermission permission="menu:reportList">
+        <li>
+			<a class="parent" onclick="javascript:none()" href="#"><span><g:message code="menu.report.lable" default="Report"/></span></a>
+			<g:include controller="menu" action="reportList" />
+		</li>
+		</shiro:hasPermission>
+		
+		<!--begin outbound-->
+		<shiro:hasPermission permission="menu:outBoundList">
+		<li>
+			<g:include controller="menu" action="outBoundList" />
+    	</li>
+		</shiro:hasPermission>
+		<!--end Outbound-->
+		
+        <!--BEGIN SIGNOUT-->
+        <li class="last">
+            <a href="${createLink(controller: 'auth', action : 'signOut')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span><g:message code="default.signOut.label" default="signOut"/>, <shiro:principal/></span></a>
+        </li>
+        <!--END SIGNOUT-->
+    </ul>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('a[href="http://apycom.com/"]').remove();
+});
+</script>

@@ -1,0 +1,43 @@
+body {
+	max-width: 100%;
+	min-height:100%;
+	margin: 0 0px 10px 0px;
+}
+body > .main {
+	height: auto;
+	min-height:100%;
+	padding-bottom: 10px; /* 必须使用和footer相同的高度 */ 
+}
+/*Header*/
+.header{
+	background-color:#0094B6;
+}
+
+.header .global_title{
+	padding : 20px 0px 20px 10px;
+	font-family: 'Arial', 'Helvetica';
+	font-weight: bodd;
+	font-size: 32pt;
+	color: #FFF;
+	text-decoration: none;
+}
+/*content*/
+.blank_line{
+	background-color:#CECECE;
+	height : 5px;
+	border : 0px solid #6B83AF;
+	margin : 0px;
+	padding: 0px;
+	font-size:0pt;
+}
+
+/*Footer*/
+.footer{
+	background-color:#0094B6;
+	padding : 0px;
+	position: relative;
+	clear:both;
+	margin-top: -10px; /* footer高度的负值 */
+		height: 10px;
+
+}

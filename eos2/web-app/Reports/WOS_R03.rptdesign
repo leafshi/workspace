@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <property name="author">14181</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110905-1820></property>
+    <text-property name="title">销货单查询</text-property>
+    <property name="units">in</property>
+    <text-property name="displayName">销货单查询</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">72</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">WebOrderReport.rptlibrary</property>
+            <property name="namespace">WebOrderReport</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="fdtmBegin" id="9">
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Medium Date</property>
+                <property name="pattern">Medium Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fdtmEnd" id="10">
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Medium Date</property>
+                <property name="pattern">Medium Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fintUserId" id="105">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="WebOrderReport" id="7"
+ extends="WebOrderReport.WebOrderReport">
+            <property name="odaDriverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+            <property name="odaURL">jdbc:sqlserver://192.168.1.224;databaseName=leaf</property>
+            <property name="odaUser">sa</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTJxd2Fzeng=</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.SPSelectDataSet" name="R03" id="8">
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">@FDTMBEGIN</property>
+                    <property name="paramName">fdtmBegin</property>
+                    <property name="nativeName">@FDTMBEGIN</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">-9</property>
+                    <property name="position">1</property>
+                    <property name="isOptional">true</property>
+                    <property name="allowNull">true</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@FDTMEND</property>
+                    <property name="paramName">fdtmEnd</property>
+                    <property name="nativeName">@FDTMEND</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">-9</property>
+                    <property name="position">2</property>
+                    <property name="isOptional">true</property>
+                    <property name="allowNull">true</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@FINTUSERID</property>
+                    <property name="paramName">fintUserId</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">F001</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">F002</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">F003</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">F004</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">F005</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">F006</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">F007</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">F008</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">WebOrderReport</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">F001</property>
+                    <property name="nativeName">F001</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">F002</property>
+                    <property name="nativeName">F002</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">F003</property>
+                    <property name="nativeName">F003</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">F004</property>
+                    <property name="nativeName">F004</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">F005</property>
+                    <property name="nativeName">F005</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">F006</property>
+                    <property name="nativeName">F006</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">F007</property>
+                    <property name="nativeName">F007</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">F008</property>
+                    <property name="nativeName">F008</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[{call REPORT_R03(?, ?,?)} ]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <DataSetParameters>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name>@FDTMBEGIN</design:name>
+            <design:position>1</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>-9</design:nativeDataTypeCode>
+          <design:precision>10</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Nullable</design:nullability>
+        </design:attributes>
+        <design:inputAttributes>
+          <design:elementAttributes>
+            <design:optional>true</design:optional>
+          </design:elementAttributes>
+        </design:inputAttributes>
+      </design:ParameterDefinition>
+    </parameter>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name>@FDTMEND</design:name>
+            <design:position>2</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>-9</design:nativeDataTypeCode>
+          <design:precision>10</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Nullable</design:nullability>
+        </design:attributes>
+        <design:inputAttributes>
+          <design:elementAttributes>
+            <design:optional>true</design:optional>
+          </design:elementAttributes>
+        </design:inputAttributes>
+      </design:ParameterDefinition>
+    </parameter>
+  </DataSetParameters>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="DetailHeader" id="63">
+            <property name="backgroundColor">#0080FF</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="GroupHeader" id="64">
+            <property name="backgroundColor">#009900</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="Detail" id="65">
+            <property name="backgroundColor">#EEEEEE</property>
+            <property name="color">#000000</property>
+        </style>
+        <style name="GroupFooter" id="66">
+            <property name="backgroundColor">#3399FF</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="DetailFooter" id="67">
+            <property name="backgroundColor">#0066FF</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="11">
+            <property name="dataSet">R03</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">F001</property>
+                    <text-property name="displayName">F001</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F001"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F002</property>
+                    <text-property name="displayName">F002</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F002"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F003</property>
+                    <text-property name="displayName">F003</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F003"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F004</property>
+                    <text-property name="displayName">F004</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F004"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F005</property>
+                    <text-property name="displayName">F005</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F005"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F006</property>
+                    <text-property name="displayName">F006</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F006"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F007</property>
+                    <text-property name="displayName">F007</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F007"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">F008</property>
+                    <text-property name="displayName">F008</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F008"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">COUNT</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">COUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F001"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">SUM_F007</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F007"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">SUM_F008</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F008"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">G_F001_COUNT</property>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>G_F001</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">COUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F001"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">G_F001_SUM_F007</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>G_F001</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F007"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">G_F001_SUM_F008</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>G_F001</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["F008"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <text-property name="caption">销货单查询</text-property>
+            <column id="55"/>
+            <column id="56"/>
+            <column id="57"/>
+            <column id="58"/>
+            <column id="59"/>
+            <column id="60"/>
+            <column id="61"/>
+            <column id="62"/>
+            <header>
+                <row id="12">
+                    <cell id="13">
+                        <label id="14">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">经销商编号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="15">
+                        <label id="16">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">经销商名称</text-property>
+                        </label>
+                    </cell>
+                    <cell id="17">
+                        <label id="18">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">所属区域</text-property>
+                        </label>
+                    </cell>
+                    <cell id="19">
+                        <label id="20">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">所属办事处</text-property>
+                        </label>
+                    </cell>
+                    <cell id="21">
+                        <label id="22">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">销货单号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="23">
+                        <label id="24">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">发货日期</text-property>
+                        </label>
+                    </cell>
+                    <cell id="25">
+                        <label id="26">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">总数量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="27">
+                        <label id="28">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">销货金额</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="77">
+                <property name="groupName">G_F001</property>
+                <expression name="keyExpr" type="javascript">row["F001"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["F001"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="78">
+                        <cell id="79">
+                            <data id="96">
+                                <property name="style">GroupHeader</property>
+                                <property name="resultSetColumn">F002</property>
+                            </data>
+                        </cell>
+                        <cell id="80"/>
+                        <cell id="81"/>
+                        <cell id="82"/>
+                        <cell id="83"/>
+                        <cell id="84"/>
+                        <cell id="85"/>
+                        <cell id="86"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="87">
+                        <cell id="88">
+                            <label id="97">
+                                <property name="style">GroupFooter</property>
+                                <text-property name="text">小计：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="89">
+                            <data id="102">
+                                <property name="style">GroupFooter</property>
+                                <structure name="numberFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">###,##0.00</property>
+                                </structure>
+                                <property name="textAlign">right</property>
+                                <property name="resultSetColumn">G_F001_COUNT</property>
+                            </data>
+                        </cell>
+                        <cell id="90">
+                            <label id="98">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="91">
+                            <label id="99">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="92">
+                            <label id="100">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="93">
+                            <label id="101">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="94">
+                            <data id="103">
+                                <property name="style">GroupFooter</property>
+                                <structure name="numberFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">###,##0.00</property>
+                                </structure>
+                                <property name="textAlign">right</property>
+                                <property name="resultSetColumn">G_F001_SUM_F007</property>
+                            </data>
+                        </cell>
+                        <cell id="95">
+                            <data id="104">
+                                <property name="style">GroupFooter</property>
+                                <structure name="numberFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">###,##0.00</property>
+                                </structure>
+                                <property name="textAlign">right</property>
+                                <property name="resultSetColumn">G_F001_SUM_F008</property>
+                            </data>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="29">
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">row[0] % 2</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">0</value>
+                            </simple-property-list>
+                            <property name="style">Detail</property>
+                        </structure>
+                    </list-property>
+                    <cell id="30">
+                        <data id="31">
+                            <property name="resultSetColumn">F001</property>
+                        </data>
+                    </cell>
+                    <cell id="32">
+                        <data id="33">
+                            <property name="resultSetColumn">F002</property>
+                        </data>
+                    </cell>
+                    <cell id="34">
+                        <data id="35">
+                            <property name="resultSetColumn">F003</property>
+                        </data>
+                    </cell>
+                    <cell id="36">
+                        <data id="37">
+                            <property name="resultSetColumn">F004</property>
+                        </data>
+                    </cell>
+                    <cell id="38">
+                        <data id="39">
+                            <property name="resultSetColumn">F005</property>
+                        </data>
+                    </cell>
+                    <cell id="40">
+                        <data id="41">
+                            <property name="resultSetColumn">F006</property>
+                        </data>
+                    </cell>
+                    <cell id="42">
+                        <data id="43">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">###,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">F007</property>
+                        </data>
+                    </cell>
+                    <cell id="44">
+                        <data id="45">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">###,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">F008</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="46">
+                    <cell id="47">
+                        <label id="68">
+                            <property name="style">DetailFooter</property>
+                            <text-property name="text">合计：</text-property>
+                        </label>
+                    </cell>
+                    <cell id="48">
+                        <data id="70">
+                            <property name="style">DetailFooter</property>
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">###,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">COUNT</property>
+                        </data>
+                    </cell>
+                    <cell id="49">
+                        <label id="71">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="50">
+                        <label id="72">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="51">
+                        <label id="73">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="52">
+                        <label id="74">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="53">
+                        <data id="75">
+                            <property name="style">DetailFooter</property>
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">###,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">SUM_F007</property>
+                        </data>
+                    </cell>
+                    <cell id="54">
+                        <data id="76">
+                            <property name="style">DetailFooter</property>
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">###,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">SUM_F008</property>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>
