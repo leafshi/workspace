@@ -24,11 +24,11 @@
 	<tr>
 		<td>
 			<span id="filingDate-label" class="property-label"><g:message code="contract.filingDate.label" default="Filing Date" /></span>
-			<span class="property-value" aria-labelledby="filingDate-label"><g:formatDate date="${contractInstance?.filingDate}" formatName="custom.datetime.format" /></span>
+			<span class="property-value" aria-labelledby="filingDate-label"><g:formatDate date="${contractInstance?.filingDate}" formatName="custom.date.format" /></span>
 		</td>
 		<td>
 			<span id="effectiveDate-label" class="property-label"><g:message code="contract.effectiveDate.label" default="Effective Date" /></span>
-			<span class="property-value" aria-labelledby="effectiveDate-label"><g:formatDate date="${contractInstance?.effectiveDate}" formatName="custom.datetime.format"/></span>
+			<span class="property-value" aria-labelledby="effectiveDate-label"><g:formatDate date="${contractInstance?.effectiveDate}" formatName="custom.date.format"/></span>
 		</td>
 	</tr>
 	<tr>
@@ -87,9 +87,9 @@
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 			<td>${fieldValue(bean: contractDetailInstance, field: "serialNumber")}</td>
 			<td>${fieldValue(bean: contractDetailInstance, field: "category")}</td>
-			<td>${fieldValue(bean: contractDetailInstance, field: "discount")}</td>
-			<td>${fieldValue(bean: contractDetailInstance, field: "specialDiscount")}</td>
-			<td>${fieldValue(bean: contractDetailInstance, field: "finalDiscount")}</td>
+			<td>${formatNumber( number : contractDetailInstance?.discount?:0, format:'###,#00.00%')}</td>
+			<td>${formatNumber( number : contractDetailInstance?.specialDiscount?:0, format:'###,#00.00%')}</td>
+			<td>${formatNumber( number : contractDetailInstance?.finalDiscount?:0, format:'###,#00.00%')}</td>
 			<td>${formatDate(date:contractDetailInstance?.expiryDate, formatName:'custom.date.format')}</td>
 		</tr>
 	</g:each>

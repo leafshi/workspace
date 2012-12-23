@@ -63,7 +63,7 @@
 				</label>
 			</td>
 			<td class="${hasErrors(bean: salesOrderInstance, field: 'industry', 'error')} required">
-				<g:field name="industryInput" value="${salesOrderInstance?.industry?.encodeAsHTML()}" required=""/>
+				<g:field name="industryInput" value="${salesOrderInstance?.industry?.encodeAsHTML()}" required="" readonly="readonly"/>
 				<g:hiddenField name="industry.id" value="${salesOrderInstance?.industry?.id}"  />
 			</td>
 
@@ -133,7 +133,8 @@
 				</label>
 			</td>
 			<td colspan="5" class="${hasErrors(bean: salesOrderInstance, field: 'address1', 'error')} ">
-				<g:textArea name="address1" maxlength="72" value="${salesOrderInstance?.address1}" rows="1" readonly="readonly"/>
+				<span>${salesOrderInstance?.address1}</span>
+				<g:hiddenField name="address1" value="${salesOrderInstance?.address1}" />
 			</td>
 		</tr>
 
@@ -146,7 +147,8 @@
 				</label>
 			</td>
 			<td colspan="5" class="${hasErrors(bean: salesOrderInstance, field: 'address2', 'error')} ">
-				<g:textArea name="address2" maxlength="72" value="${salesOrderInstance?.address2}" rows="1" readonly="readonly"/>
+				<span>${salesOrderInstance?.address2}</span>
+				<g:hiddenField name="address2" value="${salesOrderInstance?.address2}" />
 			</td>
 		</tr>
 
@@ -283,10 +285,10 @@
 		</tbody>
 	</table>
 </div>
-<div id="dialog-confirm" title="${message(code:'salesOrder.page.delete.row', default:'Delete Row!')}" style="display:none;">
+<div id="dialog-confirm" title="${message(code:'salesOrder.page.delete.dialog.title', default:'Delete Row!')}" style="display:none;">
     <p>
 		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-		Are you sure?
+		${message(code:'salesOrder.page.delete.dialog.title', default:'Delete Row!')}
 	</p>
 </div>
 <div id="salesOrderPageFooter"></div> 

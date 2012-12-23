@@ -10,7 +10,7 @@ class ContractController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view : '/b2b/contract/list', model : [contractInstanceList: contractService.list(params), contractInstanceTotal: contractService.count()]
     }
 

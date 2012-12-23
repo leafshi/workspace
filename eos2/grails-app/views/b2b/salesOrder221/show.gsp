@@ -7,9 +7,9 @@
 		<title>
 			<g:message code="default.show.label" args="[entityName]" />
 			~
-			${salesOrderInstance?.id}
-			~
 			${salesOrderInstance?.recordType?.encodeAsHTML()}			
+			~
+			${salesOrderInstance?.id}
 		</title>
 	</head>
 	<body>
@@ -18,9 +18,9 @@
 			<h1>
 				<g:message code="default.show.label" args="[entityName]" />
 				~
-				${salesOrderInstance?.id}
-				~
 				${salesOrderInstance?.recordType?.encodeAsHTML()}
+				~
+				${salesOrderInstance?.id}
 			</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

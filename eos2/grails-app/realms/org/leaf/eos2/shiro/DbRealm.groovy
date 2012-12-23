@@ -109,18 +109,21 @@ class DbRealm {
         // at this stage it is not worth trying to remove them. Now,
         // create a real permission from each result and check it
         // against the required one.
+        //log.info("results=${results}")
         retval = results.find { permString ->
             // Create a real permission instance from the database
             // permission.
             def perm = shiroPermissionResolver.resolvePermission(permString)
-
+			//log.info("perm=${perm}")
             // Now check whether this permission implies the required
             // one.
             if (perm.implies(requiredPermission)) {
                 // User has the permission!
+                //log.info("User has the permission!")
                 return true
             }
             else {
+            	//log.info("User doesn't have the permission!")
                 return false
             }
         }

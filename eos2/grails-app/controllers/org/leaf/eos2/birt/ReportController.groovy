@@ -10,7 +10,7 @@ class ReportController {
 
     def index = { redirect(action:"list") }
     def list = {
-    	params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+    	params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view : '/birt/report/list', model : [reportInstanceList:Report.list(params), reportInstanceTotal: Report.count()]
     }
 

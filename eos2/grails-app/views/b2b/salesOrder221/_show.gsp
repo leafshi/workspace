@@ -230,12 +230,23 @@
 				<ul>
 					<li>
 						<span id="amount-label" class="property-label"><g:message code="salesOrder.amount.label" default="Amount" /></span> :
-						<span class="property-value" aria-labelledby="amount-label"><g:fieldValue bean="${salesOrderInstance}" field="amount"/></span>
+						<span class="property-value" aria-labelledby="amount-label">
+							<g:formatNumber number="${salesOrderInstance?.amount?:0}" format="###,##0.00" />
+						</span>
 					</li>
 					<li>
 						<span id="specialAmount-label" class="property-label"><g:message code="salesOrder.specialAmount.label" default="Special Amount" /> :</span>
-						<span class="property-value" aria-labelledby="specialAmount-label"><g:fieldValue bean="${salesOrderInstance}" field="specialAmount"/></span>
+						<span class="property-value" aria-labelledby="specialAmount-label">
+							<g:formatNumber number="${salesOrderInstance?.specialAmount?:0}" format="###,##0.00" />
+						</span>
 					</li>
+					<li>
+						<span id="finalAmount-label" class="property-label"><g:message code="salesOrder.finalAmount.label" default="Final Amount" /> :</span>
+						<span class="property-value" aria-labelledby="finalAmount-label">
+							<g:formatNumber number="${(salesOrderInstance?.amount?:0) - (salesOrderInstance?.specialAmount?:0)}" format="###,##0.00" />
+						</span>
+					</li>
+
 				</ul>
 				<g:hiddenField name="specialAmount" value="${fieldValue(bean: salesOrderInstance, field: 'specialAmount')}" required=""/>
 			</td>

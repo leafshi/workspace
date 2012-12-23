@@ -12,7 +12,7 @@ class Industry {
     Date lastUpdated//上次修改日期
 
     static constraints = {
-        serialNumber(nullable:false,blank:false, maxSize:6)
+        serialNumber(nullable:false,blank:false, maxSize:6, unique:true)
         shortName(nullable:false, blank:false, maxSize:10)
         fullName(nullable:false, blank:false, maxSize:50)
         isActive(nullable:true)

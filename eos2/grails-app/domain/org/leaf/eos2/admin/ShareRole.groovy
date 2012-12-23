@@ -17,7 +17,7 @@ class ShareRole {
     static constraints = {
 		user (nullable:false)
 		group(nullable:false)
-		domain(nullable:false)
+		domain(nullable:false, unique : ['group', 'domain'])
 		readable(nullable:true)
 		editable(nullable:true)
 		deletable(nullable:true)

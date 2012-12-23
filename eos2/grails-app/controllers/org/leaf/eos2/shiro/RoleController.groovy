@@ -8,7 +8,7 @@ class RoleController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view :'/shiro/role/list', model : [roleInstanceList: Role.list(params), roleInstanceTotal: Role.count()]
     }
 

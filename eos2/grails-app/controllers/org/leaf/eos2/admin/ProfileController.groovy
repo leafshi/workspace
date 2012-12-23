@@ -11,7 +11,7 @@ class ProfileController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 30, 100)
         render view : '/admin/profile/list', model : [profileInstanceList: Profile.list(params), profileInstanceTotal: Profile.count()]
     }
 

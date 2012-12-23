@@ -28,6 +28,15 @@ import org.leaf.eos2.ws.ObConfig
 class BootStrap {
 
     def init = { servletContext ->
+        switch(GrailsUtil.environment) {
+            case "development":
+                configureForTest()
+                break
+        }
+    }
+
+
+	def configureForTest = {
 /*init for administrator*/
 def profile_admin      = new Profile(name:"Administrator Profile").save(flush:true);
 
@@ -519,9 +528,9 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
             , lastModifiedBy:user_admin
             , owner:ownerGD0020)
             .addToContractDetails(
-                new ContractDetail(serialNumber:'1', category : category12_031, discount : 0.625, specialDiscount: 0.10, finalDiscount:0.5625, expiryDate : new Date() + 180)
+                new ContractDetail(serialNumber:'1', category : category12_031, discount : 0.625, specialDiscount: 0.12, finalDiscount:0.55, expiryDate : new Date() + 180)
             ).addToContractDetails(
-                new ContractDetail(serialNumber:'2', category : category12_001B, discount : 0.625, specialDiscount: 0.08, finalDiscount:0.575, expiryDate : new Date() + 180)
+                new ContractDetail(serialNumber:'2', category : category12_001B, discount : 0.625, specialDiscount: 0.12, finalDiscount:0.55, expiryDate : new Date() + 180)
             ).save(flush:true)
 
         def contractYX09G201108190043 = new Contract(

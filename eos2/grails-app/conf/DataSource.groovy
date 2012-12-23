@@ -17,12 +17,6 @@ environments {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             logSql = false
-            /*
-            driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            username = "sa"
-            password = "12qwaszx"
-            url = "jdbc:sqlserver://192.168.1.224;databaseName=eos2;"
-			*/
         }
     }
     test {
@@ -33,7 +27,6 @@ environments {
     }
     production {
         dataSource {
-
             dbCreate = "update"
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
             username = "sa"

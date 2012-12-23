@@ -3,6 +3,7 @@ package org.leaf.eos2.b2b
 class SalesOrder224Controller {
 
 	def salesOrder224Service
+	def salesOrderService
 
     def index = { redirect(action: "list", params: params) }
 
@@ -10,8 +11,8 @@ class SalesOrder224Controller {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
-        render view:'/b2b/salesOrder/list', model:[salesOrderInstanceList: SalesOrder.list(params), salesOrderInstanceTotal: SalesOrder.count()]
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
+        render view:'/b2b/salesOrder/list', model:[salesOrderInstanceList: salesOrderService.list(params), salesOrderInstanceTotal: salesOrderService.count(params)]
     }
 
     def create = {
@@ -33,7 +34,7 @@ class SalesOrder224Controller {
     }
 
     def show = {
-        def salesOrderInstance = SalesOrder.get(params.id)
+        def salesOrderInstance = salesOrderService.show(params.id)
         if (!salesOrderInstance) {
             flash.message = "salesOrder.not.found"
             flash.args = [params.id]
@@ -46,7 +47,12 @@ class SalesOrder224Controller {
     }
 
     def edit = {
-        def salesOrderInstance = SalesOrder.get(params.id)
+		if(salesOrderService.isLocked(params.id) == true){
+			render(view : "/unauthorized") 
+            return
+		}
+
+        def salesOrderInstance = salesOrderService.edit(params.id)
         if (!salesOrderInstance) {
             flash.message = "salesOrder.not.found"
             flash.args = [params.id]
@@ -59,7 +65,12 @@ class SalesOrder224Controller {
     }
 
     def update = {
-        def salesOrderInstance = SalesOrder.get(params.id)
+		if(salesOrderService.isLocked(params.id) == true){
+			render(view : "/unauthorized") 
+            return
+		}
+
+        def salesOrderInstance = salesOrderService.edit(params.id)
         if (salesOrderInstance) {
             if (params.version) {
                 def version = params.version.toLong()
@@ -90,7 +101,12 @@ class SalesOrder224Controller {
     }
 
     def delete = {
-        def salesOrderInstance = SalesOrder.get(params.id)
+		if(salesOrderService.isLocked(params.id) == true){
+			render(view : "/unauthorized") 
+            return
+		}
+
+        def salesOrderInstance = salesOrderService.delete(params.id)
         if (salesOrderInstance) {
             try {
                 salesOrderInstance.delete()

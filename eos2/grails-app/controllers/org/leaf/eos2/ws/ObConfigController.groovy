@@ -8,7 +8,7 @@ class ObConfigController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view : '/ws/obConfig/list', model : [obConfigInstanceList: ObConfig.list(params), obConfigInstanceTotal: ObConfig.count()]
     }
 

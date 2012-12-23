@@ -19,7 +19,9 @@
 			<td><g:link action="show" id="${categoryInstance.id}">${fieldValue(bean: categoryInstance, field: "recordType")}</g:link></td>
 			<td>${fieldValue(bean: categoryInstance, field: "serialNumber")}</td>
 			<td>${fieldValue(bean: categoryInstance, field: "name")}</td>
-			<td>${fieldValue(bean: categoryInstance, field: "discount")}</td>
+			<td>
+				${formatNumber( number : categoryInstance?.discount, format:'###,#00.00%')}	
+			</td>
 			<td>${fieldValue(bean: categoryInstance, field: "productionCycle")}</td>
 			<td>${fieldValue(bean: categoryInstance, field: "transportCycle")}</td>
 			<td>${fieldValue(bean: categoryInstance, field: "isActive")}</td>

@@ -10,7 +10,7 @@ class OutBoundController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view : '/ws/outBound/list', model : [outBoundInstanceList: OutBound.list(params), outBoundInstanceTotal: OutBound.count()]
     }
 

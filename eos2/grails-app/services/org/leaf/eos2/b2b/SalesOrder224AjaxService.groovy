@@ -214,6 +214,11 @@ class SalesOrder224AjaxService {
             eq("rt.serialNumber", "5")
             eq("p.isActive", true)
         }
+        //如果没有属性，默认允许零价格
+        if(isAllowZeroPrice == null){
+        	isAllowZeroPrice = true
+        }
+
         return (isAllowZeroPrice == true)?true:false
     }
     
@@ -341,7 +346,7 @@ class SalesOrder224AjaxService {
             eq("p.isActive", true)
         }
         categoryId = categoryId ?: -1L
-log.info("categoryId=${categoryId}")
+		log.info("categoryId=${categoryId}")
         def fobjContractDetail = ContractDetail.withCriteria(uniqueResult:true){
             createAlias 'contract', 'm'
             createAlias 'contract.recordType', 'rt'
@@ -363,7 +368,7 @@ log.info("categoryId=${categoryId}")
             order("specialDiscount", "desc")
             maxResults(1)
         }
-log.info("fobjContractDetail=${fobjContractDetail}")
+		log.info("fobjContractDetail=${fobjContractDetail}")
         return fobjContractDetail;
 		/*
         def fmapContractDetail = [:]

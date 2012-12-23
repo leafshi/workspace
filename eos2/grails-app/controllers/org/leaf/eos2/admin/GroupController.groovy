@@ -11,7 +11,7 @@ class GroupController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 30, 100)
         render (view : '/admin/group/list', model : [groupInstanceList: Group.list(params), groupInstanceTotal: Group.count()])
     }
 

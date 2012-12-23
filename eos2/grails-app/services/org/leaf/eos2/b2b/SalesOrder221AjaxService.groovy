@@ -214,6 +214,11 @@ class SalesOrder221AjaxService {
             eq("rt.serialNumber", "5")
             eq("p.isActive", true)
         }
+        //如果没有属性，默认允许零价格
+        if(isAllowZeroPrice == null){
+        	isAllowZeroPrice = true
+        }
+
         return (isAllowZeroPrice == true)?true:false
     }
     

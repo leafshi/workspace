@@ -8,7 +8,7 @@ class ProductController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view : '/b2b/product/list', model : [productInstanceList: Product.list(params), productInstanceTotal: Product.count()]
     }
 

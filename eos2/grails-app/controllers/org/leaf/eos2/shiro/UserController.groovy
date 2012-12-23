@@ -8,7 +8,7 @@ class UserController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def list = {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
         render view :'/shiro/user/list', model :[userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
 
