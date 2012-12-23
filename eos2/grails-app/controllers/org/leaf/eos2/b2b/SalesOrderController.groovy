@@ -35,7 +35,7 @@ class SalesOrderController {
     }
     
     def delete = {
-        def salesOrderInstance = salesOrderService.delete(params.id)//salesOrderService.show(params.id)
+        def salesOrderInstance = salesOrderService.delete(params.id)
         if (!salesOrderInstance) {
             flash.message = "${message(code: 'b2b.salesOrder.not.found', args: [params.id])}"
             redirect(action: "list")

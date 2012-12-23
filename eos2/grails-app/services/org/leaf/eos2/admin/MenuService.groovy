@@ -24,9 +24,9 @@ class MenuService {
 	def myOrderList(){
 		//get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        log.info("currentUser.username=${currentUser.username}")
+        //log.info("currentUser.username=${currentUser.username}")
         def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+        //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
 
         def shareUsers = shareRoleService.getShareUserList("salesOrder", "list")
 		def result = SalesOrder.withCriteria{

@@ -66,7 +66,8 @@ class SalesOrder221Controller {
 
     def update = {
 		if(salesOrderService.isLocked(params.id) == true){
-			render(view : "/unauthorized") 
+			flash.message = "${message(code: 'salesOrder.locked', args: [params.id])}"			
+			redirect(action: "show", id: params.id)
             return
 		}
 
@@ -102,31 +103,26 @@ class SalesOrder221Controller {
 
     def delete = {
 		if(salesOrderService.isLocked(params.id) == true){
-			render(view : "/unauthorized") 
+			flash.message = "${message(code: 'salesOrder.locked', args: [params.id])}"			
+			redirect(action: "show", id: params.id)
             return
 		}
-
         def salesOrderInstance = salesOrderService.delete(params.id)
-        if (salesOrderInstance) {
-            try {
-                salesOrderInstance.delete()
-                flash.message = "salesOrder.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "SalesOrder ${params.id} deleted"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "salesOrder.not.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "SalesOrder ${params.id} could not be deleted"
-                redirect(action: "show", id: params.id)
-            }
+        
+        if (!salesOrderInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'salesOrder.label', default: 'SalesOrder'), params.id])
+            redirect(controller : 'salesOrder', action: "list")
+            return
+        }
+        
+        if(salesOrderService.delete2(params.id) == true) {
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'salesOrder.label', default: 'SalesOrder'), params.id])
+            redirect(controller : 'salesOrder', action: "list")
         }
         else {
-            flash.message = "salesOrder.not.found"
-            flash.args = [params.id]
-            flash.defaultMessage = "SalesOrder not found with id ${params.id}"
-            redirect(action: "list")
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'salesOrder.label', default: 'SalesOrder'), params.id])
+            redirect(controller : 'salesOrder', action: "show", id: params.id)
         }
+
     }
 }

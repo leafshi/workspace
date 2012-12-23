@@ -217,18 +217,22 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
         .addToPermissions("salesOrder:index")
         .addToPermissions("salesOrder:list")
         .addToPermissions("salesOrder:show")
+        .addToPermissions("salesOrder:edit")
+        .addToPermissions("salesOrder:delete")
 
         .addToPermissions("salesOrder220:create")
         .addToPermissions("salesOrder220:save")
         .addToPermissions("salesOrder220:show")
         .addToPermissions("salesOrder220:edit")
         .addToPermissions("salesOrder220:update")
+        .addToPermissions("salesOrder220:delete")
 
         .addToPermissions("salesOrder221:create")
         .addToPermissions("salesOrder221:save")
         .addToPermissions("salesOrder221:show")
         .addToPermissions("salesOrder221:edit")
         .addToPermissions("salesOrder221:update")
+        .addToPermissions("salesOrder221:delete")
 
 
         .addToPermissions("salesOrder224:create")
@@ -236,6 +240,7 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
         .addToPermissions("salesOrder224:show")
         .addToPermissions("salesOrder224:edit")
         .addToPermissions("salesOrder224:update")
+        .addToPermissions("salesOrder224:delete")
 
 
         .addToPermissions("salesOrderAjax:*")

@@ -11,6 +11,7 @@ import org.apache.shiro.SecurityUtils
 import org.springframework.transaction.annotation.*
 import org.hibernate.FetchMode as FM
 
+import org.springframework.dao.DataIntegrityViolationException
 
 class SalesOrderService {
 
@@ -24,7 +25,7 @@ class SalesOrderService {
 		//get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+        //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
         def shareUsers = shareRoleService.getShareUserList("contract", "list")
 	
@@ -75,7 +76,7 @@ class SalesOrderService {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+        //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
         def shareUsers = shareRoleService.getShareUserList("contract", "show")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
@@ -96,7 +97,7 @@ class SalesOrderService {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+        //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
         def shareUsers = shareRoleService.getShareUserList("contract", "edit")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
@@ -118,7 +119,7 @@ class SalesOrderService {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+        //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
         def shareUsers = shareRoleService.getShareUserList("contract", "delete")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
@@ -136,9 +137,27 @@ class SalesOrderService {
         return salesOrderInstance
     }
     
+    def delete2(id) {
+        def success = false
+
+		SalesOrder.withTransaction{ status ->
+			def salesOrderInstance = SalesOrder.get(id.toLong())
+			try {
+				//delete details
+				SalesOrderDetail.findAllBySalesOrder(salesOrderInstance).each { it.delete(flush:true)}
+				salesOrderInstance.save(flush: true) 
+				salesOrderInstance.delete(flush: true)
+				success = true
+			}
+			catch (DataIntegrityViolationException e) {
+				status.setRollbackOnly()
+			}        
+		}
+        return success
+    }
+    
 	def isLocked(id){
-    	def result = 
-		WorkflowHistory.withCriteria(uniqueResult:true){
+    	def result = WorkflowHistory.withCriteria(uniqueResult:true){
             createAlias 'step', 's'
             projections{
                 property('s.lockRecord')
@@ -149,6 +168,7 @@ class SalesOrderService {
             order("id", "desc")
             maxResults(1)
 		}
+		log.info("isLocked=${id}, ${result}")
         return result
 	}
 }
