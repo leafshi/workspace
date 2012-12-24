@@ -11,6 +11,8 @@
 			~
 			${salesOrderInstance?.id}
 		</title>
+		<g:javascript src="jquery-ui-1.9.1.custom.min.js"/>
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ui-lightness/jquery-ui-1.9.1.custom.css')}" type="text/css">
 	</head>
 	<body>
 		<a href="#show-salesOrder" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

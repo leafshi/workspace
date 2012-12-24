@@ -92,7 +92,7 @@ def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin 
 	.addToPermissions("salesOrder221:show")
 	.addToPermissions("salesOrder224:show")
 	
-	.addToPermissions("workflowApproval:confirm")
+	.addToPermissions("workflowApproval:check")
 	.addToPermissions("workflowApproval:approval")
 	
 	.addToPermissions("salesOrder220Ajax:getDealerDepartment")
@@ -248,7 +248,7 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
 		.addToPermissions("salesOrder221Ajax:*")
 		.addToPermissions("salesOrder224Ajax:*")
 
-        .addToPermissions("workflowApproval:confirm")
+        .addToPermissions("workflowApproval:check")
         .addToPermissions("workflowApproval:approval")
 
         .addToPermissions("report:run")
