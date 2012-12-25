@@ -20,7 +20,7 @@
                                         <g:textField name="${p.name}" value="${reportParams[p.name]}" />
                                         <script type="text/javascript">
                                             $(function() {
-                                                $( "#${p.name}" ).datepicker({dateFormat: 'yy-mm-dd'});
+                                                $( "#${p.name}" ).attr("readonly", true).datepicker({dateFormat: 'yy-mm-dd'});
                                             });
                                         </script>
                                     </g:if>
@@ -28,7 +28,7 @@
                                         <g:textField name="${p.name}" value="" />
                                         <script type="text/javascript">
                                             $(function() {
-                                                $( "#${p.name}" ).datepicker({dateFormat: 'yy-mm-dd'});
+                                                $( "#${p.name}" ).attr("readonly", true).datepicker({dateFormat: 'yy-mm-dd'});
                                             });
                                         </script>
                                     </g:else>

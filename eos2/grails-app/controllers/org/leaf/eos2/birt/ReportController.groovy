@@ -25,6 +25,7 @@ class ReportController {
             params.remove('run')
             params.remove('submit')
             params['fintUserId'] = birtService.currentUser()
+            params['fintMaxRows'] = 2000
             def reportParams = params
             def missing = []
             def pars = birtReportService.getReportParams(reportName)
@@ -60,6 +61,7 @@ class ReportController {
             params.remove('view')
             params.remove('run')
             params['fintUserId'] = birtService.currentUser()
+            params['fintMaxRows'] = 2000
             HashMap reportParams = []
             // Set the values of the parameter.
             def missing = []
@@ -153,6 +155,7 @@ class ReportController {
         reportParams.remove('name')
         reportParams.remove('id')
         reportParams['fintUserId'] = birtService.currentUser()
+        params['fintMaxRows'] = 10000
         def options = birtReportService.getRenderOption(request, format)
         def result=birtReportService.runAndRender(reportName, reportParams, options)
         if(format=="html")
