@@ -155,7 +155,7 @@ class ReportController {
         reportParams.remove('name')
         reportParams.remove('id')
         reportParams['fintUserId'] = birtService.currentUser()
-        params['fintMaxRows'] = 10000
+        reportParams['fintMaxRows'] = 10000
         def options = birtReportService.getRenderOption(request, format)
         def result=birtReportService.runAndRender(reportName, reportParams, options)
         if(format=="html")
