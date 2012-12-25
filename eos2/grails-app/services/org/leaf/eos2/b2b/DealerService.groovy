@@ -9,9 +9,21 @@ class DealerService {
     static transactional = true 
 
     def initShareRole(User owner, Long departmentId){
+    	
+    	//共享给所有人所属部门的组
+    	def currentDept = Department.get(departmentId)
+    	share(owner, departmentId)
+    	//共享给上级部门
+    	def parentDept = Department.get((currentDept?.parentDept?.id)?:-1L)
+    	while(parentDept){
+    		share(owner, parentDept.id)
+    		parentDept = Department.get((parentDept?.parentDept?.id)?:-1L)
+    	}
+    	/*
         //办事处
         def branch = Department.get(departmentId)
         def branchGroup = Group.findByName(branch.name)
+        new ShareRole(user: owner, group : branchGroup, domain : 'dealer', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : branchGroup, domain : 'salesOrder', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : branchGroup, domain : 'contract', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : branchGroup, domain : 'outBound', readable :true, editable:false, deletable:false).save()
@@ -19,6 +31,7 @@ class DealerService {
         //大区
         def region = Department.get(branch.parentDept.id)
         def regionGroup = Group.findByName(region.name)
+        new ShareRole(user: owner, group : regionGroup, domain : 'dealer', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : regionGroup, domain : 'salesOrder', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : regionGroup, domain : 'contract', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : regionGroup, domain : 'outBound', readable :true, editable:false, deletable:false).save()
@@ -26,9 +39,23 @@ class DealerService {
         //找到商务部
         def commercial = Department.get(region.parentDept.id)
         def commercialGroup = Group.findByName(commercial.name)
+        new ShareRole(user: owner, group : commercialGroup, domain : 'dealer', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : commercialGroup, domain : 'salesOrder', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : commercialGroup, domain : 'contract', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : commercialGroup, domain : 'outBound', readable :true, editable:false, deletable:false).save()
         new ShareRole(user: owner, group : commercialGroup, domain : 'creditControl', readable :true, editable:false, deletable:false).save()
+        */
+    }
+    
+    def share(User owner, Long departmentId){
+    
+        def departmentInstance = Department.get(departmentId)
+        def groupInstance = Group.findByName(departmentInstance.name)
+        
+        new ShareRole(user: owner, group : groupInstance, domain : 'dealer', readable :true, editable:false, deletable:false).save()
+        new ShareRole(user: owner, group : groupInstance, domain : 'salesOrder', readable :true, editable:false, deletable:false).save()
+        new ShareRole(user: owner, group : groupInstance, domain : 'contract', readable :true, editable:false, deletable:false).save()
+        new ShareRole(user: owner, group : groupInstance, domain : 'outBound', readable :true, editable:false, deletable:false).save()
+        new ShareRole(user: owner, group : groupInstance, domain : 'creditControl', readable :true, editable:false, deletable:false).save()
     }
 }
