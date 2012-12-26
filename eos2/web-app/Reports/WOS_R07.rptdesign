@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="author">14181</property>
-    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110905-1820></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.2.1.v201209101448 Build &lt;4.2.1.v20120912-1721></property>
     <text-property name="title">退货查询</text-property>
     <property name="units">in</property>
     <text-property name="displayName">退货查询</text-property>
@@ -17,6 +17,7 @@
     </list-property>
     <parameters>
         <scalar-parameter name="fdtmBegin" id="13">
+            <text-property name="promptText">开始日期</text-property>
             <property name="valueType">static</property>
             <property name="dataType">date</property>
             <property name="distinct">true</property>
@@ -29,6 +30,7 @@
             </structure>
         </scalar-parameter>
         <scalar-parameter name="fdtmEnd" id="14">
+            <text-property name="promptText">结束日期</text-property>
             <property name="valueType">static</property>
             <property name="dataType">date</property>
             <property name="distinct">true</property>
@@ -42,6 +44,48 @@
         </scalar-parameter>
         <scalar-parameter name="fintUserId" id="134">
             <property name="hidden">true</property>
+            <text-property name="promptText">用户</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fchrDealerSerialNumber" id="175">
+            <text-property name="promptText">经销商</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fchrSerialNumber" id="176">
+            <text-property name="promptText">退货单编号</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fintMaxRows" id="177">
+            <property name="hidden">true</property>
+            <text-property name="promptText">最大返回行数</text-property>
             <property name="valueType">static</property>
             <property name="dataType">integer</property>
             <property name="distinct">true</property>
@@ -55,12 +99,7 @@
     </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="WebOrderReport" id="7"
- extends="WebOrderReport.WebOrderReport">
-            <property name="odaDriverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-            <property name="odaURL">jdbc:sqlserver://192.168.1.224;databaseName=leaf</property>
-            <property name="odaUser">sa</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">MTJxd2Fzeng=</encrypted-property>
-        </oda-data-source>
+ extends="WebOrderReport.WebOrderReport"/>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.SPSelectDataSet" name="R07" id="15">
@@ -98,6 +137,30 @@
                     <property name="position">3</property>
                     <property name="isOptional">true</property>
                     <property name="allowNull">true</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fchrDealerSerialNumber</property>
+                    <property name="paramName">fchrDealerSerialNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="position">4</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fchrSerialNumber</property>
+                    <property name="paramName">fchrSerialNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="position">5</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fintMaxRows</property>
+                    <property name="paramName">fintMaxRows</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">6</property>
                     <property name="isInput">true</property>
                     <property name="isOutput">false</property>
                 </structure>
@@ -157,26 +220,6 @@
                     <structure>
                         <property name="position">11</property>
                         <property name="name">F011</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">12</property>
-                        <property name="name">F012</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">13</property>
-                        <property name="name">F013</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">14</property>
-                        <property name="name">F014</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">15</property>
-                        <property name="name">F015</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
@@ -249,32 +292,8 @@
                     <property name="nativeName">F011</property>
                     <property name="dataType">string</property>
                 </structure>
-                <structure>
-                    <property name="position">12</property>
-                    <property name="name">F012</property>
-                    <property name="nativeName">F012</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">13</property>
-                    <property name="name">F013</property>
-                    <property name="nativeName">F013</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">14</property>
-                    <property name="name">F014</property>
-                    <property name="nativeName">F014</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">15</property>
-                    <property name="name">F015</property>
-                    <property name="nativeName">F015</property>
-                    <property name="dataType">string</property>
-                </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[{call REPORT_R07(?,?,?)} ]]></xml-property>
+            <xml-property name="queryText"><![CDATA[{call REPORT_R07(?,?,?, ?,?,?)} ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>

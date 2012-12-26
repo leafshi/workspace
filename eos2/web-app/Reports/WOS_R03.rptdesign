@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="author">14181</property>
-    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110905-1820></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.2.1.v201209101448 Build &lt;4.2.1.v20120912-1721></property>
     <text-property name="title">销货单查询</text-property>
     <property name="units">in</property>
     <text-property name="displayName">销货单查询</text-property>
@@ -17,6 +17,7 @@
     </list-property>
     <parameters>
         <scalar-parameter name="fdtmBegin" id="9">
+            <text-property name="promptText">开始日期</text-property>
             <property name="valueType">static</property>
             <property name="dataType">date</property>
             <property name="distinct">true</property>
@@ -29,6 +30,7 @@
             </structure>
         </scalar-parameter>
         <scalar-parameter name="fdtmEnd" id="10">
+            <text-property name="promptText">结束日期</text-property>
             <property name="valueType">static</property>
             <property name="dataType">date</property>
             <property name="distinct">true</property>
@@ -52,15 +54,52 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
+        <scalar-parameter name="fchrDealerSerialNumber" id="106">
+            <text-property name="promptText">经销商</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fchrSerialNumber" id="107">
+            <text-property name="promptText">单号</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fintMaxRows" id="108">
+            <property name="hidden">true</property>
+            <text-property name="promptText">最大返回行数</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
     </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="WebOrderReport" id="7"
- extends="WebOrderReport.WebOrderReport">
-            <property name="odaDriverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-            <property name="odaURL">jdbc:sqlserver://192.168.1.224;databaseName=leaf</property>
-            <property name="odaUser">sa</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">MTJxd2Fzeng=</encrypted-property>
-        </oda-data-source>
+ extends="WebOrderReport.WebOrderReport"/>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.SPSelectDataSet" name="R03" id="8">
@@ -94,6 +133,30 @@
                     <property name="paramName">fintUserId</property>
                     <property name="dataType">integer</property>
                     <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fchrDealerSerialNumber</property>
+                    <property name="paramName">fchrDealerSerialNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="position">4</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fchrSerialNumber</property>
+                    <property name="paramName">fchrSerialNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="position">5</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">@fintMaxRows</property>
+                    <property name="paramName">fintMaxRows</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">6</property>
                     <property name="isInput">true</property>
                     <property name="isOutput">false</property>
                 </structure>
@@ -193,7 +256,7 @@
                     <property name="dataType">decimal</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[{call REPORT_R03(?, ?,?)} ]]></xml-property>
+            <xml-property name="queryText"><![CDATA[{call REPORT_R03(?, ?,?,?, ?,?)} ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -297,14 +360,7 @@
         </style>
     </styles>
     <page-setup>
-        <simple-master-page name="Simple MasterPage" id="2">
-            <page-footer>
-                <text id="3">
-                    <property name="contentType">html</property>
-                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
-                </text>
-            </page-footer>
-        </simple-master-page>
+        <simple-master-page name="Simple MasterPage" id="2"/>
     </page-setup>
     <body>
         <table id="11">
