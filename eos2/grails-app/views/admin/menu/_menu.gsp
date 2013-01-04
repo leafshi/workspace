@@ -56,6 +56,11 @@
 				<li><a href="${createLink(controller: 'obConfig', action : 'index')}"><span><g:message code="obConfig.label" default="Outbound Config"/></span></a></li>
 				</shiro:hasPermission>
 						
+				<shiro:hasPermission permission="menu:buildInfo">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'buildInfo', action : 'index')}"><span><g:message code="buildInfo.label" default="Build Info"/></span></a></li>
+				</shiro:hasPermission>
+
 			</ul>
         </li>
         </shiro:hasPermission>
@@ -160,7 +165,7 @@
     	</li>
 		</shiro:hasPermission>
 		<!--end Outbound-->
-		
+				
         <!--BEGIN SIGNOUT-->
         <li class="last">
             <a href="${createLink(controller: 'auth', action : 'signOut')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span><g:message code="default.signOut.label" default="signOut"/>, <shiro:principal/></span></a>

@@ -18,8 +18,6 @@ class BuildInfoController {
     def index = { 
         def buildInfoConfig = ConfigurationHolder.config?.buildInfo
         
-        log.info("buildInfoConfig=${buildInfoConfig}")
-        
         def customProperties = buildInfoProperties
         
         if (buildInfoConfig?.properties?.exclude){
