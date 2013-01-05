@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__fintUserId_14_0</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__fchrDealerSerialNumber_91_1</property>
+            <property name="value"></property>
+        </structure>
+        <structure>
+            <property name="name">fchrDealerSerialNumber_91_2</property>
+            <property name="value"></property>
+        </structure>
+        <structure>
+            <property name="name">fchrDealerSerialNumber_91_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">fintUserId_14_3</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">fintUserId_14_type_</property>
+            <property name="value">integer</property>
+        </structure>
+    </list-property>
+</report>

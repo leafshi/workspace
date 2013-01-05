@@ -32,7 +32,7 @@
         <scalar-parameter name="fchrDealerSerialNumber" id="91">
             <text-property name="promptText">经销商</text-property>
             <property name="valueType">static</property>
-            <property name="isRequired">false</property>
+            <property name="isRequired">true</property>
             <property name="dataType">string</property>
             <property name="distinct">true</property>
             <list-property name="selectionList"/>
