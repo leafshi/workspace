@@ -591,22 +591,8 @@
             <column id="69"/>
             <column id="70"/>
             <column id="71"/>
-            <column id="72">
-                <list-property name="visibility">
-                    <structure>
-                        <property name="format">all</property>
-                        <expression name="valueExpr" type="javascript">true</expression>
-                    </structure>
-                </list-property>
-            </column>
-            <column id="73">
-                <list-property name="visibility">
-                    <structure>
-                        <property name="format">all</property>
-                        <expression name="valueExpr" type="javascript">true</expression>
-                    </structure>
-                </list-property>
-            </column>
+            <column id="72"/>
+            <column id="73"/>
             <header>
                 <row id="17">
                     <cell id="18">
