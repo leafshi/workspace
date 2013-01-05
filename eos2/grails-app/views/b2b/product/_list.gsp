@@ -14,7 +14,7 @@
 	<tbody>
 		<g:each in="${productInstanceList}" status="i" var="productInstance">
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-			<td><g:link action="show" id="${productInstance.id}">${fieldValue(bean: productInstance, field: "serialNumber")}</g:link></td>
+			<td><g:link controller="product" action="show" id="${productInstance.id}">${fieldValue(bean: productInstance, field: "serialNumber")}</g:link></td>
 			<td>${fieldValue(bean: productInstance, field: "name")}</td>
 			<td>${fieldValue(bean: productInstance, field: "standard")}</td>
 			<td>${fieldValue(bean: productInstance, field: "unit")}</td>

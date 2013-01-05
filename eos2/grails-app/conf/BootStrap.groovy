@@ -120,6 +120,12 @@ def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin 
 	.addToPermissions("creditControl:list")
 	.addToPermissions("creditControl:show")
 	
+	.addToPermissions("search:index")
+	.addToPermissions("search:search")
+	.addToPermissions("search:searchProduct")
+	.addToPermissions("search:searchContract")
+	.addToPermissions("search:searchSalesOrder")
+	
 	.addToPermissions("menu:mySalesOrder")
 	.addToPermissions("menu:b2b")
 	.addToPermissions("menu:workflow")
@@ -127,6 +133,7 @@ def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin 
 	.addToPermissions("menu:mySalesOrderList")
 	.addToPermissions("menu:reportList")
 	.addToPermissions("menu:outBoundList")
+	.addToPermissions("menu:search")
 	
 	.save(flush:true)
 
@@ -167,6 +174,12 @@ def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin 
 	.addToPermissions("outBound:list")
 	.addToPermissions("outBound:show")
 	.addToPermissions("outBound:showXml")
+
+	.addToPermissions("search:index")
+	.addToPermissions("search:search")
+	.addToPermissions("search:searchProduct")
+	.addToPermissions("search:searchContract")
+	.addToPermissions("search:searchSalesOrder")
 	
 	.addToPermissions("creditControl:index")
 	.addToPermissions("creditControl:list")
@@ -179,6 +192,7 @@ def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin 
 	.addToPermissions("menu:mySalesOrderList")
 	.addToPermissions("menu:reportList")
 	.addToPermissions("menu:outBoundList")
+	.addToPermissions("menu:search")
 
 	.save(flush:true)
 
@@ -264,6 +278,12 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
         .addToPermissions("creditControl:list")
         .addToPermissions("creditControl:show")
         
+		.addToPermissions("search:index")
+		.addToPermissions("search:search")
+		.addToPermissions("search:searchProduct")
+		.addToPermissions("search:searchContract")
+		.addToPermissions("search:searchSalesOrder")
+        
         .addToPermissions("menu:mySalesOrder")
         .addToPermissions("menu:mySalesOrderList")
         .addToPermissions("menu:b2b")
@@ -272,6 +292,7 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
         .addToPermissions("menu:createSalesOrder")
 		.addToPermissions("menu:reportList")
 		.addToPermissions("menu:outBoundList")
+		.addToPermissions("menu:search")
 
         .save(flush:true)     
 

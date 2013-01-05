@@ -27,7 +27,7 @@ class SalesOrderService {
         def currentUserRole = Role.get(currentUser.role.id)
         //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
-        def shareUsers = shareRoleService.getShareUserList("contract", "list")
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "list")
 	
         def salesOrderInstanceList = SalesOrder.withCriteria{
 			if(params?.max) maxResults(params.int('max'))
@@ -52,7 +52,7 @@ class SalesOrderService {
 		//get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         def currentUserRole = Role.get(currentUser.role.id)
-        def shareUsers = shareRoleService.getShareUserList("contract", "list")
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "list")
         def count = SalesOrder.withCriteria{
 			projections{
 				rowCount()
@@ -78,7 +78,7 @@ class SalesOrderService {
         def currentUserRole = Role.get(currentUser.role.id)
         //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
-        def shareUsers = shareRoleService.getShareUserList("contract", "show")
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "show")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
             if(currentUserRole.isAdmin == false) {
@@ -99,7 +99,7 @@ class SalesOrderService {
         def currentUserRole = Role.get(currentUser.role.id)
         //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
-        def shareUsers = shareRoleService.getShareUserList("contract", "edit")
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "edit")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
             if(currentUserRole.isAdmin == false) {
@@ -121,7 +121,7 @@ class SalesOrderService {
         def currentUserRole = Role.get(currentUser.role.id)
         //log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
         
-        def shareUsers = shareRoleService.getShareUserList("contract", "delete")
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "delete")
         def salesOrderInstance = SalesOrder.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
             if(currentUserRole.isAdmin == false) {
