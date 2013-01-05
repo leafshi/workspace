@@ -111,7 +111,7 @@ class ReportController {
                     try {
                         def props = birtReportService.getReportProperties(reportName)
                         def reportContent = birtReportService.runAndRender(reportName, reportParams, htmlOptions).toString("UTF-8")
-                        render view : '/birt/report/view',contentType:'text/html', model :  ['reportContent':reportContent, 'id':reportName, 'reportParams':reportParams, 'title' : props?.title]
+                        render view : '/birt/report/view',contentType:'text/html', model :  [reportContent:reportContent, id:reportName, reportParams:reportParams, title : props?.title]
                         return
                     } catch(Exception e){
                         flash.error = "Report ${reportName} encountered an error: ${e.message}"
