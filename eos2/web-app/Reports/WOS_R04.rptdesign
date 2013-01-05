@@ -758,14 +758,7 @@
                     </structure>
                 </list-property>
             </column>
-            <column id="202">
-                <list-property name="visibility">
-                    <structure>
-                        <property name="format">all</property>
-                        <expression name="valueExpr" type="javascript">true</expression>
-                    </structure>
-                </list-property>
-            </column>
+            <column id="202"/>
             <column id="203"/>
             <header>
                 <row id="111">
@@ -808,7 +801,7 @@
                     <cell id="124">
                         <label id="125">
                             <property name="style">DetailHeader</property>
-                            <text-property name="text">产品编号</text-property>
+                            <text-property name="text">产品品号</text-property>
                         </label>
                     </cell>
                     <cell id="126">
@@ -854,14 +847,14 @@
                         <label id="139">
                             <property name="style">DetailHeader</property>
                             <property name="textAlign">right</property>
-                            <text-property name="text">金额</text-property>
+                            <text-property name="text">订单金额</text-property>
                         </label>
                     </cell>
                     <cell id="140">
                         <label id="141">
                             <property name="style">DetailHeader</property>
                             <property name="textAlign">right</property>
-                            <text-property name="text">最终金额</text-property>
+                            <text-property name="text">下浮后金额</text-property>
                         </label>
                     </cell>
                 </row>
