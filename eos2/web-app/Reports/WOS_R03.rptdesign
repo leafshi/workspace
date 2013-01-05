@@ -203,6 +203,31 @@
                         <property name="name">F008</property>
                         <property name="dataType">decimal</property>
                     </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">F009</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">F010</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">F011</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">F012</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">F013</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">WebOrderReport</property>
@@ -254,6 +279,36 @@
                     <property name="name">F008</property>
                     <property name="nativeName">F008</property>
                     <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">F009</property>
+                    <property name="nativeName">F009</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">F010</property>
+                    <property name="nativeName">F010</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">F011</property>
+                    <property name="nativeName">F011</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">F012</property>
+                    <property name="nativeName">F012</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">F013</property>
+                    <property name="nativeName">F013</property>
+                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[{call REPORT_R03(?, ?,?,?, ?,?)} ]]></xml-property>
@@ -495,6 +550,36 @@
                     </list-property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">F009</property>
+                    <text-property name="displayName">F009</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F009"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F010</property>
+                    <text-property name="displayName">F010</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F010"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F011</property>
+                    <text-property name="displayName">F011</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F011"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F012</property>
+                    <text-property name="displayName">F012</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F012"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">F013</property>
+                    <text-property name="displayName">F013</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["F013"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <text-property name="caption">销货单查询</text-property>
             <column id="55"/>
@@ -505,6 +590,11 @@
             <column id="60"/>
             <column id="61"/>
             <column id="62"/>
+            <column id="132"/>
+            <column id="126"/>
+            <column id="120"/>
+            <column id="114"/>
+            <column id="146"/>
             <header>
                 <row id="12">
                     <cell id="13">
@@ -555,6 +645,36 @@
                             <text-property name="text">销货金额</text-property>
                         </label>
                     </cell>
+                    <cell id="127">
+                        <label id="133">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">发货日期</text-property>
+                        </label>
+                    </cell>
+                    <cell id="121">
+                        <label id="135">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">运输方式</text-property>
+                        </label>
+                    </cell>
+                    <cell id="115">
+                        <label id="137">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">单号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="109">
+                        <label id="139">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">运输公司</text-property>
+                        </label>
+                    </cell>
+                    <cell id="141">
+                        <label id="147">
+                            <property name="style">DetailHeader</property>
+                            <text-property name="text">备注</text-property>
+                        </label>
+                    </cell>
                 </row>
             </header>
             <group id="77">
@@ -579,6 +699,11 @@
                         <cell id="84"/>
                         <cell id="85"/>
                         <cell id="86"/>
+                        <cell id="128"/>
+                        <cell id="122"/>
+                        <cell id="116"/>
+                        <cell id="110"/>
+                        <cell id="142"/>
                     </row>
                 </header>
                 <footer>
@@ -650,6 +775,41 @@
                                 <property name="resultSetColumn">G_F001_SUM_F008</property>
                             </data>
                         </cell>
+                        <cell id="130">
+                            <label id="149">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="124">
+                            <label id="150">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="118">
+                            <label id="151">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="112">
+                            <label id="152">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
+                        <cell id="144">
+                            <label id="153">
+                                <property name="style">GroupFooter</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">-</text-property>
+                            </label>
+                        </cell>
                     </row>
                 </footer>
             </group>
@@ -713,6 +873,31 @@
                             </structure>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">F008</property>
+                        </data>
+                    </cell>
+                    <cell id="129">
+                        <data id="134">
+                            <property name="resultSetColumn">F009</property>
+                        </data>
+                    </cell>
+                    <cell id="123">
+                        <data id="136">
+                            <property name="resultSetColumn">F010</property>
+                        </data>
+                    </cell>
+                    <cell id="117">
+                        <data id="138">
+                            <property name="resultSetColumn">F011</property>
+                        </data>
+                    </cell>
+                    <cell id="111">
+                        <data id="140">
+                            <property name="resultSetColumn">F012</property>
+                        </data>
+                    </cell>
+                    <cell id="143">
+                        <data id="148">
+                            <property name="resultSetColumn">F013</property>
                         </data>
                     </cell>
                 </row>
@@ -785,6 +970,41 @@
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">SUM_F008</property>
                         </data>
+                    </cell>
+                    <cell id="131">
+                        <label id="154">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="125">
+                        <label id="155">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="119">
+                        <label id="156">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="113">
+                        <label id="157">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
+                    </cell>
+                    <cell id="145">
+                        <label id="158">
+                            <property name="style">DetailFooter</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">-</text-property>
+                        </label>
                     </cell>
                 </row>
             </footer>
