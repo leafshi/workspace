@@ -122,3 +122,9 @@ input, textarea{
 input[readonly], textarea[readonly]{
     background-color:#009966;
 }
+
+/*搜索框*/
+.search{
+	width: 25%;
+	border-color: #0094B6;
+}

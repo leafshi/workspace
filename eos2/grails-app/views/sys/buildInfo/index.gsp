@@ -4,6 +4,8 @@
 		<meta name="layout" content="main"/>
 		<title>
 			<g:message code="global.app.name"/>
+			~
+			build info
 		</title>
 	</head>
 	<body>
