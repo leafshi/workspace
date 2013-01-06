@@ -42,10 +42,7 @@ class SearchService {
 			ilike("serialNumber", term + "%")
             if(currentUserRole.isAdmin == false) {
     			or{
-    				and{
-    					inList("owner.id", shareUsers)
-    					ne("status", "草稿")
-    				}
+					inList("owner.id", shareUsers)
     				eq("owner", currentUser)
     			}
             }
