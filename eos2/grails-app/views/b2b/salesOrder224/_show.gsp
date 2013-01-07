@@ -119,7 +119,7 @@
 				<span id="effectiveDate-label" class="property-label"><g:message code="salesOrder.effectiveDate.label" default="Effective Date" /></span>
 			</td>
 			<td>
-				<span class="property-value" aria-labelledby="effectiveDate-label"><g:formatDate date="${salesOrderInstance?.effectiveDate}" /></span>
+				<span class="property-value" aria-labelledby="effectiveDate-label"><g:formatDate date="${salesOrderInstance?.effectiveDate}" formatName="custom.date.format"/></span>
 			</td>
 						
 		</tr>
