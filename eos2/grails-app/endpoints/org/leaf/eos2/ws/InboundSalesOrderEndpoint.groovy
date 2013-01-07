@@ -63,7 +63,7 @@ class InboundSalesOrderEndpoint {
 		
         try{
             WorkflowHistory.withTransaction{ status ->
-            	log.error("begin checkWorkFlowStep")
+            	//log.error("begin checkWorkFlowStep")
                 code = checkWorkFlowStep(id, serialNumber, action, date)
                 if(code != '0'){
                     status.setRollbackOnly()
@@ -95,7 +95,7 @@ class InboundSalesOrderEndpoint {
     	
         //check id
         def salesOrderId = getSalesOrderId(id)
-        log.error("salesOrderId=${salesOrderId}")
+        //log.error("salesOrderId=${salesOrderId}")
         if(salesOrderId == -1L){
             return '-1'
         }
@@ -165,7 +165,7 @@ class InboundSalesOrderEndpoint {
     //取订单id
     @Transactional(readOnly = true)
     def getSalesOrderId(id){
-    	log.error("getSalesOrderId, id=${id}")
+    	//log.error("getSalesOrderId, id=${id}")
     	def salesOrderId = SalesOrder.withCriteria(uniqueResult:true){
         	projections {
 				property('id')
@@ -173,7 +173,7 @@ class InboundSalesOrderEndpoint {
 			eq("serialNumber", id)
 			maxResults(1)
         }
-        log.error("getSalesOrderId, salesOrderId=${salesOrderId ?: -1L}")
+        //log.error("getSalesOrderId, salesOrderId=${salesOrderId ?: -1L}")
         return salesOrderId ?: -1L
     }
 
