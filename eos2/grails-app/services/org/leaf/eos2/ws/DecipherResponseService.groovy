@@ -35,7 +35,7 @@ class DecipherResponseService {
                 
             def salesOrder = SalesOrder.get(objectId)
 
-                salesOrder.serialNumber = serialNumber
+                salesOrder.erpSerialNumber = serialNumber
 
                 salesOrder.save(flush:true)
         }

@@ -63,6 +63,7 @@ class InboundSalesOrderEndpoint {
 		
         try{
             WorkflowHistory.withTransaction{ status ->
+            	log.error("begin checkWorkFlowStep")
                 code = checkWorkFlowStep(id, serialNumber, action, date)
                 if(code != '0'){
                     status.setRollbackOnly()
@@ -94,11 +95,13 @@ class InboundSalesOrderEndpoint {
     	
         //check id
         def salesOrderId = getSalesOrderId(id)
-        if(salesOrderId.isLong() != true){
+        log.error("salesOrderId=${salesOrderId}")
+        if(salesOrderId == -1L){
             return '-1'
         }
+        
         //check id and serialNumber
-        if(checkIdAndSerailNumber(id, serialNumber) != true){
+        if(checkIdAndSerailNumber(salesOrderId, id, serialNumber) != true){
         	return '-10'
         }
         //check action
@@ -162,6 +165,7 @@ class InboundSalesOrderEndpoint {
     //取订单id
     @Transactional(readOnly = true)
     def getSalesOrderId(id){
+    	log.error("getSalesOrderId, id=${id}")
     	def salesOrderId = SalesOrder.withCriteria(uniqueResult:true){
         	projections {
 				property('id')
@@ -169,6 +173,7 @@ class InboundSalesOrderEndpoint {
 			eq("serialNumber", id)
 			maxResults(1)
         }
+        log.error("getSalesOrderId, salesOrderId=${salesOrderId ?: -1L}")
         return salesOrderId ?: -1L
     }
 
@@ -231,14 +236,14 @@ class InboundSalesOrderEndpoint {
 	}
 	
 	//检查id与serailNumber是否匹配
-	def checkIdAndSerailNumber(id, serialNumber){
+	def checkIdAndSerailNumber(salesOrderId, id, serialNumber){
 	
 		def result = false
 		
-        def salesOrderInstance = SalesOrder.get(id)
+        def salesOrderInstance = SalesOrder.get(salesOrderId)
         
-        result = (salesOrderInstance?.serialNumber?:'' == serialNumber)?true:false
-        log.info("checkIdAndSerailNumber=${result}")
+        result = (salesOrderInstance?.erpSerialNumber?:'' == serialNumber)?true:false
+        //log.info("checkIdAndSerailNumber=${result}")
         
         return result
 		
