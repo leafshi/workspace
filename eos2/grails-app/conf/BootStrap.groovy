@@ -197,19 +197,19 @@ def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin 
 	.save(flush:true)
 
 /*group member*/
-def user3002_1 = new User(username: "3002_1",  passwordHash: new Sha512Hash("3002_1").toHex(), profile:profile_department, department : dept3002, role : roleDepartmentApproval).save(flush:true)
+def user3002_1 = new User(username: "C3002",  passwordHash: new Sha512Hash("C3002").toHex(), profile:profile_department, department : dept3002, role : roleDepartmentApproval).save(flush:true)
 
-def user3200_1 = new User(username: "3200_1",  passwordHash: new Sha512Hash("3200_1").toHex(), profile:profile_department, department : dept3200, role : roleDepartmentReadonly).save(flush:true)
-def user3220_1 = new User(username: "3220_1",  passwordHash: new Sha512Hash("3220_1").toHex(), profile:profile_department, department : dept3220, role : roleDepartmentApproval).save(flush:true)
+def user3200_1 = new User(username: "R3200",  passwordHash: new Sha512Hash("R3200").toHex(), profile:profile_department, department : dept3200, role : roleDepartmentReadonly).save(flush:true)
+def user3220_1 = new User(username: "B3220",  passwordHash: new Sha512Hash("B3220").toHex(), profile:profile_department, department : dept3220, role : roleDepartmentApproval).save(flush:true)
 
-def user3300_1 = new User(username: "3300_1",  passwordHash: new Sha512Hash("3300_1").toHex(), profile:profile_department, department : dept3300, role : roleDepartmentReadonly).save(flush:true)
-def user3310_1 = new User(username: "3310_1",  passwordHash: new Sha512Hash("3310_1").toHex(), profile:profile_department, department : dept3310, role : roleDepartmentApproval).save(flush:true)
+def user3300_1 = new User(username: "R3300",  passwordHash: new Sha512Hash("R3300").toHex(), profile:profile_department, department : dept3300, role : roleDepartmentReadonly).save(flush:true)
+def user3310_1 = new User(username: "B3310",  passwordHash: new Sha512Hash("B3310").toHex(), profile:profile_department, department : dept3310, role : roleDepartmentApproval).save(flush:true)
 
-def user3400_1 = new User(username: "3400_1",  passwordHash: new Sha512Hash("3400_1").toHex(), profile:profile_department, department : dept3400, role : roleDepartmentReadonly).save(flush:true)
-def user3450_1 = new User(username: "3450_1",  passwordHash: new Sha512Hash("3450_1").toHex(), profile:profile_department, department : dept3450, role : roleDepartmentApproval).save(flush:true)
+def user3400_1 = new User(username: "R3400",  passwordHash: new Sha512Hash("R3400").toHex(), profile:profile_department, department : dept3400, role : roleDepartmentReadonly).save(flush:true)
+def user3450_1 = new User(username: "B3450",  passwordHash: new Sha512Hash("B3450").toHex(), profile:profile_department, department : dept3450, role : roleDepartmentApproval).save(flush:true)
 
-def user3500_1 = new User(username: "3500_1",  passwordHash: new Sha512Hash("3500_1").toHex(), profile:profile_department, department : dept3500, role : roleDepartmentReadonly).save(flush:true)
-def user3510_1 = new User(username: "3510_1",  passwordHash: new Sha512Hash("3510_1").toHex(), profile:profile_department, department : dept3510, role : roleDepartmentApproval).save(flush:true)
+def user3500_1 = new User(username: "R3500",  passwordHash: new Sha512Hash("R3500").toHex(), profile:profile_department, department : dept3500, role : roleDepartmentReadonly).save(flush:true)
+def user3510_1 = new User(username: "B3510",  passwordHash: new Sha512Hash("B3510").toHex(), profile:profile_department, department : dept3510, role : roleDepartmentApproval).save(flush:true)
 
 
 /*staff*/
