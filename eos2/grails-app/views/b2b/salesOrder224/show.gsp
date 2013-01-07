@@ -9,7 +9,7 @@
 			~
 			${salesOrderInstance?.recordType?.encodeAsHTML()}			
 			~
-			${salesOrderInstance?.id}
+			${salesOrderInstance?.serialNumber}
 		</title>
 		<g:javascript src="jquery-ui-1.9.1.custom.min.js"/>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ui-lightness/jquery-ui-1.9.1.custom.css')}" type="text/css">
@@ -22,7 +22,7 @@
 				~
 				${salesOrderInstance?.recordType?.encodeAsHTML()}
 				~
-				${salesOrderInstance?.id}
+				${salesOrderInstance?.serialNumber}
 			</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

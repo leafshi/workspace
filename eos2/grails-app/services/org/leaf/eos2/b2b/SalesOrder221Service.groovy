@@ -71,6 +71,63 @@ class SalesOrder221Service {
 	    }
 	    return salesOrderInstance
 	}
+	
+	def insert(SalesOrder salesOrderInstance){
+		def success = false
+		def error_times = 0
+		def error_times_limit = 3
+		while (error_times < error_times_limit){
+			salesOrderInstance.serialNumber = "EB221-" + new Date().format('yyyyMMdd') + '-' + this.lastSerialNumber()
+			if(salesOrderInstance.validate() && salesOrderInstance.save(flush:true)){
+				success = true
+				break;
+			}else{
+				def breakable = false
+				salesOrderInstance.errors.allErrors.each{ it ->
+					if(it.field == 'serialNumber'){
+						breakable = true
+					}
+				}
+				if(breakable == true){
+					break
+				}else{
+					error_times += 1
+				}
+			}
+		}
+		return success;
+	}
+	
+    //record type
+    @Transactional(readOnly = true)
+    def lastSerialNumber() {
+    	def result = ""
+    	SalesOrder.withNewSession { session ->
+    	
+			def lastSerialNumber = SalesOrder.withCriteria(uniqueResult:true){
+				createAlias 'recordType', 'rt'
+				projections {
+					property('serialNumber')
+				}
+				join "recordType"
+				eq("rt.domain", "salesOrder")
+				eq("rt.serialNumber", "221")
+				ge("dateCreated", new Date().clearTime())
+				order("id", "desc")
+				maxResults(1)
+			}
+			
+			if(lastSerialNumber == null){
+				result = "001"
+			}else{
+				def pos = lastSerialNumber.lastIndexOf('-') + 1
+				def temp = lastSerialNumber[pos..-1]
+				//log.info("temp=${temp}")
+				result = (temp.toInteger() + 1).toString().padLeft(3, '0')
+			}
+		}
+        return result
+    }
 
     def update(SalesOrder salesOrderInstance, Object params) {
         def success = false

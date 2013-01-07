@@ -109,17 +109,18 @@
 			</td>
 			
 			<td>
+				<span id="erpSerialNumber-label" class="property-label"><g:message code="salesOrder.erpSerialNumber.label" default="ERP Serial Number" /></span>
+			</td>
+			<td>
+				<span class="property-value" aria-labelledby="erpSerialNumber-label"><g:fieldValue bean="${salesOrderInstance}" field="erpSerialNumber"/></span>
+			</td>
+
+
+			<td>
 				<span id="effectiveDate-label" class="property-label"><g:message code="salesOrder.effectiveDate.label" default="Effective Date" /></span>
 			</td>
 			<td>
 				<span class="property-value" aria-labelledby="effectiveDate-label"><g:formatDate date="${salesOrderInstance?.effectiveDate}" /></span>
-			</td>
-				
-			<td>
-				&nbsp;
-			</td>
-			<td>
-				&nbsp;
 			</td>
 		
 		</tr>

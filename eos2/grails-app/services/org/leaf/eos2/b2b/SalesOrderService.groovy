@@ -6,6 +6,8 @@ import org.leaf.eos2.shiro.Role
 import org.leaf.eos2.wf.WorkflowHistory
 import org.leaf.eos2.wf.WorkflowStep
 
+import org.leaf.eos2.ws.OutBound
+
 import org.leaf.eos2.admin.ShareRoleService
 import org.apache.shiro.SecurityUtils
 import org.springframework.transaction.annotation.*
@@ -143,6 +145,10 @@ class SalesOrderService {
 		SalesOrder.withTransaction{ status ->
 			def salesOrderInstance = SalesOrder.get(id.toLong())
 			try {
+				//delete workflow history
+				WorkflowHistory.findAllByObjectNameAndObjectId('salesOrder', id.toLong()).each{it.delete(flush:true)}
+				//delete outbound message
+				OutBound.findAllByObjectNameAndObjectId('salesOrder', id.toLong()).each{it.delete(flush:true)}
 				//delete details
 				SalesOrderDetail.findAllBySalesOrder(salesOrderInstance).each { it.delete(flush:true)}
 				salesOrderInstance.save(flush: true) 

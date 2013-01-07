@@ -346,7 +346,7 @@ class SalesOrder224AjaxService {
             eq("p.isActive", true)
         }
         categoryId = categoryId ?: -1L
-		log.info("categoryId=${categoryId}")
+		//log.info("categoryId=${categoryId}")
         def fobjContractDetail = ContractDetail.withCriteria(uniqueResult:true){
             createAlias 'contract', 'm'
             createAlias 'contract.recordType', 'rt'
@@ -368,7 +368,7 @@ class SalesOrder224AjaxService {
             order("specialDiscount", "desc")
             maxResults(1)
         }
-		log.info("fobjContractDetail=${fobjContractDetail}")
+		//log.info("fobjContractDetail=${fobjContractDetail}")
         return fobjContractDetail;
 		/*
         def fmapContractDetail = [:]

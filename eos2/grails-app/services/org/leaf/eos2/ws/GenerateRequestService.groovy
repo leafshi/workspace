@@ -32,7 +32,7 @@ class GenerateRequestService {
             projections{
                 //head
                 property('recordType.serialNumber', 'TC001')        //00-TC001, 单别
-                property('serialNumber', 'TC002')                   //01-TC002, 单号
+                property('erpSerialNumber', 'TC002')                   //01-TC002, 单号
                 property('orderDate' , 'TC003')                     //02-TC003, 订单日期
                 property('dealer.serialNumber', 'TC004')            //03-TC004, 客户编号
                 property('salesMan.serialNumber', 'TC006')          //04-TC006, 业务人员
@@ -42,7 +42,7 @@ class GenerateRequestService {
                 property('description', 'TC015')                    //08-TC015, 备注
                 property('accountSerialNumber', 'TC213')            //09-TC213, 客户单号
                 property('industry.serialNumber', 'TC205')          //10-TC205, 订单行业
-                property('id', 'TC212')                             //11-TC212, WEB单号
+                property('serialNumber', 'TC212')                   //11-TC212, WEB单号
                 //body
                 property('salesOrderDetails.serialNumber', 'TD003') //12-TD003, 序号
                 property('detailProduct.serialNumber', 'TD004')     //13-TD004, 品号

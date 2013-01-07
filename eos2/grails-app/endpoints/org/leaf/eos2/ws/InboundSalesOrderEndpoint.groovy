@@ -17,6 +17,8 @@ import org.leaf.eos2.b2b.SalesOrder
 import org.leaf.eos2.shiro.User
 import org.leaf.eos2.admin.Group
 
+import org.springframework.transaction.annotation.*
+
 
 class InboundSalesOrderEndpoint {
 
@@ -24,6 +26,7 @@ class InboundSalesOrderEndpoint {
     
     static excludes=[
         "checkWorkFlowStep"
+        , "getSalesOrderId"
         , "getCurrentHistory"
         , "checkAssignee"
         , "checkHistory"
@@ -57,7 +60,7 @@ class InboundSalesOrderEndpoint {
  
         def code = ''
         def error = ''
-
+		
         try{
             WorkflowHistory.withTransaction{ status ->
                 code = checkWorkFlowStep(id, serialNumber, action, date)
@@ -86,12 +89,12 @@ class InboundSalesOrderEndpoint {
         """
         return outputXml
     }
-
 	
     def checkWorkFlowStep(id, serialNumber, action, date) {
     	
         //check id
-        if(id.isLong() != true){
+        def salesOrderId = getSalesOrderId(id)
+        if(salesOrderId.isLong() != true){
             return '-1'
         }
         //check id and serialNumber
@@ -108,7 +111,6 @@ class InboundSalesOrderEndpoint {
             return '-9'
         }
         //init params
-        def salesOrderId = id.toLong() 
 
         def workflowHistory = getCurrentHistory(salesOrderId, action)
 
@@ -156,6 +158,20 @@ class InboundSalesOrderEndpoint {
 		}
         
     }
+    
+    //取订单id
+    @Transactional(readOnly = true)
+    def getSalesOrderId(id){
+    	def salesOrderId = SalesOrder.withCriteria(uniqueResult:true){
+        	projections {
+				property('id')
+			}
+			eq("serialNumber", id)
+			maxResults(1)
+        }
+        return salesOrderId ?: -1L
+    }
+
 
     //取待审批商务部的workflow history
     

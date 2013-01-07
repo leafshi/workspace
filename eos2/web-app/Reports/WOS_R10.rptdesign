@@ -414,7 +414,7 @@
                     <cell id="19">
                         <label id="20">
                             <property name="style">DetailHeader</property>
-                            <text-property name="text">客房简称</text-property>
+                            <text-property name="text">客户简称</text-property>
                         </label>
                     </cell>
                     <cell id="21">

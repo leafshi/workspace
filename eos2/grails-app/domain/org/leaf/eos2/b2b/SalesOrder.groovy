@@ -17,6 +17,7 @@ class SalesOrder {
     //字段列表
     RecordType recordType           //单别          |TC001
     String serialNumber             //单号          |TC002
+    String erpSerialNumber			//ERP单号
     String accountSerialNumber      //客户单号      |TC004
     Date orderDate                  //单据日期      |TC003, TC039
     Dealer dealer                   //客户编号      |TC004
@@ -42,7 +43,8 @@ class SalesOrder {
     //约束条件
     static constraints = {
         recordType(nullable:false, blank:false)
-        serialNumber(nullable:true, blank:false, maxSize:16)
+        serialNumber(nullable:false, blank:false, maxSize:18, unique : true)
+        erpSerialNumber(nullable:true, blank:false, maxSize:16)
         accountSerialNumber(nullable:true, blank:false, maxSize:16)
         orderDate(nullable:false)
         dealer(nullable:false)
@@ -91,7 +93,6 @@ class SalesOrder {
     static mapping = {
         table 'B2B_SALESORDER'
         salesOrderDetails cascade:"persist,merge,save-update,all-delete-orphan", sort:"serialNumber", batchSize: 100, lazy : true
-        
         quantity sqlType : "numeric", precision : 18, scale : 3
         amount sqlType : "numeric", precision : 18, scale : 2
         specialAmount sqlType : "numeric", precision : 18, scale : 2
