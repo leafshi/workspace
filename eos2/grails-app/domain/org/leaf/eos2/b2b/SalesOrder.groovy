@@ -45,7 +45,7 @@ class SalesOrder {
         recordType(nullable:false, blank:false)
         serialNumber(nullable:false, blank:false, maxSize:18, unique : true)
         erpSerialNumber(nullable:true, blank:false, maxSize:16)
-        accountSerialNumber(nullable:true, blank:false, maxSize:16)
+        accountSerialNumber(nullable:true, blank:false, maxSize:40)
         orderDate(nullable:false)
         dealer(nullable:false)
         project(nullable:true, blank:true, maxSize:200)
