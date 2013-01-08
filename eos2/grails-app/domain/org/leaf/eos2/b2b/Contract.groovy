@@ -25,13 +25,13 @@ class Contract {
 
     static constraints = {
         serialNumber(maxSize:18, nullable:false, blank : false, unique:true)
-        subject(maxSize:100, nullable:false, blank:false)
+        subject(maxSize:200, nullable:false, blank:false)
         recordType(nullable:false)
-        applicant(nullable:false, blank:false, maxSize:10)
+        applicant(nullable:false, blank:false, maxSize:20)
         filingDate(nullable:false, blank:false)
         effectiveDate(nullable:false,blank:false)
         dealer(nullable:false)
-        project(nullable:false, blank : false, maxSize:100)
+        project(nullable:false, blank : false, maxSize:200)
         industry(nullable:false)
         description(nullable:true, blank:true, maxSize:500)
     }
