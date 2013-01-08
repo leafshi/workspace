@@ -174,6 +174,10 @@ class SalesOrderService {
             order("id", "desc")
             maxResults(1)
 		}
+		//导入的订单没有历史，默认锁定
+		if(result == null){
+			result = true
+		}
 		log.info("isLocked=${id}, ${result}")
         return result
 	}
