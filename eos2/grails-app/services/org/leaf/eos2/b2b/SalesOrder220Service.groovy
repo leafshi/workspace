@@ -118,12 +118,12 @@ class SalesOrder220Service {
 			}
 			
 			if(lastSerialNumber == null){
-				result = "001"
+				result = "0001"
 			}else{
 				def pos = lastSerialNumber.lastIndexOf('-') + 1
 				def temp = lastSerialNumber[pos..-1]
 				//log.info("temp=${temp}")
-				result = (temp.toInteger() + 1).toString().padLeft(3, '0')
+				result = (temp.toInteger() + 1).toString().padLeft(4, '0')
 			}
 		}
         return result
