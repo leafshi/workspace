@@ -43,7 +43,7 @@ class SalesOrder {
     //约束条件
     static constraints = {
         recordType(nullable:false, blank:false)
-        serialNumber(nullable:false, blank:false, maxSize:18, unique : true)
+        serialNumber(nullable:false, blank:false, maxSize:20, unique : true)
         erpSerialNumber(nullable:true, blank:false, maxSize:16)
         accountSerialNumber(nullable:true, blank:false, maxSize:40)
         orderDate(nullable:false)
