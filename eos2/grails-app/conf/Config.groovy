@@ -116,9 +116,11 @@ cxf{
 			serviceEndpointAddress="http://192.168.1.88/yifeigateway/YiFeiGateway.asmx"
 		}
 	}
+	/*
 	endpoint{
 		soap12Binding = true
 	}
+	*/
 }
 
 
