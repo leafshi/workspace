@@ -19,6 +19,14 @@
 			<input type="hidden" name="${k}" value="${reportParams[k]}">
 		</g:each>
 	</g:form>
+	
+	<shiro:hasPermission permission="report:run">
+	<g:link class="btn primary" action="run" onClick="javascript:document.forms.paramForm.submit();return false;"><span style="color:blue;"><g:message code="birt.view.ChangeParameters"/></span></g:link>
+	</shiro:hasPermission>
+
+	<shiro:hasPermission permission="${controllerName}:downloadAs">
+	<g:link class="btn primary" action="downloadAs" id="${id}.xls" params="${reportParams}"><span style="color:blue;"><g:message code="default.button.download"/></span></g:link>
+	</shiro:hasPermission>		
 
 	<% out << reportContent %>
 </div>

@@ -19,7 +19,7 @@
 <body>
 <div class="body">
 	<div id="wait_indicator" style="display: none;text-align:center;padding-top:50px;">
-		<b>Generating Report, please wait...</b>
+		<b>${message( code:"birt.generating", default : "Generating Report, please wait...")}</b>
 		<br/><br/>
 		<img src="${resource(dir:'images',file:'spinner.gif')}" alt="Working..." />
 	</div>
@@ -36,7 +36,7 @@
 				<g:render template="/birt/report/run" />
 			</div>
 			<div class="buttons">
-				<g:submitButton class="save" name="run" value="View Report" />
+				<g:submitButton class="save" name="run" value="${message( code:"birt.view.run")}" />
 			</div>
 		</g:form>
 	</div>

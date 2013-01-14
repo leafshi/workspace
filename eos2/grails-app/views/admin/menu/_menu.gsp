@@ -18,16 +18,7 @@
 			<li><g:link class="${controllerName}" action="create"><span style="color:blue;"><g:message code="default.new.label" args="[entityName]" /><span></g:link></li>
 			</shiro:hasPermission>
         </g:if>
-        
-        <g:if test="${['report'].contains(controllerName) && ['view'].contains(actionName)}">
-			<shiro:hasPermission permission="${controllerName}:run">
-			<li><g:link class="${controllerName}" action="run" onClick="javascript:document.forms.paramForm.submit();return false;"><span style="color:blue;"><g:message code="birt.view.ChangeParameters"/><span></g:link></li>
-			</shiro:hasPermission>
-	
-			<shiro:hasPermission permission="${controllerName}:downloadAs">
-			<li><g:link class="${controllerName}" action="downloadAs" id="${id}.xls" params="${reportParams}"><span style="color:blue;">XLS<span></g:link></li>
-			</shiro:hasPermission>		
-        </g:if>
+
         <!--end current object-->
         <!--BEGIN SETUP-->
         <shiro:hasPermission permission="menu:setting">

@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<td />
-					<td><input type="submit" value="${message(code:'login.page.button.login')}" class="btn primary" /></td>
+					<td><input type="submit" value="${message(code:'login.page.button.login')}" /></td>
 				</tr>
 			</tbody>
 		</table>
