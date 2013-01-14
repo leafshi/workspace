@@ -12,6 +12,6 @@ class ReportScanJob {
     
     def execute() { 
         log.warn "Running report scan"
-        reportScanService.scan()
+        //reportScanService.scan()
     }
 }
