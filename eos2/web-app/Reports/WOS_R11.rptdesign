@@ -320,45 +320,6 @@
                     </cell>
                 </row>
             </detail>
-            <footer>
-                <row id="51">
-                    <cell id="52">
-                        <label id="151">
-                            <property name="style">DetailFooter</property>
-                            <text-property name="text">合计：</text-property>
-                        </label>
-                    </cell>
-                    <cell id="53">
-                        <data id="152">
-                            <property name="style">DetailFooter</property>
-                            <structure name="numberFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">###,##0.00</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">COUNT</property>
-                        </data>
-                    </cell>
-                    <cell id="54">
-                        <label id="168">
-                            <property name="style">DetailFooter</property>
-                            <property name="textAlign">center</property>
-                            <text-property name="text">-</text-property>
-                        </label>
-                    </cell>
-                    <cell id="55">
-                        <data id="192">
-                            <property name="style">DetailFooter</property>
-                            <structure name="numberFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">###,##0.000</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">SUM_F004</property>
-                        </data>
-                    </cell>
-                </row>
-            </footer>
         </table>
     </body>
 </report>
