@@ -28,8 +28,11 @@
 					type: "POST",
 					success: function(data){
 						$.unblockUI();
-						//debugger;
 						$("#list-search").html(data).show();
+						//如果返回值不为空，则清空搜索条件
+						if($("#list-search > table > tbody > tr").size() > 0){
+							$("#search").val('')
+						}
 					},
 					error : function(error) { 
 						$.unblockUI();
