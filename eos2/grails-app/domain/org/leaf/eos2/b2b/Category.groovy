@@ -32,7 +32,7 @@ class Category {
     }
     
     String toString() {
-        return "[$serialNumber], $name"
+        return "$name"
     }
     
     static mapping = {
