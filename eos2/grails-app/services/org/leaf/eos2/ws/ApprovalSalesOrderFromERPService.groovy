@@ -72,7 +72,7 @@ class ApprovalSalesOrderFromERPService {
         def version = workflowHistory[2]//workflow history's version
         def objectName = 'salesOrder'
         def objectId = salesOrderId
-        def description = 'approval form erp'
+        def description = 'approval from erp'
 
 
 		if(checkAssignee(actionId) != true){
