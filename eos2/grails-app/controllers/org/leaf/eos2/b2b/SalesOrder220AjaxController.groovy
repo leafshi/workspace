@@ -30,7 +30,12 @@ class SalesOrder220AjaxController {
 			
 			salesOrderDetailInstance.deliveryCycle = salesOrder220AjaxService.productDeliveryCycle(productId)?:0
 			salesOrderDetailInstance.deliveryLimitation = new Date().plus ( salesOrder220AjaxService.productDeliveryCycle(params.int('productId').toLong()) )
-			
+			//如果不是工作日，延时到下个周一
+			if(salesOrderDetailInstance.deliveryLimitation.day == 0){
+				salesOrderDetailInstance.deliveryLimitation = salesOrderDetailInstance.deliveryLimitation.next()
+			}else if(salesOrderDetailInstance.deliveryLimitation.day == 6){
+				salesOrderDetailInstance.deliveryLimitation = salesOrderDetailInstance.deliveryLimitation + 2
+			}
 			salesOrderDetailInstance.quantity = 0
 			salesOrderDetailInstance.amount = 0
 
