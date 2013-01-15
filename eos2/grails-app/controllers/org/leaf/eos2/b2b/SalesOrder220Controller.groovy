@@ -48,7 +48,8 @@ class SalesOrder220Controller {
 
     def edit = {
 		if(salesOrderService.isLocked(params.id) == true){
-			render(view : "/unauthorized") 
+			flash.message = "${message(code: 'salesOrder.locked', args: [params.id])}"			
+			redirect(action: "show", id: params.id)
             return
 		}
 
@@ -66,7 +67,8 @@ class SalesOrder220Controller {
 
     def update = {
 		if(salesOrderService.isLocked(params.id) == true){
-			render(view : "/unauthorized") 
+			flash.message = "${message(code: 'salesOrder.locked', args: [params.id])}"			
+			redirect(action: "show", id: params.id)
             return
 		}
 
