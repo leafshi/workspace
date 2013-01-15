@@ -59,7 +59,7 @@
 				<td>(+)${fieldValue(bean: workflowActionInstance, field: "serialNumber")}</td>
 				<td>${fieldValue(bean: workflowActionInstance, field: "name")}</td>
 				<td><g:message code="workflowAction.nextStep.label" default="Next Step" />:${fieldValue(bean: workflowActionInstance, field: "nextStep")}</td>
-				<td>&nbsp;</td>
+				<td><g:message code="workflowAction.needDescription.label" default="Need Description" />:${fieldValue(bean: workflowActionInstance, field: "needDescription")}</td>
 				<td>&nbsp;</td>
 			</tr>
 		</g:each>

@@ -6,6 +6,7 @@ class WorkflowAction {
     String serialNumber
 	WorkflowStep nextStep
     String name
+    Boolean needDescription
     
     static belognsTo = [belognsToStep: WorkflowStep]
 
@@ -14,6 +15,7 @@ class WorkflowAction {
         name(nullable:false, blank:false, maxSize:20)
         belognsToStep(nullable:false)
 		nextStep(nullable:true)
+		needDescription(nullable:false)
     }
     
     String toString() {

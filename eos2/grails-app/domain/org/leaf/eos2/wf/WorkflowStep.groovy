@@ -22,9 +22,9 @@ class WorkflowStep {
         serialNumber(nullable:false, blank:false, maxSize:2, unique : 'workflow')
         name(nullable:false, blank:false, maxSize:20)
 		assignee(nullable:true)
-		lockRecord(nullable:true)
-		isBegin(nullable:true)
-		isEnd(nullable:true)
+		lockRecord(nullable:false)
+		isBegin(nullable:false)
+		isEnd(nullable:false)
     }
         
     String toString() {

@@ -28,10 +28,23 @@
 					var="check_approval_result" 
 					value="${include(controller : 'workflowApproval', action : 'check', params : [historyId :workflowHistoryInstance?.id , actionId : workflowActionInstance?.id, ownerId : ownerId, version : workflowHistoryInstance?.version] )}" />
 					<g:if test="${check_approval_result == 'Y'}">
-						<shiro:hasPermission permission="workflowApproval:approval">
-						<g:set var="need_approval" value="Y" />
-							<a href="#" onclick="open_approval_dialog2(${workflowHistoryInstance?.id}, ${workflowActionInstance?.id}, ${workflowHistoryInstance?.version}, '${workflowHistoryInstance?.step}', '${workflowActionInstance?.name}');">[${fieldValue(bean: workflowActionInstance, field: "name")}]</a>
-						</shiro:hasPermission>
+						<g:if test="${workflowActionInstance.needDescription == true}">
+							<shiro:hasPermission permission="workflowApproval:approval">
+								<a href="#workflowHistoryInstanceList" onclick="open_approval_dialog2(${workflowHistoryInstance?.id}, ${workflowActionInstance?.id}, ${workflowHistoryInstance?.version}, '${workflowHistoryInstance?.step}', '${workflowActionInstance?.name}');">
+									[${fieldValue(bean: workflowActionInstance, field: "name")}]
+								</a>
+							</shiro:hasPermission>
+						</g:if>
+						<g:else>
+							<shiro:hasPermission permission="workflowApproval:approval">
+								<g:link controller="workflowApproval" action="approval" 
+		 							onclick="return confirm('${message(code: 'default.button.approval.confirm.message', default: 'Are you sure?')}-${workflowHistoryInstance?.step}.${workflowActionInstance?.name}');"
+		 							params="[objectName: 'salesOrder', objectId : objectId, historyId :workflowHistoryInstance?.id , actionId : workflowActionInstance?.id, ownerId : ownerId, description : '', version : workflowHistoryInstance?.version]"
+		 							>
+		 							[${fieldValue(bean: workflowActionInstance, field: "name")}]
+								</g:link>
+							</shiro:hasPermission>
+						</g:else>
 					</g:if>
 				</g:each>
 				</shiro:hasPermission>
@@ -41,17 +54,25 @@
 	</tbody>
 </table>
 <div id="approval_dialog2" style="display:none;">
-	<g:textArea name="description" value="" rows="5" cols="40"/>
+	<g:textArea name="description" value="" rows="1" cols="40"/>
 </div>
 <script type="text/javascript">
+String.prototype.trim=function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
 function open_approval_dialog2(historyId, actionId, version, stepName, actionName){
 	$("#approval_dialog2").dialog({
 		modal: true, 
 		width:'auto', 
-		//position: {  of : this },
 		title: stepName + "." +actionName,
 		buttons: {
 			"${message(code: 'default.button.approval', default: 'Approval')}": function() {
+				if($.trim($("#approval_dialog2 :input[name='description']").val()) == ''){
+					alert("${message(code:'default.null.message', args: ['备注', '动作'])}");
+					$("#approval_dialog2 :input[name='description']").css("background", "#FF3333").focus();
+					return;
+				}
 				if(confirm("${message(code: 'default.button.approval.confirm.message', default: 'Are you sure?')}" + "["+stepName+"."+actionName+"]")){
 					$( this ).dialog( "close" );
 					$.blockUI();

@@ -43,17 +43,17 @@ class DepartmentService {
             def step_91 = new WorkflowStep(workflow:workflow, serialNumber : '91', name : '审批通过', lockRecord:true, isBegin:false, isEnd :true).save(flush:true)
             def step_92 = new WorkflowStep(workflow:workflow, serialNumber : '92', name : '审批未通过', lockRecord:true, isBegin:false, isEnd :true).save(flush:true)
             
-            def action_01_01 = new WorkflowAction(belognsToStep : step_10, serialNumber : '01', nextStep : step_20, name : '提交').save(flush:true)
-            def action_01_02 = new WorkflowAction(belognsToStep : step_10, serialNumber : '02', nextStep : step_90, name : '终止').save(flush:true)
+            def action_01_01 = new WorkflowAction(belognsToStep : step_10, serialNumber : '01', nextStep : step_20, name : '提交', needDescription:false).save(flush:true)
+            def action_01_02 = new WorkflowAction(belognsToStep : step_10, serialNumber : '02', nextStep : step_90, name : '终止', needDescription:false).save(flush:true)
 
-            def action_11_01 = new WorkflowAction(belognsToStep : step_11, serialNumber : '01', nextStep : step_20, name : '提交').save(flush:true)
-            def action_11_02 = new WorkflowAction(belognsToStep : step_11, serialNumber : '02', nextStep : step_90, name : '终止').save(flush:true)
+            def action_11_01 = new WorkflowAction(belognsToStep : step_11, serialNumber : '01', nextStep : step_20, name : '提交', needDescription:false).save(flush:true)
+            def action_11_02 = new WorkflowAction(belognsToStep : step_11, serialNumber : '02', nextStep : step_90, name : '终止', needDescription:false).save(flush:true)
             
-            def action_20_01 = new WorkflowAction(belognsToStep : step_20, serialNumber : '01', nextStep : step_30, name : '通过').save(flush:true)
-            def action_20_02 = new WorkflowAction(belognsToStep : step_20, serialNumber : '02', nextStep : step_11, name : '拒绝').save(flush:true)
+            def action_20_01 = new WorkflowAction(belognsToStep : step_20, serialNumber : '01', nextStep : step_30, name : '通过', needDescription:false).save(flush:true)
+            def action_20_02 = new WorkflowAction(belognsToStep : step_20, serialNumber : '02', nextStep : step_11, name : '拒绝', needDescription:true).save(flush:true)
             
-            def action_30_01 = new WorkflowAction(belognsToStep : step_30, serialNumber : '01', nextStep : step_91, name : '通过').save(flush:true)
-            def action_30_02 = new WorkflowAction(belognsToStep : step_30, serialNumber : '02', nextStep : step_92, name : '拒绝').save(flush:true)
+            def action_30_01 = new WorkflowAction(belognsToStep : step_30, serialNumber : '01', nextStep : step_91, name : '通过', needDescription:false).save(flush:true)
+            def action_30_02 = new WorkflowAction(belognsToStep : step_30, serialNumber : '02', nextStep : step_92, name : '拒绝', needDescription:false).save(flush:true)
         }
     }
 
