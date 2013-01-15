@@ -63,7 +63,7 @@ function open_approval_dialog(){
 	});
 }
 $(document).ready(function() {
-	open_approval_dialog();
+	 //setTimeout("open_approval_dialog();", 1000 * 10);
 });
 </script>
 </g:if>
