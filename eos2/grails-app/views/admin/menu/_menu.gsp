@@ -166,7 +166,7 @@
 
         <!--BEGIN SIGNOUT-->
         <li class="last">
-            <a href="${createLink(controller: 'auth', action : 'signOut')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span><g:message code="default.signOut.label" default="signOut"/>, <shiro:principal/></span></a>
+            <a href="${createLink(controller: 'auth', action : 'signOut')}" onclick="return confirm('${message(code: 'default.button.signOut.confirm', default: 'Are you sure?')}');"><span><g:message code="default.signOut.label" default="signOut"/>, <shiro:principal/></span></a>
         </li>
         <!--END SIGNOUT-->
     </ul>
