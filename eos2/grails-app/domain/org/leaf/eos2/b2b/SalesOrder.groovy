@@ -6,13 +6,11 @@ import org.leaf.eos2.admin.RecordType
 import org.leaf.eos2.wf.WorkflowDispatcherService
 import org.leaf.eos2.wf.WorkflowHistory
 
-import org.leaf.eos2.ws.OutBound
-
 class SalesOrder {
 
 	def workflowDispatcherService
-    def outBoundService
-    def salesOrderValidateService
+    
+    def salesOrderTriggerService
     
     //字段列表
     RecordType recordType           //单别          |TC001
@@ -75,18 +73,13 @@ class SalesOrder {
 
     //拉起出站消息
     def beforeUpdate(){
-        if(this.status == '待审批（商务部）' && this.getPersistentValue('status') == '待审批（办事处）' ){
-            OutBound.withNewSession{
-                new OutBound(
-                    objectName:'salesOrder'
-                    , objectId : this.id
-                    , method : 'transferSalesOrder'
-                    , asynchronous : false 
-                    , owner : this.owner
-                    , createdBy : outBoundService.getCurrentUser()
-                    , lastModifiedBy : outBoundService.getCurrentUser()
-                ).save(flush:true)
-            }
+    	def current_status = this.status
+    	def before_status = this.getPersistentValue('status')
+    	if(current_status == '待审批（办事处）' && (before_status == '草稿' || before_status == '未通过') ){
+    		salesOrderTriggerService.refreshDeliveryLimitation(this);
+    	}
+        else if(current_status == '待审批（商务部）' && before_status == '待审批（办事处）' ){
+        	salesOrderTriggerService.createOutBoundMessage(this.id, this.owner.id);
         }
     }
     //ORM映射
