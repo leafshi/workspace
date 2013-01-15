@@ -61,7 +61,6 @@ class SearchService {
 
         return SalesOrder.withCriteria{
             or{
-            	//eq("id", term.isInteger()? Long.valueOf(term) : -1L)
                 ilike("serialNumber", term + "%")
                 ilike("erpSerialNumber", term + "%")
             }
