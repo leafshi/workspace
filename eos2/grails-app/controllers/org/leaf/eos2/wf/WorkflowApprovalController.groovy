@@ -7,7 +7,7 @@ class WorkflowApprovalController {
 	//跳到审批页面，现已不使用
 	def confirm = {
 		def action = WorkflowAction.get(params.actionId) 
-		render view : '/wf/approval/confirm', model : [
+		render template : '/wf/approval/confirm', model : [
 			objectName : params.objectName
 			, objectId : params.objectId
 			, historyId : params.historyId

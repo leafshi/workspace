@@ -12,6 +12,7 @@
 			${salesOrderInstance?.serialNumber}
 		</title>
 		<g:javascript src="jquery-ui-1.9.1.custom.min.js"/>
+		<g:javascript src="JQueryBlockUI.js"/>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ui-lightness/jquery-ui-1.9.1.custom.css')}" type="text/css">
 	</head>
 	<body>

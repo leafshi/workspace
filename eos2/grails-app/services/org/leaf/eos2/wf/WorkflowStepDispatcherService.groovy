@@ -20,23 +20,29 @@ class WorkflowStepDispatcherService {
 	*version		版本号		防止记录在审批时被修改
 	*/
     def checkWorkFlowStep(objectName, objectId, historyId, actionId, ownerId, description, version) {
-    	//检查分配人
-		if(!checkAssignee(actionId, ownerId)){
-			return
-		}
-		//检查历史
-		if(!checkHistory(historyId, version)){
-			return
-		}
-		//获取下一步
-		def nextStep = getNextStep(actionId)
-		if(nextStep != null){//如果下一步不为空，则创建下一步
-			if(createNextStep(nextStep, objectName, objectId)){//创建下一步
-				//结束当前历史
-				finishCurrentStep(historyId, description)
+		WorkflowHistory.withTransaction{ status ->
+    		try{
+				//检查分配人
+				if(!checkAssignee(actionId, ownerId)){
+					return
+				}
+				//检查历史
+				if(!checkHistory(historyId, version)){
+					return
+				}
+				//获取下一步
+				def nextStep = getNextStep(actionId)
+				if(nextStep != null){//如果下一步不为空，则创建下一步
+					if(createNextStep(nextStep, objectName, objectId)){//创建下一步
+						//结束当前历史
+						finishCurrentStep(historyId, description)
+					}
+				}else{//如果下一步为空，则结束当前历史
+					finishCurrentStep(historyId, description)
+				}
+			}catch(e){
+				status.setRollbackOnly()
 			}
-		}else{//如果下一步为空，则结束当前历史
-			finishCurrentStep(historyId, description)
 		}
     }
 

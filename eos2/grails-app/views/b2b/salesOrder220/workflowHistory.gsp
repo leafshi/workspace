@@ -1,5 +1,4 @@
 <%@ page import="org.leaf.eos2.wf.WorkflowHistory" %>
-<g:set var="need_approval" value="N" />
 <table id="workflowHistoryInstanceList">
 	<caption><g:message code="workflowHistory.label" default="Workflow History" /></caption>
 	<thead>
@@ -31,12 +30,7 @@
 					<g:if test="${check_approval_result == 'Y'}">
 						<shiro:hasPermission permission="workflowApproval:approval">
 						<g:set var="need_approval" value="Y" />
-						<g:link controller="workflowApproval" action="approval" 
-							onclick="return confirm('${message(code: 'default.button.approval.confirm.message', default: 'Are you sure?')}');"
-							params="[objectName: 'salesOrder', objectId : objectId, historyId :workflowHistoryInstance?.id , actionId : workflowActionInstance?.id, ownerId : ownerId, description : '', version : workflowHistoryInstance?.version]"
-							>
-							[${fieldValue(bean: workflowActionInstance, field: "name")}]
-						</g:link>
+							<a href="#" onclick="open_approval_dialog2(${workflowHistoryInstance?.id}, ${workflowActionInstance?.id}, ${workflowHistoryInstance?.version}, '${workflowHistoryInstance?.step}', '${workflowActionInstance?.name}');">[${fieldValue(bean: workflowActionInstance, field: "name")}]</a>
 						</shiro:hasPermission>
 					</g:if>
 				</g:each>
@@ -46,25 +40,46 @@
 	</g:each>
 	</tbody>
 </table>
-<div id="approval_dialog" title="${message(code:'workflow.approval.dialog.title', default:'Workflow Approval')}" style="display:none;">
+<div id="approval_dialog2" style="display:none;">
+	<g:textArea name="description" value="" rows="5" cols="40"/>
 </div>
-<g:if test="${need_approval == 'Y'}">
 <script type="text/javascript">
-function open_approval_dialog(){
-	
-	$("#approval_dialog").html($("#workflowHistoryInstanceList").html()).dialog({
+function open_approval_dialog2(historyId, actionId, version, stepName, actionName){
+	$("#approval_dialog2").dialog({
 		modal: true, 
 		width:'auto', 
+		//position: {  of : this },
+		title: stepName + "." +actionName,
 		buttons: {
+			"${message(code: 'default.button.approval', default: 'Approval')}": function() {
+				if(confirm("${message(code: 'default.button.approval.confirm.message', default: 'Are you sure?')}" + "["+stepName+"."+actionName+"]")){
+					$( this ).dialog( "close" );
+					$.blockUI();
+					$.ajax({
+						url: "${createLink(controller:'workflowApproval', action: 'approval')}",
+						data: { 
+							objectName: 'salesOrder'
+							, objectId : ${objectId}
+							, historyId :historyId
+							, actionId : actionId
+							, ownerId : ${ownerId}
+							, description : $("#approval_dialog2 :input[name='description']").val()
+							, version : version
+						},
+						type: "POST",
+						success: function(data){
+							location.reload();
+						},
+						error : function(error) { 
+							location.reload();
+						}
+					});
+				}
+			},
 			"${message(code:'salesOrder.page.delete.dialog.cancel', default:'Cancel!')}": function() {
 				$( this ).dialog( "close" );
 			}
 		}
 	});
 }
-$(document).ready(function() {
-	 //setTimeout("open_approval_dialog();", 1000 * 10);
-});
 </script>
-</g:if>
-
