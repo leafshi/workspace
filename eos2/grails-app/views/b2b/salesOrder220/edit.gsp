@@ -34,8 +34,13 @@
 					<g:render template="/b2b/salesOrder220/edit" />
 				</fieldset>
 				<fieldset class="buttons">
+					<shiro:hasPermission permission="${controllerName}:update">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					</shiro:hasPermission>
+					
+					<shiro:hasPermission permission="${controllerName}:delete">
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					</shiro:hasPermission>
 				</fieldset>
 			</g:form>
 		</div>

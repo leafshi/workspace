@@ -40,7 +40,9 @@
 					<g:render template="/b2b/salesOrder220/edit"/>
 				</fieldset>
 				<fieldset class="buttons">
+					<shiro:hasPermission permission="${controllerName}:create">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					</shiro:hasPermission>
 				</fieldset>
 			</g:form>
 		</div>
