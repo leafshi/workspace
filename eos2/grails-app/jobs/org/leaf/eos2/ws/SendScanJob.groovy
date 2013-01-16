@@ -7,7 +7,7 @@ class SendScanJob {
     def sendScanJobService
     
 	static triggers = {
-		cron name: 'SendScanJobTrigger', cronExpression: "15,45 * * * * ?"
+		cron name: 'SendScanJobTrigger', group: 'mySimpleTriggerGroup', cronExpression: "0,15,30,45 * * * * ?"
 	}
 	
 	def execute() {
