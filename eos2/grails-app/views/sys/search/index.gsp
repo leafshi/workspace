@@ -47,15 +47,15 @@
 		<!--begin search-->
 		<div>
 			<br/>
-			<div>
-				<g:textField name="search" value="" class="search"/>
-				<a href="#" id="searchButton"><g:message code="default.button.search" /></a>
-			</div>
-			<br/>
 			<div id="radio">
 				<input type="radio" id="searchProduct" name="radio" checked="checked"/><label for="searchProduct"><g:message code="product.label" /></label>
 				<input type="radio" id="searchContract" name="radio"  /><label for="searchContract"><g:message code="contract.label" /></label>
 				<input type="radio" id="searchSalesOrder" name="radio" /><label for="searchSalesOrder"><g:message code="salesOrder.label" /></label>
+			</div>
+			<br/>
+			<div>
+				<g:textField name="search" value="" class="search"/>
+				<a href="#" id="searchButton"><g:message code="default.button.search" /></a>
 			</div>
 		</div>
 		<!--end search-->
