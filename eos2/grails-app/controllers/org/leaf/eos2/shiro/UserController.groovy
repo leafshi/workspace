@@ -2,6 +2,8 @@ package org.leaf.eos2.shiro
 
 class UserController {
 
+	def userService
+	
     def index = { redirect(action: "list", params: params) }
 
     // the delete, save and update actions only accept POST requests
@@ -114,4 +116,48 @@ class UserController {
             redirect(action: "list")
         }
     }
+    
+    def resetPassword = {
+        def userInstance = User.get(params.id)
+        if (!userInstance) {
+            flash.message = "user.not.found"
+            flash.args = [params.id]
+            flash.defaultMessage = "User not found with id ${params.id}"
+            redirect(action: "list")
+        }
+        else {
+            render view : '/shiro/user/resetPassword', model : [userInstance: userInstance]
+        }
+    }
+    
+    def reset = {
+        def userInstance = User.get(params.id)
+        if (userInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (userInstance.version > version) {
+                    userInstance.errors.rejectValue("version", "user.optimistic.locking.failure", "Another user has updated this User while you were editing")
+                    render(view: "/shiro/user/resetPassword", model: [userInstance: userInstance])
+                    return
+                }
+            }
+            //userInstance.properties = params
+            if (userService.resetPassword(userInstance, params.password, params.passwordConfirm)) {
+                flash.message = "user.password.reset"
+                flash.args = [params.id]
+                flash.defaultMessage = "User ${params.id} password reseted"
+                redirect(action: "show", id: userInstance.id)
+            }
+            else {
+                render(view: "/shiro/user/resetPassword", model: [userInstance: userInstance])
+            }
+        }
+        else {
+            flash.message = "user.not.found"
+            flash.args = [params.id]
+            flash.defaultMessage = "User not found with id ${params.id}"
+            redirect(action: "edit", id: params.id)
+        }
+    }
+
 }
