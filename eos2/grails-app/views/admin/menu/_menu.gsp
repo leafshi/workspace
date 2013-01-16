@@ -8,7 +8,7 @@
         <!--END HOME-->
         
         <!--current object -->
-        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'auth', 'report', 'buildInfo', 'search'].contains(controllerName)}">
+        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'auth', 'report', 'buildInfo', 'search', 'resetMyPassword'].contains(controllerName)}">
 			<g:set var="entityName" value="${message(code: controllerName+'.label')}" />
 			<shiro:hasPermission permission="${controllerName}:list">
 			<li><g:link class="${controllerName}" action="list"><span style="color:blue;"><g:message code="default.list.label" args="[entityName]" /></span></g:link></li>
@@ -160,6 +160,12 @@
 		<shiro:hasPermission permission="menu:search">
         <li>
 			<a href="${createLink(controller: 'search', action : 'index')}"><span><g:message code="menu.search.label"/></span></a>
+        </li>
+        </shiro:hasPermission>
+
+		<shiro:hasPermission permission="menu:resetMyPassword">
+        <li>
+			<a href="${createLink(controller: 'resetMyPassword', action : 'resetPassword')}"><span><g:message code="user.resetPassword"/></span></a>
         </li>
         </shiro:hasPermission>
 
