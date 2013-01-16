@@ -134,6 +134,10 @@ def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin 
 	.addToPermissions("menu:reportList")
 	.addToPermissions("menu:outBoundList")
 	.addToPermissions("menu:search")
+	.addToPermissions("menu:resetMyPassword")
+	
+	.addToPermissions("resetMyPassword:resetPassword")
+	.addToPermissions("resetMyPassword:reset")
 	
 	.save(flush:true)
 
@@ -193,6 +197,10 @@ def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin 
 	.addToPermissions("menu:reportList")
 	.addToPermissions("menu:outBoundList")
 	.addToPermissions("menu:search")
+	.addToPermissions("menu:resetMyPassword")
+	
+	.addToPermissions("resetMyPassword:resetPassword")
+	.addToPermissions("resetMyPassword:reset")
 
 	.save(flush:true)
 
@@ -293,6 +301,10 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
 		.addToPermissions("menu:reportList")
 		.addToPermissions("menu:outBoundList")
 		.addToPermissions("menu:search")
+		.addToPermissions("menu:resetMyPassword")
+	
+		.addToPermissions("resetMyPassword:resetPassword")
+		.addToPermissions("resetMyPassword:reset")
 
         .save(flush:true)     
 
