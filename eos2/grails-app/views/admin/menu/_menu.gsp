@@ -15,7 +15,7 @@
 			</shiro:hasPermission>
 			
 			<shiro:hasPermission permission="${controllerName}:create">
-			<li><g:link class="${controllerName}" action="create"><span style="color:blue;"><g:message code="default.new.label" args="[entityName]" /><span></g:link></li>
+			<li><g:link class="${controllerName}" action="create"><span style="color:blue;"><g:message code="default.new.label" args="[entityName]" /></span></g:link></li>
 			</shiro:hasPermission>
         </g:if>
 
