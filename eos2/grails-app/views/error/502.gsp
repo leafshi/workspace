@@ -1,11 +1,15 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Grails Runtime Exception</title>
+		<title>
+			<g:message code="global.app.name"/>
+			~
+			502 Error
+		</title>
 		<meta name="layout" content="main">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'errors.css')}" type="text/css">
 	</head>
 	<body>
-		<g:renderException exception="${exception}" />
+		<g:message code="http.error.502"/>
 	</body>
 </html>
