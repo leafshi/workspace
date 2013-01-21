@@ -40,18 +40,12 @@
 				<g:message code="salesOrderDetail.price.label"/> : 
 				<span name="salesOrderDetails[${i}].price_span">${formatNumber( number : salesOrderDetailInstance?.price, format:'###,##0.000000')}</span>
 				<g:hiddenField name="salesOrderDetails[${i}].price" value="${formatNumber( number : salesOrderDetailInstance?.price, format:'###,##0.000000')}" />
+				<g:hiddenField name="salesOrderDetails[${i}].isAllowZeroPrice" value="${salesOrderDetailInstance?.isAllowZeroPrice}" />
 			</li>
 			<li>
 				<g:message code="salesOrderDetail.finalPrice.label"/> : 
 				<span name="salesOrderDetails[${i}].finalPrice_span">${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
 				<g:hiddenField name="salesOrderDetails[${i}].finalPrice" value="${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}"/>
-			</li>
-			<li>
-				<g:message code="category.isAllowZeroPrice.label"/> :
-        		<span style="${salesOrderDetailInstance?.isAllowZeroPrice == true? 'color : blue':'color : red'}">
-        			<g:formatBoolean boolean="${salesOrderDetailInstance?.isAllowZeroPrice}" true="True!" false="False!" />
-        		</span>
-        		<g:hiddenField name="salesOrderDetails[${i}].isAllowZeroPrice" value="${salesOrderDetailInstance?.isAllowZeroPrice}" />
 			</li>
     </td>
     
@@ -185,20 +179,13 @@
 				<g:message code="salesOrderDetail.price.label"/> : 
 				<span>${formatNumber( number : salesOrderDetailDetailInstance?.price, format:'###,##0.000000')}</span>
 				<g:hiddenField name="salesOrderDetails[${i}].salesOrderDetailDetails[${j}].price" value="${formatNumber( number : salesOrderDetailDetailInstance?.price, format:'###,##0.000000')}" />
+				<g:hiddenField name="salesOrderDetails[${i}].salesOrderDetailDetails[${j}].isAllowZeroPrice" value="${salesOrderDetailDetailInstance?.isAllowZeroPrice}"/>
 			</li>
 			<li>
 				<g:message code="salesOrderDetail.finalPrice.label"/> : 
 
 				<span>${formatNumber( number : salesOrderDetailDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
 				<g:hiddenField name="salesOrderDetails[${i}].salesOrderDetailDetails[${j}].finalPrice" value="${formatNumber( number : salesOrderDetailDetailInstance?.finalPrice, format:'###,##0.000000')}"/>
-
-			</li>
-			<li>
-				<g:message code="category.isAllowZeroPrice.label"/> :
-        		<span style="${salesOrderDetailDetailInstance?.isAllowZeroPrice == true? 'color : blue':'color : red'}">
-        			${salesOrderDetailDetailInstance?.isAllowZeroPrice}
-        		</span>
-        		<g:hiddenField name="salesOrderDetails[${i}].salesOrderDetailDetails[${j}].isAllowZeroPrice" value="${salesOrderDetailDetailInstance?.isAllowZeroPrice}"/>
 
 			</li>
 		</ul>
