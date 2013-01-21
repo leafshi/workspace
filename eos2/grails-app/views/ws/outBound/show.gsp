@@ -26,11 +26,11 @@
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 					
 					<shiro:hasPermission permission="outBound:resurrect">
-                    <span class="button"><g:actionSubmit class="edit" action="resurrect" value="${message(code: 'resurrect', 'default': 'Resurrect')}" /></span>
+                    <span class="button"><g:actionSubmit class="edit" action="resurrect" value="${message(code: 'outBound.button.resurrect.label', 'default': 'Resurrect')}" /></span>
                 	</shiro:hasPermission>
                 	
                 	<shiro:hasPermission permission="outBound:reinit">
-                    <span class="button"><g:actionSubmit class="edit" action="reinit" value="${message(code: 'reinit', 'default': 'Reinit')}" /></span>
+                    <span class="button"><g:actionSubmit class="edit" action="reinit" value="${message(code: 'outBound.button.reinit.label', 'default': 'Reinit')}" /></span>
                 	</shiro:hasPermission>                
 
 				</fieldset>
