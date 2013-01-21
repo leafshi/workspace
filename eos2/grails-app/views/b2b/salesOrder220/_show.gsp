@@ -221,7 +221,9 @@
 				<ul>
 					<li>
 						<span id="quantity-label" class="property-label"><g:message code="salesOrder.quantity.label" default="Quantity" /></span> :
-						<span class="property-value" aria-labelledby="quantity-label"><g:fieldValue bean="${salesOrderInstance}" field="quantity"/></span>
+						<span class="property-value" aria-labelledby="quantity-label">
+							<g:formatNumber number="${salesOrderInstance?.quantity?:0}" format="###,##0.00" />
+						</span>
 					</li>
 				</ul>
 			</td>
