@@ -17,6 +17,10 @@ class AuthController {
     }
 
     def signIn = {
+    
+    	//log.info("request.getRemoteAddr=${request.getRemoteAddr() }")
+    	//log.info("request.getRemotePort() =${request.getRemotePort() }")
+    
         def authToken = new UsernamePasswordToken(params.username?.toUpperCase(), params.password as String)
 
         // Support for "remember me"
