@@ -37,12 +37,6 @@
 				<g:message code="salesOrderDetail.finalPrice.label"/> : 
 				<span name="salesOrderDetails[${i}].finalPrice_span">${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
 			</li>
-			<li>
-				<g:message code="category.isAllowZeroPrice.label"/> :
-        		<span style="${salesOrderDetailInstance?.isAllowZeroPrice == 'Y'? 'color : blue':'color : red'}">
-        			${salesOrderDetailInstance?.isAllowZeroPrice}
-        		</span>
-			</li>
     </td>
     
 	<!--discount-->
@@ -157,12 +151,6 @@
 			<li>
 				<g:message code="salesOrderDetail.finalPrice.label"/> : 
 				<span>${formatNumber( number : salesOrderDetailDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
-			</li>
-			<li>
-				<g:message code="category.isAllowZeroPrice.label"/> :
-        		<span style="${salesOrderDetailDetailInstance?.isAllowZeroPrice == 'Y'? 'color : blue':'color : red'}">
-        			${salesOrderDetailDetailInstance?.isAllowZeroPrice}
-        		</span>
 			</li>
 		</ul>
     </td>
