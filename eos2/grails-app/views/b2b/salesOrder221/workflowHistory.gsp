@@ -65,7 +65,7 @@ function open_approval_dialog2(historyId, actionId, version, stepName, actionNam
 	$("#approval_dialog2").dialog({
 		modal: true, 
 		width:'auto', 
-		title: stepName + "." +actionName,
+		title: stepName + "." + actionName + "-${message(code:'workflowAction.refuse.tip.label')}",
 		buttons: {
 			"${message(code: 'default.button.approval', default: 'Approval')}": function() {
 				if($.trim($("#approval_dialog2 :input[name='description']").val()) == ''){
