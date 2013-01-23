@@ -74,6 +74,7 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://eos2.sh-liangxin.com"
+        //grails.serverURL = "http://192.168.5.34:8080/eos2"
     }
 }
 
@@ -116,11 +117,6 @@ cxf{
 			serviceEndpointAddress="http://192.168.1.88/yifeigateway/YiFeiGateway.asmx"
 		}
 	}
-	/*
-	endpoint{
-		soap12Binding = true
-	}
-	*/
 }
 
 
