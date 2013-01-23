@@ -11,7 +11,7 @@ class OutBoundController {
 
     def list = {
         params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
-        render view : '/ws/outBound/list', model : [outBoundInstanceList: OutBound.list(params), outBoundInstanceTotal: OutBound.count()]
+        render view : '/ws/outBound/list', model : [outBoundInstanceList: outBoundService.list(params), outBoundInstanceTotal: outBoundService.count(params)]
     }
 
     def create = {

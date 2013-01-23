@@ -2,6 +2,7 @@ package org.leaf.eos2.ws
 
 import org.leaf.eos2.admin.ShareRoleService
 import org.leaf.eos2.shiro.User
+import org.leaf.eos2.shiro.Role
 
 import org.springframework.transaction.annotation.*
 import org.apache.shiro.SecurityUtils
@@ -22,6 +23,8 @@ class OutBoundService {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
         
+        def currentUserRole = Role.get(currentUser.role.id)
+        
         def shareUsers = shareRoleService.getShareUserList("outBound", "list")
 
         def outBoundInstanceList = OutBound.withCriteria{
@@ -33,7 +36,7 @@ class OutBoundService {
 			if(params?.sort && params?.order) order(params?.sort, params?.order)
             //stage
             if(params?.stage) eq("stage", params?.stage)
-            if(currentUser.username != 'admin') {
+            if(currentUserRole.isAdmin == false) {
     	        or{
                     inList("owner.id", shareUsers)
     			    eq("owner", currentUser)
@@ -44,15 +47,39 @@ class OutBoundService {
     }
     
     @Transactional(readOnly = true)
+    def count(Object params) {
+		//get current user
+        def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
+        def currentUserRole = Role.get(currentUser.role.id)
+        def shareUsers = shareRoleService.getShareUserList("salesOrder", "list")
+        def count = OutBound.withCriteria{
+			projections{
+				rowCount()
+			}
+			if(params?.stage) eq("stage", params?.stage)
+            if(currentUserRole.isAdmin == false) {
+    			or{
+    				and{
+    					inList("owner.id", shareUsers)
+    					ne("status", "草稿")
+    				}
+    				eq("owner", currentUser)
+    			}
+            }
+		}
+        return (count ==null)? 100:  count[0]
+    }
+    
+    @Transactional(readOnly = true)
     def show(id) {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        
+        def currentUserRole = Role.get(currentUser.role.id)
         def shareUsers = shareRoleService.getShareUserList("outBound", "show")
 
         def outBoundInstance = OutBound.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
-            if(currentUser.username != 'admin') {
+            if(currentUserRole.isAdmin == false) {
     	        or{
                     inList("owner.id", shareUsers)
     			    eq("owner", currentUser)
@@ -65,12 +92,12 @@ class OutBoundService {
     def edit(id) {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        
+        def currentUserRole = Role.get(currentUser.role.id)
         def shareUsers = shareRoleService.getShareUserList("outBound", "edit")
 
         def outBoundInstance = OutBound.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
-            if(currentUser.username != 'admin') {
+            if(currentUserRole.isAdmin == false) {
     	        or{
                     inList("owner.id", shareUsers)
     			    eq("owner", currentUser)
@@ -83,12 +110,12 @@ class OutBoundService {
     def delete(id) {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        
+        def currentUserRole = Role.get(currentUser.role.id)
         def shareUsers = shareRoleService.getShareUserList("outBound", "delete")
 
         def outBoundInstance = OutBound.withCriteria(uniqueResult:true){
             eq("id", id.toLong())
-            if(currentUser.username != 'admin') {
+            if(currentUserRole.isAdmin == false) {
     	        or{
                     inList("owner.id", shareUsers)
     			    eq("owner", currentUser)
@@ -114,6 +141,8 @@ class OutBoundService {
             //eq("asynchronous", asynchronous)
             maxResults(1)
         }
+        
+        //log.info("obConfig=${obConfig}")
 
         if(obConfig == null){
             obConfig = []

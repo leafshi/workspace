@@ -3,12 +3,13 @@
 
 	<li class="fieldcontain">
 		<span id="objectName-label" class="property-label"><g:message code="outBound.objectName.label" default="Object Name" /></span>
-		<span class="property-value" aria-labelledby="objectName-label"><g:fieldValue bean="${outBoundInstance}" field="objectName"/></span>
-	</li>
-
-	<li class="fieldcontain">
-		<span id="objectId-label" class="property-label"><g:message code="outBound.objectId.label" default="Object Id" /></span>
-		<span class="property-value" aria-labelledby="objectId-label"><g:fieldValue bean="${outBoundInstance}" field="objectId"/></span>
+		<span class="property-value" aria-labelledby="objectName-label">
+			<g:link controller="salesOrder" action="show" id="${outBoundInstance?.objectId?:-1L}">
+				<g:fieldValue bean="${outBoundInstance}" field="objectName"/>
+				~
+				<g:fieldValue bean="${outBoundInstance}" field="objectId"/>
+			</g:link>
+		</span>
 	</li>
 
 	<li class="fieldcontain">
