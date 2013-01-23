@@ -110,6 +110,7 @@ class SalesOrder224AjaxController {
 			}
 			
 			salesOrderDetailInstance.specialDiscount = 1 - salesOrderDetailInstance.finalPrice/((salesOrderDetailInstance.price?:1)*(salesOrderDetailInstance.discount?:1))
+			salesOrderDetailInstance.specialDiscount = salesOrderDetailInstance.specialDiscount?.abs()
 			
 	    }else{
 			salesOrderDetailInstance.discount = salesOrder224AjaxService.productDiscount(productId)?:1
