@@ -9,6 +9,8 @@ import org.apache.shiro.grails.ConfigUtils
 
 class AuthController {
     def shiroSecurityManager
+    
+    def logLoginHistoryService
 
     def index = { redirect(action: "login", params: params) }
 
@@ -17,11 +19,10 @@ class AuthController {
     }
 
     def signIn = {
-    
-    	//log.info("request.getRemoteAddr=${request.getRemoteAddr() }")
-    	//log.info("request.getRemotePort() =${request.getRemotePort() }")
-    
+        
         def authToken = new UsernamePasswordToken(params.username?.toUpperCase(), params.password as String)
+        
+        def sourceIP = "${request.getRemoteAddr()}"
 
         // Support for "remember me"
         if (params.rememberMe) {
@@ -45,6 +46,9 @@ class AuthController {
             // password is incorrect.
             SecurityUtils.subject.login(authToken)
 
+            //log login history
+            logLoginHistoryService.log(sourceIP, params.username?.toUpperCase(), true);
+            
             log.info "Redirecting to '${targetUri}'."
             redirect(uri: targetUri, absolute:true)
         }
@@ -65,7 +69,10 @@ class AuthController {
             if (params.targetUri) {
                 m["targetUri"] = params.targetUri
             }
-
+            
+            //log login history
+			logLoginHistoryService.log(sourceIP, params.username?.toUpperCase(), false);
+			
             // Now redirect back to the login page.
             redirect(action: "login", params: m)
         }

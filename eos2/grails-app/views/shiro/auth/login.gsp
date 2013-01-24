@@ -15,7 +15,6 @@
     </g:if>
 	<g:form action="signIn">
 		<input type="hidden" name="targetUri" value="${targetUri}" />
-		<input type="hidden" name="remoteAddr" value="${request.getRemoteAddr()}" />
 		<table>
 			<tbody>
 				<tr>
