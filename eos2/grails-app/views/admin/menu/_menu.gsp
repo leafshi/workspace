@@ -25,8 +25,17 @@
         <li>
         	<a href="#" onclick="javascript:none()" class="parent"><span><g:message code="menu.setting.label" default="Setting"/></span></a>
 			<ul>
+
+				<shiro:hasPermission permission="user:index">
+				<li><a href="${createLink(controller: 'user', action : 'index')}"><span><g:message code="user.label" default="User"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="role:index">
+				<li><a href="${createLink(controller: 'role', action : 'index')}"><span><g:message code="role.label" default="Role"/></span></a></li>
+				</shiro:hasPermission>
 			
 				<shiro:hasPermission permission="profile:index">
+				<li><a href="#"><span>---</span></a></li>
 				<li><a href="${createLink(controller: 'profile', action : 'index')}"><span><g:message code="profile.label" default="Profile"/></span></a></li>
 				</shiro:hasPermission>
 				
@@ -50,6 +59,11 @@
 				<shiro:hasPermission permission="menu:buildInfo">
 				<li><a href="#"><span>---</span></a></li>
 				<li><a href="${createLink(controller: 'buildInfo', action : 'index')}"><span><g:message code="buildInfo.label" default="Build Info"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="loginHistory:index">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'loginHistory', action : 'index')}"><span><g:message code="loginHistory.label" default="Login History"/></span></a></li>
 				</shiro:hasPermission>
 
 			</ul>
