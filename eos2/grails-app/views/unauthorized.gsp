@@ -7,6 +7,6 @@
 		</title>
 	</head>
 	<body>
-		You do not have permission to access this page.
+		<g:message code="permission.denied" default = "You do not have permission to access this page." />
 	</body>
 </html>
