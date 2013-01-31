@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dcms.YiFeiGateWay.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://dcms.YiFeiGateWay.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dcms.YiFeiGateWay.org/">
+      <s:element name="YiFeiGateway">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inputXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YiFeiGatewayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YiFeiGatewayResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestConnect">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inputStr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestConnectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestConnectResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="YiFeiGatewaySoapIn">
+    <wsdl:part name="parameters" element="tns:YiFeiGateway" />
+  </wsdl:message>
+  <wsdl:message name="YiFeiGatewaySoapOut">
+    <wsdl:part name="parameters" element="tns:YiFeiGatewayResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestConnectSoapIn">
+    <wsdl:part name="parameters" element="tns:TestConnect" />
+  </wsdl:message>
+  <wsdl:message name="TestConnectSoapOut">
+    <wsdl:part name="parameters" element="tns:TestConnectResponse" />
+  </wsdl:message>
+  <wsdl:portType name="YiFeiGateWayServiceSoap">
+    <wsdl:operation name="YiFeiGateway">
+      <wsdl:input message="tns:YiFeiGatewaySoapIn" />
+      <wsdl:output message="tns:YiFeiGatewaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestConnect">
+      <wsdl:input message="tns:TestConnectSoapIn" />
+      <wsdl:output message="tns:TestConnectSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="YiFeiGateWayServiceSoap" type="tns:YiFeiGateWayServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="YiFeiGateway">
+      <soap:operation soapAction="http://dcms.YiFeiGateWay.org/YiFeiGateway" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestConnect">
+      <soap:operation soapAction="http://dcms.YiFeiGateWay.org/TestConnect" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="YiFeiGateWayServiceSoap12" type="tns:YiFeiGateWayServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="YiFeiGateway">
+      <soap12:operation soapAction="http://dcms.YiFeiGateWay.org/YiFeiGateway" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestConnect">
+      <soap12:operation soapAction="http://dcms.YiFeiGateWay.org/TestConnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="YiFeiGateWayService">
+    <wsdl:port name="YiFeiGateWayServiceSoap" binding="tns:YiFeiGateWayServiceSoap">
+      <soap:address location="http://192.168.1.224:8080/YiFeiGateway.asmx" />
+    </wsdl:port>
+    <wsdl:port name="YiFeiGateWayServiceSoap12" binding="tns:YiFeiGateWayServiceSoap12">
+      <soap12:address location="http://192.168.1.224:8080/YiFeiGateway.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

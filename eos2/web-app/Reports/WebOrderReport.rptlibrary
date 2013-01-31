@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110905-1820></property>
+<library xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.2.1.v201209101448 Build &lt;4.2.1.v20120912-1721></property>
     <property name="units">in</property>
     <property name="theme">defaultTheme</property>
     <data-sources>
@@ -23,8 +23,8 @@
             </list-property>
             <property name="odaDriverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
             <property name="odaURL">jdbc:sqlserver://192.168.1.224;databaseName=eos2</property>
-            <property name="odaUser">sa</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">MTJxd2Fzeng=</encrypted-property>
+            <property name="odaUser">eos2</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">UEA1NXdvcmQ=</encrypted-property>
         </oda-data-source>
     </data-sources>
     <themes>

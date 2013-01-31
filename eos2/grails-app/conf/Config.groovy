@@ -72,7 +72,7 @@ environments {
 	}
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://eos2.sh-liangxin.com"
+        grails.serverURL = "http://eos.sh-liangxin.com"
     }
 }
 
@@ -111,8 +111,11 @@ birt {
 cxf{
 	client{
 		yiFeiGatewayClient{
+            //used in wsdl2java
+            wsdl = "docs/YiFeiGateway.asmx.xml" //only used for wsdl2java script target
+            //used for invoking service
 			clientInterface="org.yifeigateway.dcms.YiFeiGateWayServiceSoap"
-			serviceEndpointAddress="http://192.168.1.88/yifeigateway/YiFeiGateway.asmx"
+			serviceEndpointAddress="http://192.168.1.224:8080/YiFeiGateway/YiFeiGateway.asmx?wsdl"
 		}
 	}
 }

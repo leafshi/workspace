@@ -29,8 +29,8 @@ environments {
         dataSource {
             dbCreate = "update"
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            username = "sa"
-            password = "12qwaszx"
+            username = "eos2"
+            password = "P@55word"
             url = "jdbc:sqlserver://192.168.1.224;databaseName=eos2;"
             logSql = false
             pooled = true
