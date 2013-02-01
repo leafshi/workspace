@@ -63,16 +63,19 @@ grails.exceptionresolver.params.exclude = ['password']
 
 // enable query caching by default
 grails.hibernate.cache.queries = true
-
+//define webservice url
+ws.yifeigateway.url = ""
 // set per-environment serverURL stem for creating absolute links
 environments {
     development {
         grails.logging.jul.usebridge = true
     	grails.serverURL = "http://192.168.5.34:8080/eos2"
+    	ws.yifeigateway.url = "http://192.168.1.88/yifeigateway/YiFeiGateway.asmx?wsdl"
 	}
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://eos.sh-liangxin.com"
+        ws.yifeigateway.url = "http://192.168.1.224:8080/YiFeiGateway/YiFeiGateway.asmx?wsdl"
     }
 }
 
@@ -115,7 +118,7 @@ cxf{
             wsdl = "docs/YiFeiGateway.asmx.xml" //only used for wsdl2java script target
             //used for invoking service
 			clientInterface="org.yifeigateway.dcms.YiFeiGateWayServiceSoap"
-			serviceEndpointAddress="http://192.168.1.224:8080/YiFeiGateway/YiFeiGateway.asmx?wsdl"
+			serviceEndpointAddress="${ws.yifeigateway.url}"
 		}
 	}
 }
