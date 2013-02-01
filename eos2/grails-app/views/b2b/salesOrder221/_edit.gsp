@@ -76,7 +76,7 @@
 				</label>
 			</td>
 			<td class="${hasErrors(bean: salesOrderInstance, field: 'project', 'error')} ">
-				<g:textField name="project" maxlength="20" value="${salesOrderInstance?.project}"/>
+				<g:textField name="project" maxlength="10" value="${salesOrderInstance?.project}"/>
 				<span name="projectName"></span>
 			</td>
 
@@ -87,7 +87,7 @@
 				</label>
 			</td>
 			<td class="${hasErrors(bean: salesOrderInstance, field: 'accountSerialNumber', 'error')} ">
-				<g:textField name="accountSerialNumber" maxlength="16" value="${salesOrderInstance?.accountSerialNumber}"/>
+				<g:textField name="accountSerialNumber" maxlength="10" value="${salesOrderInstance?.accountSerialNumber}"/>
 			</td>
 		</tr>
 		
