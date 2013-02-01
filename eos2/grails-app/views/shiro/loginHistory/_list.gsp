@@ -7,8 +7,9 @@
 			<g:sortableColumn property="sourceIP" title="Source IP" titleKey="loginHistory.sourceIP.label" />
 			<g:sortableColumn property="loginType" title="Login Type" titleKey="loginHistory.loginType.label" />
 			<g:sortableColumn property="isSucceed" title="Is Succeed" titleKey="loginHistory.isSucceed.label" />
-			<g:sortableColumn property="dateCreated" title="Date Created" titleKey="loginHistory.dateCreated.label" />
-			<g:sortableColumn property="lastUpdated" title="Last Updated" titleKey="loginHistory.lastUpdated.label" />
+			<g:sortableColumn property="browser" title="Browser" titleKey="loginHistory.browser.label" />
+			<g:sortableColumn property="platform" title="Platform" titleKey="loginHistory.platform.label" />
+			<g:sortableColumn property="operatingSystem" title="Operating System" titleKey="loginHistory.operatingSystem.label" />
 		</tr>
 	</thead>
 	<tbody>
@@ -20,8 +21,9 @@
 			<td>${fieldValue(bean: loginHistoryInstance, field: "sourceIP")}</td>
 			<td>${fieldValue(bean: loginHistoryInstance, field: "loginType")}</td>
 			<td><g:formatBoolean boolean="${loginHistoryInstance.isSucceed}" /></td>
-			<td><g:formatDate date="${loginHistoryInstance.dateCreated}" formatName="custom.datetime.format"/></td>
-			<td><g:formatDate date="${loginHistoryInstance.lastUpdated}" formatName="custom.datetime.format"/></td>
+			<td>${fieldValue(bean: loginHistoryInstance, field: "browser")}</td>
+			<td>${fieldValue(bean: loginHistoryInstance, field: "platform")}</td>
+			<td>${fieldValue(bean: loginHistoryInstance, field: "operatingSystem")}</td>
 		</tr>
 	</g:each>
 	</tbody>
