@@ -14,7 +14,7 @@
             <div class="list">
                 <g:render template="/shiro/loginHistory/list" />
             </div>
-            <div class="paginateButtons">
+            <div class="pagination">
                 <g:paginate total="${loginHistoryInstanceTotal}" />
             </div>
         </div>
