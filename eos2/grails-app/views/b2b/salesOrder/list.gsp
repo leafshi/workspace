@@ -16,7 +16,7 @@
 			</g:if>
 			<g:render template="/b2b/salesOrder/list" />
 			<div class="pagination">
-				<g:paginate total="${salesOrderInstanceTotal}" />
+				<g:paginate total="${salesOrderInstanceTotal}" params="[status : params.status]"/>
 			</div>
 		</div>
 	</body>
