@@ -176,6 +176,13 @@
 			<a href="${createLink(controller: 'search', action : 'index')}"><span><g:message code="menu.search.label"/></span></a>
         </li>
         </shiro:hasPermission>
+        
+		<shiro:hasPermission permission="menu:news">
+        <li>
+			<a href="${createLink(controller: 'entity', action : 'index')}"><span><g:message code="entity.label"/></span></a>
+        </li>
+        </shiro:hasPermission>
+
 
 		<shiro:hasPermission permission="menu:resetMyPassword">
         <li>

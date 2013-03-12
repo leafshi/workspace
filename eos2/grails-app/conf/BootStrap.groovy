@@ -73,8 +73,77 @@ def dept3510 = new Department(serialNumber:3510  ,name:'北京办事处', type :
 def dept3800 = new Department(serialNumber:3800  ,name:'深圳大区', type : 'R', parentDept : dept3002, description:'',isActive:true).save(flush:true)
 def dept3830 = new Department(serialNumber:3830  ,name:'深圳工控办事处', type : 'B', parentDept : dept3800, description:'',isActive:true).save(flush:true)
 
+def roleOfDepartmentCommercial = new Role(name:"Role - Department Of Commercial", isAdmin : false)
+	.addToPermissions("index:*")
+	.addToPermissions("nav:*")
+	.addToPermissions("auth:*")
+	.addToPermissions("welcome:*")
+	
+	.addToPermissions("contract:index")
+	.addToPermissions("contract:list")
+	.addToPermissions("contract:show")
+	
+	.addToPermissions("salesOrder:index")
+	.addToPermissions("salesOrder:list")
+	.addToPermissions("salesOrder:show")
+	
+	.addToPermissions("salesOrder220:show")
+	.addToPermissions("salesOrder221:show")
+	.addToPermissions("salesOrder224:show")
+	
+	.addToPermissions("workflowApproval:check")
+	.addToPermissions("workflowApproval:approval")
+	
+	.addToPermissions("salesOrder220Ajax:getDealerDepartment")
+	.addToPermissions("salesOrder220Ajax:workflowHistory")
+	.addToPermissions("salesOrder220Ajax:outBoundMessage")
+	
+	.addToPermissions("salesOrder221Ajax:getDealerDepartment")
+	.addToPermissions("salesOrder221Ajax:workflowHistory")
+	.addToPermissions("salesOrder221Ajax:outBoundMessage")
 
-def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin : false)
+	.addToPermissions("salesOrder224Ajax:getDealerDepartment")
+	.addToPermissions("salesOrder224Ajax:workflowHistory")
+	.addToPermissions("salesOrder224Ajax:outBoundMessage")
+	
+	.addToPermissions("report:run")
+	.addToPermissions("report:view")
+	
+	.addToPermissions("outBound:index")
+	.addToPermissions("outBound:list")
+	.addToPermissions("outBound:show")
+	.addToPermissions("outBound:resurrect")
+	.addToPermissions("outBound:showXml")
+	
+	.addToPermissions("creditControl:index")
+	.addToPermissions("creditControl:list")
+	.addToPermissions("creditControl:show")
+	
+	.addToPermissions("search:index")
+	.addToPermissions("search:search")
+	.addToPermissions("search:searchProduct")
+	.addToPermissions("search:searchContract")
+	.addToPermissions("search:searchSalesOrder")
+	
+	.addToPermissions("menu:mySalesOrder")
+	.addToPermissions("menu:b2b")
+	.addToPermissions("menu:workflow")
+	.addToPermissions("menu:mySalesOrder")
+	.addToPermissions("menu:mySalesOrderList")
+	.addToPermissions("menu:reportList")
+	.addToPermissions("menu:outBoundList")
+	.addToPermissions("menu:search")
+	.addToPermissions("menu:resetMyPassword")
+	
+	.addToPermissions("resetMyPassword:resetPassword")
+	.addToPermissions("resetMyPassword:reset")
+
+	.addToPermissions("menu:news")	
+	.addToPermissions("entity:*")
+	
+	.save(flush:true)
+
+def roleDepartmentApproval = new Role(name:"Role - Department Of Branch", isAdmin : false)
 	.addToPermissions("index:*")
 	.addToPermissions("nav:*")
 	.addToPermissions("auth:*")
@@ -139,9 +208,14 @@ def roleDepartmentApproval = new Role(name:"Department Role[Approval]", isAdmin 
 	.addToPermissions("resetMyPassword:resetPassword")
 	.addToPermissions("resetMyPassword:reset")
 	
+	.addToPermissions("menu:news")	
+	.addToPermissions("entity:index")
+	.addToPermissions("entity:list")
+	.addToPermissions("entity:show")
+	
 	.save(flush:true)
 
-def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin : false)
+def roleDepartmentReadonly = new Role(name:"Role - Department Of Region", isAdmin : false)
 	.addToPermissions("index:*")
 	.addToPermissions("nav:*")
 	.addToPermissions("auth:*")
@@ -201,11 +275,16 @@ def roleDepartmentReadonly = new Role(name:"Department Role[Readonly]", isAdmin 
 	
 	.addToPermissions("resetMyPassword:resetPassword")
 	.addToPermissions("resetMyPassword:reset")
+	
+	.addToPermissions("menu:news")	
+	.addToPermissions("entity:index")
+	.addToPermissions("entity:list")
+	.addToPermissions("entity:show")
 
 	.save(flush:true)
 
 /*group member*/
-def user3002_1 = new User(username: "C3002",  passwordHash: new Sha512Hash("C3002").toHex(), profile:profile_department, department : dept3002, role : roleDepartmentApproval).save(flush:true)
+def user3002_1 = new User(username: "C3002",  passwordHash: new Sha512Hash("C3002").toHex(), profile:profile_department, department : dept3002, role : roleOfDepartmentCommercial).save(flush:true)
 
 def user3200_1 = new User(username: "R3200",  passwordHash: new Sha512Hash("R3200").toHex(), profile:profile_department, department : dept3200, role : roleDepartmentReadonly).save(flush:true)
 def user3220_1 = new User(username: "B3220",  passwordHash: new Sha512Hash("B3220").toHex(), profile:profile_department, department : dept3220, role : roleDepartmentApproval).save(flush:true)
@@ -305,6 +384,12 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
 	
 		.addToPermissions("resetMyPassword:resetPassword")
 		.addToPermissions("resetMyPassword:reset")
+
+	.addToPermissions("menu:news")
+	.addToPermissions("entity:index")
+	.addToPermissions("entity:list")
+	.addToPermissions("entity:show")
+
 
         .save(flush:true)     
 

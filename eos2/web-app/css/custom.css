@@ -517,3 +517,8 @@ input[type="submit"].btn.small {
   *padding-top: 3px;
   *padding-bottom: 3px;
 }
+
+.entity_readers{
+	display:inline-block;
+	width : 100px;
+}
