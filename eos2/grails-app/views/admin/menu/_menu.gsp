@@ -8,7 +8,7 @@
         <!--END HOME-->
         
         <!--current object -->
-        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'auth', 'report', 'buildInfo', 'search', 'resetMyPassword'].contains(controllerName)}">
+        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'salesOrder222','auth', 'report', 'buildInfo', 'search', 'resetMyPassword'].contains(controllerName)}">
 			<g:set var="entityName" value="${message(code: controllerName+'.label')}" />
 			<shiro:hasPermission permission="${controllerName}:list">
 			<li><g:link class="${controllerName}" action="list"><span style="color:blue;"><g:message code="default.list.label" args="[entityName]" /></span></g:link></li>
@@ -143,6 +143,10 @@
 				<li><a href="${createLink(controller: 'salesOrder220', action : 'create')}"><span><g:message code="menu.createSalesOrder220.label"/></span></a></li>
 				</shiro:hasPermission>
 				
+				<shiro:hasPermission permission="salesOrder222:create">
+				<li><a href="${createLink(controller: 'salesOrder222', action : 'create')}"><span><g:message code="menu.createSalesOrder222.label"/></span></a></li>
+				</shiro:hasPermission>
+
 				<shiro:hasPermission permission="salesOrder221:create">
 				<li><a href="${createLink(controller: 'salesOrder221', action : 'create')}"><span><g:message code="menu.createSalesOrder221.label"/></span></a></li>
 				</shiro:hasPermission>

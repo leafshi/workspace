@@ -47,6 +47,7 @@
 				<span name="salesOrderDetails[${i}].finalPrice_span">${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
 				<g:hiddenField name="salesOrderDetails[${i}].finalPrice" value="${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}"/>
 			</li>
+		</ul>
     </td>
     
 	<!--discount-->

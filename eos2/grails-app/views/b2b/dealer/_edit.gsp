@@ -86,6 +86,14 @@
 	<g:textField name="pricingMode" maxlength="10" value="${dealerInstance?.pricingMode}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: dealerInstance, field: 'pricingStrategy', 'error')} ">
+	<label for="pricingStrategy">
+		<g:message code="dealer.pricingStrategy.label" default="Pricing Strategy" />
+	</label>
+	<g:textField name="pricingStrategy" maxlength="10" value="${dealerInstance?.pricingStrategy}"/>
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: dealerInstance, field: 'owner', 'error')} required">
 	<label for="owner">
 		<g:message code="dealer.owner.label" default="Owner" />

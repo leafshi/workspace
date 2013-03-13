@@ -50,6 +50,8 @@ def user_admin = new User(username: "admin",  passwordHash: new Sha512Hash("admi
 def recordType220 = new RecordType(serialNumber :'220', name:'客户订单', domain:'salesOrder', description:'', isActive:true).save(flush:true)
 def recordType221 = new RecordType(serialNumber :'221', name:'特价订单', domain:'salesOrder', description:'', isActive:true).save(flush:true)
 def recordType224 = new RecordType(serialNumber :'224', name:'项目订单', domain:'salesOrder', description:'', isActive:true).save(flush:true)
+/*2013-03-12*/
+def recordType222 = new RecordType(serialNumber :'222', name:'定价订单', domain:'salesOrder', description:'直接定价订单', isActive:true).save(flush:true)
 
 /*init department*/
 def profile_department = new Profile(name:"Department Profile").save(flush:true)
@@ -160,6 +162,7 @@ def roleDepartmentApproval = new Role(name:"Role - Department Of Branch", isAdmi
 	.addToPermissions("salesOrder220:show")
 	.addToPermissions("salesOrder221:show")
 	.addToPermissions("salesOrder224:show")
+	.addToPermissions("salesOrder222:show")
 	
 	.addToPermissions("workflowApproval:check")
 	.addToPermissions("workflowApproval:approval")
@@ -176,6 +179,10 @@ def roleDepartmentApproval = new Role(name:"Role - Department Of Branch", isAdmi
 	.addToPermissions("salesOrder224Ajax:workflowHistory")
 	.addToPermissions("salesOrder224Ajax:outBoundMessage")
 	
+	.addToPermissions("salesOrder222Ajax:getDealerDepartment")
+	.addToPermissions("salesOrder222Ajax:workflowHistory")
+	.addToPermissions("salesOrder222Ajax:outBoundMessage")
+
 	.addToPermissions("report:run")
 	.addToPermissions("report:view")
 	
@@ -393,51 +400,120 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
 
         .save(flush:true)     
 
+        def role_dealer_222 = new Role(name:"Dealer Role 222", isAdmin : false)
+        .addToPermissions("index:*")
+        .addToPermissions("menu:mySalesOrderList")
+        .addToPermissions("auth:*")
+        .addToPermissions("welcome:*")
+
+        .addToPermissions("contract:index")
+        .addToPermissions("contract:list")
+        .addToPermissions("contract:show")
+
+        .addToPermissions("salesOrder:index")
+        .addToPermissions("salesOrder:list")
+        .addToPermissions("salesOrder:show")
+        .addToPermissions("salesOrder:edit")
+        .addToPermissions("salesOrder:delete")
+
+        .addToPermissions("salesOrder222:create")
+        .addToPermissions("salesOrder222:save")
+        .addToPermissions("salesOrder222:show")
+        .addToPermissions("salesOrder222:edit")
+        .addToPermissions("salesOrder222:update")
+        .addToPermissions("salesOrder222:delete")
+
+        .addToPermissions("salesOrderAjax:*")
+		.addToPermissions("salesOrder222Ajax:*")
+
+        .addToPermissions("workflowApproval:check")
+        .addToPermissions("workflowApproval:approval")
+
+        .addToPermissions("report:run")
+        .addToPermissions("report:view")
+
+        .addToPermissions("outBound:index")
+        .addToPermissions("outBound:list")
+        .addToPermissions("outBound:show")
+        .addToPermissions("outBound:resurrect")
+        .addToPermissions("outBound:showXml")
+
+        .addToPermissions("creditControl:index")
+        .addToPermissions("creditControl:list")
+        .addToPermissions("creditControl:show")
+        
+		.addToPermissions("search:index")
+		.addToPermissions("search:search")
+		.addToPermissions("search:searchProduct")
+		.addToPermissions("search:searchContract")
+		.addToPermissions("search:searchSalesOrder")
+        
+        .addToPermissions("menu:mySalesOrder")
+        .addToPermissions("menu:mySalesOrderList")
+        .addToPermissions("menu:b2b")
+        .addToPermissions("menu:workflow")
+        .addToPermissions("menu:mySalesOrder")
+        .addToPermissions("menu:createSalesOrder")
+		.addToPermissions("menu:reportList")
+		.addToPermissions("menu:outBoundList")
+		.addToPermissions("menu:search")
+		.addToPermissions("menu:resetMyPassword")
+	
+		.addToPermissions("resetMyPassword:resetPassword")
+		.addToPermissions("resetMyPassword:reset")
+
+	.addToPermissions("menu:news")
+	.addToPermissions("entity:index")
+	.addToPermissions("entity:list")
+	.addToPermissions("entity:show")
+
+
+        .save(flush:true)     
         /*init dealer*/
         def ownerAH0001 = new User(username: "AH0001".toLowerCase(),  passwordHash: new Sha512Hash("AH0001").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0001 = new Dealer(department:dept3450, serialNumber:'AH0001', name:'合肥博大电气有限公司', alias:'合肥博大电气', shortcut:'BDDQ', salesMan:staff10210, head:'侯卫民', contact:'夏秋霞', address1 : '安微省合肥市高新区望江西路539号鲲鹏科技园', address2 : '侯卫民 0551-5310128 13856002226', approvalStatus:'已核准', pricingMode:'折扣率', owner : ownerAH0001 ).save(flush:true)
+        def dealerAH0001 = new Dealer(department:dept3450, serialNumber:'AH0001', name:'合肥博大电气有限公司', alias:'合肥博大电气', shortcut:'BDDQ', salesMan:staff10210, head:'侯卫民', contact:'夏秋霞', address1 : '安微省合肥市高新区望江西路539号鲲鹏科技园', address2 : '侯卫民 0551-5310128 13856002226', approvalStatus:'已核准', pricingMode:'折扣率', pricingStrategy:'2451', owner : ownerAH0001 ).save(flush:true)
 
-        def ownerAH0002 = new User(username: "AH0002".toLowerCase(),  passwordHash: new Sha512Hash("AH0002").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0002 = new Dealer(department:dept3450, serialNumber:'AH0002', name:'合肥越天电气自动化有限公司', alias:'合肥越天电气', shortcut:'YTDQ', salesMan:staff10210, head:'杜越天', contact:'杜越天', address1 : '合肥市濉溪东路14号', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率', owner : ownerAH0002  ).save(flush:true)
+        def ownerAH0002 = new User(username: "AH0002".toLowerCase(),  passwordHash: new Sha512Hash("AH0002").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerAH0002 = new Dealer(department:dept3450, serialNumber:'AH0002', name:'合肥越天电气自动化有限公司', alias:'合肥越天电气', shortcut:'YTDQ', salesMan:staff10210, head:'杜越天', contact:'杜越天', address1 : '合肥市濉溪东路14号', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率', pricingStrategy:'142', owner : ownerAH0002  ).save(flush:true)
        
-        def ownerAH0003 = new User(username: "AH0003".toLowerCase(),  passwordHash: new Sha512Hash("AH0003").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0003 = new Dealer(department:dept3450, serialNumber:'AH0003', name:'合肥阳光电源有限公司', alias:'合肥阳光电源', shortcut:'YGDY', salesMan:staff10210, head:'', contact:'史大贵139056089127', address1 : '安徽省合肥市高新区天湖路2号采购部 史大贵139056089127', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率', owner : ownerAH0003  ).save(flush:true)
+        def ownerAH0003 = new User(username: "AH0003".toLowerCase(),  passwordHash: new Sha512Hash("AH0003").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerAH0003 = new Dealer(department:dept3450, serialNumber:'AH0003', name:'合肥阳光电源有限公司', alias:'合肥阳光电源', shortcut:'YGDY', salesMan:staff10210, head:'', contact:'史大贵139056089127', address1 : '安徽省合肥市高新区天湖路2号采购部 史大贵139056089127', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率', pricingStrategy:'142', owner : ownerAH0003  ).save(flush:true)
        
         def ownerAH0004 = new User(username: "AH0004".toLowerCase(),  passwordHash: new Sha512Hash("AH0004").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0004 = new Dealer(department:dept3450, serialNumber:'AH0004', name:'安庆市良信电力设备有限责任公司', alias:'安庆良信电力', shortcut:'AQLXDL', salesMan:staff10210, head:'', contact:''     , address1 : '', address2 : '', approvalStatus:'已核准'     , pricingMode:'折扣率' , owner : ownerAH0004 ).save(flush:true)
+        def dealerAH0004 = new Dealer(department:dept3450, serialNumber:'AH0004', name:'安庆市良信电力设备有限责任公司', alias:'安庆良信电力', shortcut:'AQLXDL', salesMan:staff10210, head:'', contact:''     , address1 : '', address2 : '', approvalStatus:'已核准'     , pricingMode:'折扣率' , pricingStrategy:'2451', owner : ownerAH0004 ).save(flush:true)
        
         def ownerAH0005 = new User(username: "AH0005".toLowerCase(),  passwordHash: new Sha512Hash("AH0005").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0005 = new Dealer(department:dept3450, serialNumber:'AH0005', name:'合肥宇嘉电气有限公司', alias:'合肥宇嘉电气', shortcut:'YJDQ', salesMan:staff10210, head:'石敏', contact:'石敏'     , address1 : '合肥市宿州路60号太阳城大厦615室', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率' , owner : ownerAH0005 ).save(flush:true)
+        def dealerAH0005 = new Dealer(department:dept3450, serialNumber:'AH0005', name:'合肥宇嘉电气有限公司', alias:'合肥宇嘉电气', shortcut:'YJDQ', salesMan:staff10210, head:'石敏', contact:'石敏'     , address1 : '合肥市宿州路60号太阳城大厦615室', address2 : '', approvalStatus:'不准交易'     , pricingMode:'折扣率' , pricingStrategy:'2451', owner : ownerAH0005 ).save(flush:true)
        
-        def ownerAH0006 = new User(username: "AH0006".toLowerCase(),  passwordHash: new Sha512Hash("AH0006").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0006 = new Dealer(department:dept3450, serialNumber:'AH0006', name:'合肥竺禹商贸有限公司', alias:'合肥竺禹商贸', shortcut:'ZYSM', salesMan:staff10210, head:'余晞', contact:'余晞'     , address1 : '', address2 : '合肥市宁国路152号', approvalStatus:'不准交易'     , pricingMode:'折扣率' , owner : ownerAH0006 ).save(flush:true)
+        def ownerAH0006 = new User(username: "AH0006".toLowerCase(),  passwordHash: new Sha512Hash("AH0006").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerAH0006 = new Dealer(department:dept3450, serialNumber:'AH0006', name:'合肥竺禹商贸有限公司', alias:'合肥竺禹商贸', shortcut:'ZYSM', salesMan:staff10210, head:'余晞', contact:'余晞'     , address1 : '', address2 : '合肥市宁国路152号', approvalStatus:'不准交易'     , pricingMode:'折扣率' , pricingStrategy:'142', owner : ownerAH0006 ).save(flush:true)
        
         def ownerAH0007 = new User(username: "AH0007".toLowerCase(),  passwordHash: new Sha512Hash("AH0007").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0007 = new Dealer(department:dept3450, serialNumber:'AH0007', name:'安徽科维信息系统有限公司', alias:'安徽科维', shortcut:'', salesMan:staff10210, head:'', contact:'', address1 : '合肥市高新区天智路20号科大创新201室   0551-5327958/5325861', address2 : 'FAX:0551-5327968  张程敏 13966698260/陈智15155171767', approvalStatus:'不准交易'     , pricingMode:'折扣率' , owner : ownerAH0007 ).save(flush:true)
+        def dealerAH0007 = new Dealer(department:dept3450, serialNumber:'AH0007', name:'安徽科维信息系统有限公司', alias:'安徽科维', shortcut:'', salesMan:staff10210, head:'', contact:'', address1 : '合肥市高新区天智路20号科大创新201室   0551-5327958/5325861', address2 : 'FAX:0551-5327968  张程敏 13966698260/陈智15155171767', approvalStatus:'不准交易'     , pricingMode:'折扣率' , pricingStrategy:'2451', owner : ownerAH0007 ).save(flush:true)
        
-        def ownerAH0008 = new User(username: "AH0008".toLowerCase(),  passwordHash: new Sha512Hash("AH0008").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerAH0008 = new Dealer(department:dept3510, serialNumber:'AH0008', name:'安徽动力源科技有限公司', alias:'安徽动力源', shortcut:'AHDLY', salesMan:staff10210, head:'', contact:'', address1 : '安徽省宣城市郎溪县经济开发区安徽动力源科技有限公司 0563-7026968', address2 : '吴昆 13966197199 0563-2316821', approvalStatus:'已核准'     , pricingMode:'折扣率' , owner : ownerAH0008 ).save(flush:true)
+        def ownerAH0008 = new User(username: "AH0008".toLowerCase(),  passwordHash: new Sha512Hash("AH0008").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerAH0008 = new Dealer(department:dept3510, serialNumber:'AH0008', name:'安徽动力源科技有限公司', alias:'安徽动力源', shortcut:'AHDLY', salesMan:staff10210, head:'', contact:'', address1 : '安徽省宣城市郎溪县经济开发区安徽动力源科技有限公司 0563-7026968', address2 : '吴昆 13966197199 0563-2316821', approvalStatus:'已核准'     , pricingMode:'折扣率' , pricingStrategy:'1452', owner : ownerAH0008 ).save(flush:true)
        
         def ownerBJ0001 = new User(username: "BJ0001".toLowerCase(),  passwordHash: new Sha512Hash("BJ0001").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerBJ0001 = new Dealer(department:dept3510, serialNumber:'BJ0001', name:'北京茂程科贸有限公司', alias:'北京茂程科贸', shortcut:'MCKM', salesMan:staff10210, head:'', contact:'经理程旭', address1 : '北京市海淀区中关村大街E世界A区1138室', address2 : '提货人：汲怀磊 010-82387299-602/13261788805', approvalStatus:'已核准'     , pricingMode:'折扣率', owner : ownerBJ0001  ).save(flush:true)
+        def dealerBJ0001 = new Dealer(department:dept3510, serialNumber:'BJ0001', name:'北京茂程科贸有限公司', alias:'北京茂程科贸', shortcut:'MCKM', salesMan:staff10210, head:'', contact:'经理程旭', address1 : '北京市海淀区中关村大街E世界A区1138室', address2 : '提货人：汲怀磊 010-82387299-602/13261788805', approvalStatus:'已核准'     , pricingMode:'折扣率', pricingStrategy:'2451', owner : ownerBJ0001  ).save(flush:true)
        
-        def ownerBJ0002 = new User(username: "BJ0002".toLowerCase(),  passwordHash: new Sha512Hash("BJ0002").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerBJ0002 = new Dealer(department:dept3510, serialNumber:'BJ0002', name:'北京索普尼科技有限公司', alias:'北京索普尼', shortcut:'SPN', salesMan:staff10210, head:'冯西平', contact:'赵鉴华', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'' , owner : ownerBJ0002 ).save(flush:true)
+        def ownerBJ0002 = new User(username: "BJ0002".toLowerCase(),  passwordHash: new Sha512Hash("BJ0002").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerBJ0002 = new Dealer(department:dept3510, serialNumber:'BJ0002', name:'北京索普尼科技有限公司', alias:'北京索普尼', shortcut:'SPN', salesMan:staff10210, head:'冯西平', contact:'赵鉴华', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'' , pricingStrategy:'142', owner : ownerBJ0002 ).save(flush:true)
        
-        def ownerBJ0003 = new User(username: "BJ0003".toLowerCase(),  passwordHash: new Sha512Hash("BJ0003").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerBJ0003 = new Dealer(department:dept3510, serialNumber:'BJ0003', name:'北京东方博飞电力技术有限责任公司', alias:'北京东方博飞', shortcut:'DFBF', salesMan:staff10210, head:'冯西平', contact:'刘建中', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'' , owner : ownerBJ0003 ).save(flush:true)
+        def ownerBJ0003 = new User(username: "BJ0003".toLowerCase(),  passwordHash: new Sha512Hash("BJ0003").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerBJ0003 = new Dealer(department:dept3510, serialNumber:'BJ0003', name:'北京东方博飞电力技术有限责任公司', alias:'北京东方博飞', shortcut:'DFBF', salesMan:staff10210, head:'冯西平', contact:'刘建中', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'142' , pricingStrategy:'', owner : ownerBJ0003 ).save(flush:true)
        
-        def ownerBJ0004 = new User(username: "BJ0004".toLowerCase(),  passwordHash: new Sha512Hash("BJ0004").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerBJ0004 = new Dealer(department:dept3510, serialNumber:'BJ0004', name:'北京动力源科技股份有限公司', alias:'动力源', shortcut:'DLY', salesMan:staff10210, head:'赖华明', contact:'采购田源 010-63795656', address1 : '提货人：汲怀磊 010-82387299-602/13261788805', address2 : '赖华明  13601038908', approvalStatus:'已核准'     , pricingMode:'' , owner : ownerBJ0004 ).save(flush:true)
+        def ownerBJ0004 = new User(username: "BJ0004".toLowerCase(),  passwordHash: new Sha512Hash("BJ0004").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerBJ0004 = new Dealer(department:dept3510, serialNumber:'BJ0004', name:'北京动力源科技股份有限公司', alias:'动力源', shortcut:'DLY', salesMan:staff10210, head:'赖华明', contact:'采购田源 010-63795656', address1 : '提货人：汲怀磊 010-82387299-602/13261788805', address2 : '赖华明  13601038908', approvalStatus:'已核准'     , pricingMode:'' , pricingStrategy:'1452', owner : ownerBJ0004 ).save(flush:true)
        
-        def ownerBJ0005 = new User(username: "BJ0005".toLowerCase(),  passwordHash: new Sha512Hash("BJ0005").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerBJ0005 = new Dealer(department:dept3510, serialNumber:'BJ0005', name:'北京联鸿电器有限公司', alias:'北京联鸿电器', shortcut:'LHDQ', salesMan:staff10210, head:'董江峰', contact:'董江峰', address1 : '北京市顺义区俸伯北区4号楼2门301', address2 : '董江峰 010-89476873  (到货顺义）', approvalStatus:'不准交易'     , pricingMode:'' , owner : ownerBJ0005 ).save(flush:true)
+        def ownerBJ0005 = new User(username: "BJ0005".toLowerCase(),  passwordHash: new Sha512Hash("BJ0005").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
+        def dealerBJ0005 = new Dealer(department:dept3510, serialNumber:'BJ0005', name:'北京联鸿电器有限公司', alias:'北京联鸿电器', shortcut:'LHDQ', salesMan:staff10210, head:'董江峰', contact:'董江峰', address1 : '北京市顺义区俸伯北区4号楼2门301', address2 : '董江峰 010-89476873  (到货顺义）', approvalStatus:'不准交易'     , pricingMode:'' , pricingStrategy:'142', owner : ownerBJ0005 ).save(flush:true)
        
         def ownerSH0013 = new User(username: "SH0013".toLowerCase(),  passwordHash: new Sha512Hash("SH0013").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerSH0013 = new Dealer(department:dept3310, serialNumber:'SH0013', name:'浙江海得电气实业有限公司', alias:'浙江海得电气', shortcut:null, salesMan:staff10854, head:'', contact:'', address1 : '桐乡经济开发区三期工业区人民南路东厂房2楼海得运营仓库  0573－80881368', address2 : '联系人:王宏燕 0573-80881367 13819412011', approvalStatus:'已核准', pricingMode:'' , owner : ownerSH0013 ).save(flush:true)
+        def dealerSH0013 = new Dealer(department:dept3310, serialNumber:'SH0013', name:'浙江海得电气实业有限公司', alias:'浙江海得电气', shortcut:null, salesMan:staff10854, head:'', contact:'', address1 : '桐乡经济开发区三期工业区人民南路东厂房2楼海得运营仓库  0573－80881368', address2 : '联系人:王宏燕 0573-80881367 13819412011', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'2451' , owner : ownerSH0013 ).save(flush:true)
        
         def ownerGD0020 = new User(username: "GD0020".toLowerCase(),  passwordHash: new Sha512Hash("GD0020").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
-        def dealerGD0020 = new Dealer(department:dept3220, serialNumber:'GD0020', name:'东莞市昊泰电器有限公司', alias:'东莞昊泰', shortcut:'HT', salesMan:staff13073, head:'', contact:'', address1 : '东莞市东城区竹主山鸿怡花园C座3D-307  0769-22667676', address2 : '张孝祥  0769-22667676   13018608615', approvalStatus:'已核准', pricingMode:'', owner : ownerGD0020  ).save(flush:true)
+        def dealerGD0020 = new Dealer(department:dept3220, serialNumber:'GD0020', name:'东莞市昊泰电器有限公司', alias:'东莞昊泰', shortcut:'HT', salesMan:staff13073, head:'', contact:'', address1 : '东莞市东城区竹主山鸿怡花园C座3D-307  0769-22667676', address2 : '张孝祥  0769-22667676   13018608615', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'2451', owner : ownerGD0020  ).save(flush:true)
 	
         /*init contract*/
         def recordType21 = new RecordType (serialNumber : '221', name : '行业特价申请', domain : 'contract',  isActive : true, description : '').save(flush:true)

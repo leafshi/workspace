@@ -7,6 +7,7 @@
 			<g:sortableColumn property="name" title="${message(code: 'dealer.name.label', default: 'Name')}" />
 			<g:sortableColumn property="alias" title="${message(code: 'dealer.alias.label', default: 'Alias')}" />
 			<g:sortableColumn property="shortcut" title="${message(code: 'dealer.shortcut.label', default: 'Shortcut')}" />
+			<g:sortableColumn property="pricingStrategy" title="${message(code: 'dealer.pricingStrategy.label', default: 'Pricing Strategy')}" />
 			<th><g:message code="dealer.salesMan.label" default="Sales Man" /></th>
 		</tr>
 	</thead>
@@ -18,6 +19,7 @@
 			<td>${fieldValue(bean: dealerInstance, field: "name")}</td>
 			<td>${fieldValue(bean: dealerInstance, field: "alias")}</td>
 			<td>${fieldValue(bean: dealerInstance, field: "shortcut")}</td>
+			<td>${fieldValue(bean: dealerInstance, field: "pricingStrategy")}</td>
 			<td>${fieldValue(bean: dealerInstance, field: "salesMan")}</td>
 		</tr>
 		</g:each>

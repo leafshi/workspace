@@ -37,6 +37,7 @@
 				<g:message code="salesOrderDetail.finalPrice.label"/> : 
 				<span name="salesOrderDetails[${i}].finalPrice_span">${formatNumber( number : salesOrderDetailInstance?.finalPrice, format:'###,##0.000000')}</span>
 			</li>
+		</ul>
     </td>
     
 	<!--discount-->

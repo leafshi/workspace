@@ -85,6 +85,13 @@
 	</li>
 	</g:if>
 			
+	<g:if test="${dealerInstance?.pricingStrategy}">
+	<li class="fieldcontain">
+		<span id="pricingStrategy-label" class="property-label"><g:message code="dealer.pricingStrategy.label" default="Pricing Strategy" /></span>
+		<span class="property-value" aria-labelledby="pricingStrategy-label"><g:fieldValue bean="${dealerInstance}" field="pricingStrategy"/></span>
+	</li>
+	</g:if>
+
 	<g:if test="${dealerInstance?.owner}">
 	<li class="fieldcontain">
 		<span id="owner-label" class="property-label"><g:message code="dealer.owner.label" default="Owner" /></span>
