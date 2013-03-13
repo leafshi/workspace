@@ -17,7 +17,7 @@
 			<td>${fieldValue(bean: recordTypeInstance, field: "domain")}</td>
 			<td>${fieldValue(bean: recordTypeInstance, field: "description")}</td>
 			<td><g:formatBoolean boolean="${recordTypeInstance.isActive}" /></td>
-			<td><g:formatDate date="${recordTypeInstance.dateCreated}" /></td>
+			<td><g:formatDate date="${recordTypeInstance.dateCreated}" formatName="custom.datetime.format"/></td>
 		</tr>
 	</g:each>
 	</tbody>
