@@ -7,6 +7,13 @@
 	</li>
 	</g:if>
 			
+	<g:if test="${groupInstance?.department}">
+	<li class="fieldcontain">
+		<span id="department-label" class="property-label"><g:message code="group.department.label" default="Department" /></span>
+		<span class="property-value" aria-labelledby="department-label"><g:fieldValue bean="${groupInstance}" field="department"/></span>
+	</li>
+	</g:if>
+
 	<g:if test="${groupInstance?.isActive}">
 	<li class="fieldcontain">
 		<span id="isActive-label" class="property-label"><g:message code="group.isActive.label" default="Is Active" /></span>
@@ -24,14 +31,14 @@
 	<g:if test="${groupInstance?.dateCreated}">
 	<li class="fieldcontain">
 		<span id="dateCreated-label" class="property-label"><g:message code="group.dateCreated.label" default="Date Created" /></span>
-		<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${groupInstance?.dateCreated}" formatName="custom.date.format"/></span>
+		<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${groupInstance?.dateCreated}" formatName="custom.datetime.format"/></span>
 	</li>
 	</g:if>
 
 	<g:if test="${groupInstance?.lastUpdated}">
 	<li class="fieldcontain">
 		<span id="lastUpdated-label" class="property-label"><g:message code="group.lastUpdated.label" default="Last Updated" /></span>
-		<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${groupInstance?.lastUpdated}" formatName="custom.date.format" /></span>
+		<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${groupInstance?.lastUpdated}" formatName="custom.datetime.format" /></span>
 	</li>
 	</g:if>
 

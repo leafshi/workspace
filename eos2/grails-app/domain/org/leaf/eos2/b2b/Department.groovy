@@ -31,7 +31,7 @@ class Department {
 
     def afterInsert (){
         Group.withNewSession{
-            new Group(name:name, isActive:true).save(flush:true)
+            new Group(name:name, department: this, isActive:true).save(flush:true)
         }
         if(type == 'B'){
             Group.withNewSession{
