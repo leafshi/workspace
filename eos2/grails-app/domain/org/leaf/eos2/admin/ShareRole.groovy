@@ -17,10 +17,10 @@ class ShareRole {
     static constraints = {
 		user (nullable:false)
 		group(nullable:false)
-		domain(nullable:false, unique : ['group', 'domain'])
-		readable(nullable:true)
-		editable(nullable:true)
-		deletable(nullable:true)
+		domain(nullable:false, blank:false, unique : ['group', 'user'])
+		readable(nullable:false)
+		editable(nullable:false)
+		deletable(nullable:false)
     }
 	
     String toString() {

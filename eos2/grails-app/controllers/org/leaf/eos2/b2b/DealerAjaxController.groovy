@@ -12,7 +12,7 @@ class DealerAjaxController {
             flash.defaultMessage = "Dealer not found with id ${params.id}"
             redirect(action: "list")
         }else {
-            dealerService.initShareRole(dealerInstance.owner, dealerInstance.department.id)
+            dealerService.initShareRole(dealerInstance)
             redirect(controller : 'dealer', action: "show", id: dealerInstance.id)
         }
     }
