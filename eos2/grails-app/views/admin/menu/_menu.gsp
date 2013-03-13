@@ -143,12 +143,12 @@
 				<li><a href="${createLink(controller: 'salesOrder220', action : 'create')}"><span><g:message code="menu.createSalesOrder220.label"/></span></a></li>
 				</shiro:hasPermission>
 				
-				<shiro:hasPermission permission="salesOrder222:create">
-				<li><a href="${createLink(controller: 'salesOrder222', action : 'create')}"><span><g:message code="menu.createSalesOrder222.label"/></span></a></li>
-				</shiro:hasPermission>
-
 				<shiro:hasPermission permission="salesOrder221:create">
 				<li><a href="${createLink(controller: 'salesOrder221', action : 'create')}"><span><g:message code="menu.createSalesOrder221.label"/></span></a></li>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="salesOrder222:create">
+				<li><a href="${createLink(controller: 'salesOrder222', action : 'create')}"><span><g:message code="menu.createSalesOrder222.label"/></span></a></li>
 				</shiro:hasPermission>
 				
 				<shiro:hasPermission permission="salesOrder224:create">

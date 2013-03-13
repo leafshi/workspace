@@ -25,6 +25,8 @@ import org.leaf.eos2.b2b.ProductCategory
 
 import org.leaf.eos2.ws.ObConfig
 
+import org.leaf.eos2.b2b.DealerProduct
+
 class BootStrap {
 
     def init = { servletContext ->
@@ -672,6 +674,14 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
             .addToBomDetails(new BomDetail(serialNumber: '0040', product:p3008804, dosage:1, quota : 1))
             .addToBomDetails(new BomDetail(serialNumber: '0050', product:p3008017, dosage:1, quota : 1))
             .save(flush:true)
+        //222 test product
+        def p3002061 = new Product(serialNumber:'3002061', name:'小型断路器 RoHS', standard:'NDM1-63 C6/1', unit : '台', price : 27.490000, isIncludeTax: true, isActive:true)
+            .addToCategories(new ProductCategory(category : category11_04))
+            .addToCategories(new ProductCategory(category : category12_001))
+            .addToCategories(new ProductCategory(category : category13_A01))
+            .addToCategories(new ProductCategory(category : category14_B01))
+            .addToCategories(new ProductCategory(category : category15_001))
+            .save(flush:true)
 			
 			
         def contractYX24Z201108030005 = new Contract(
@@ -769,6 +779,51 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
             , defaultSendErrorLimit : 1
             , defaultGetErrorLimit : 1
         ).save(flush:true)
+        
+        def dealerProduct_AH0008_3002061_1 = new DealerProduct(
+			  dealer : dealerAH0008
+			, product : p3002061
+			, unit1 : '台'
+			, unit2 : ''
+			, currency : 'RMB'
+			, price : new BigDecimal(9.050000)
+			, componentPricing : false
+			, approvalDate : new Date() - 365 * 2
+			, lastTransactionDate : null
+			, isIncludeTax : true
+			, firstTransactionDate : null
+			, commissionOfUnit	: new BigDecimal(0)
+			, commissionPercent : new BigDecimal(0)
+			, beginDate	: new Date() - 365 * 2
+			, closeDate : new Date() - 365 * 1 - 1
+			, description : null
+			, owner : ownerAH0008
+			, createdBy : user_admin
+			, lastModifiedBy : user_admin
+        
+        ).save(flush:true);
+        def dealerProduct_AH0008_3002061_2 = new DealerProduct(
+			  dealer : dealerAH0008
+			, product : p3002061
+			, unit1 : '台'
+			, unit2 : ''
+			, currency : 'RMB'
+			, price : new BigDecimal(20.050000)
+			, componentPricing : false
+			, approvalDate : new Date() - 365 * 1
+			, lastTransactionDate : null
+			, isIncludeTax : true
+			, firstTransactionDate : null
+			, commissionOfUnit	: new BigDecimal(0)
+			, commissionPercent : new BigDecimal(0)
+			, beginDate	: new Date() - 365 * 1
+			, closeDate : null
+			, description : null
+			, owner : ownerAH0008
+			, createdBy : user_admin
+			, lastModifiedBy : user_admin
+        
+        ).save(flush:true);
 	}
     def destroy = {
     }

@@ -267,7 +267,7 @@
 					<g:textField name="searchProductNumber" style="width:100px;"/>
 				</td>
 				<td>
-					<g:hiddenField name="searchProductId"/>	
+					<g:hiddenField name="searchProductId"/>
 					<span id="searchProductName"></span>
 				</td>
 				<td>

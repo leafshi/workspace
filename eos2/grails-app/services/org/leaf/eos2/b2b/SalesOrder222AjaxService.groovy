@@ -54,7 +54,33 @@ class SalesOrder222AjaxService {
     //get product list
     @Transactional(readOnly = true)
     def searchProduct(term) {
-        return Product.withCriteria{
+    
+    	def dealerProductList = DealerProduct.withCriteria{
+        
+        	createAlias 'product', 'p'
+        	
+            projections {
+                groupProperty('p.id')
+            }
+            
+            join "product"
+            
+            or{
+                ilike("p.serialNumber", term + "%")
+                ilike("p.standard", term + "%")
+            }
+            and{
+                not{like("p.serialNumber", '1%')}
+                not{like("p.serialNumber", '2%')}
+                not{like("p.serialNumber", '4%')}
+            }
+            eq("p.isActive", true)
+            order("p.serialNumber", "asc")
+            maxResults(10)
+        }
+        
+        def productList = Product.withCriteria{
+        
             projections {
                 property('id')
                 property('name')
@@ -62,20 +88,19 @@ class SalesOrder222AjaxService {
                 property('standard')
                 property('price')
             }
-            or{
-                ilike("serialNumber", term + "%")
-                ilike("standard", term + "%")
-            }
-            and{
-                not{like("serialNumber", '1%')}
-                not{like("serialNumber", '2%')}
-                not{like("serialNumber", '4%')}
-            }
-            eq("isActive", true)
-            maxResults(10)
+            
             order("serialNumber", "asc")
+            inList("id", dealerProductList)
+            maxResults(10)
         }
-
+        log.info("productList=${productList}")
+        productList.each{ productInstance -> 
+        	log.info("productInstance=${productInstance}")
+        	productInstance[4] = this.productPrice(productInstance[0])
+        	log.info("productInstance=${productInstance}")
+        }
+        log.info("productList=${productList}")
+		return productList
     }
     
     //get product category, recordtype serial number is 2
@@ -101,11 +126,28 @@ class SalesOrder222AjaxService {
     //get product price
     @Transactional(readOnly = true)
     def productPrice (productId){
-        def price = Product.withCriteria(uniqueResult:true){
-            projections{
-                property("price")
+    
+        def price = DealerProduct.withCriteria(uniqueResult:true){
+        
+        	createAlias 'product', 'p'
+        	
+            projections {
+                property('price')
             }
-            eq("id", productId)
+            join "product"
+			or{
+				and{
+					le("beginDate", new Date())
+					ge("closeDate", new Date())
+				}
+				and{
+					le("beginDate", new Date())
+					isNull("closeDate")
+				}
+			}
+            
+            eq("p.id", productId)
+            order("beginDate", "desc")
             maxResults(1)
         }
         return price ?: 0
