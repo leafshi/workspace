@@ -127,6 +127,8 @@
 	</label>
 	<g:select name="owner.id" from="${org.leaf.eos2.shiro.User.list()}" optionKey="id" value="${dealerProductInstance?.owner?.id}"  />
 </div>
+<g:hiddenField name="createdBy.id" value="${dealerProductInstance?.createdBy?.id}" />
+<g:hiddenField name="lastModifiedBy.id" value="${dealerProductInstance?.lastModifiedBy?.id}" />
 
 <script type="text/javascript">
 $(document).ready(function() {

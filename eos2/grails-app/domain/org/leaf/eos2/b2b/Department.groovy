@@ -7,14 +7,14 @@ class Department {
 
     def departmentService
     
-    String serialNumber//部门编号
-    String name//名称
-    String type//类型：B办事处，R：大区，C：商务部
-    String description//备注
-    Boolean isActive//有效码
-    Department parentDept//上级部门
-    Date dateCreated
-    Date lastUpdated
+    String serialNumber			//部门编号
+    String name					//名称
+    String type					//类型：B办事处，R：大区，C：商务部
+    String description			//备注
+    Boolean isActive			//有效码
+    Department parentDept		//上级部门
+    Date dateCreated			//创建日期
+    Date lastUpdated			//修改日期
     
     static constraints = {
         serialNumber(maxSize:6, unique:true)
@@ -33,9 +33,16 @@ class Department {
         Group.withNewSession{
             new Group(name:name, department: this, isActive:true).save(flush:true)
         }
+        //如果部门是办事处，初始化工作流
         if(type == 'B'){
             Group.withNewSession{
                 departmentService.initWorkflow(this)
+            }
+        }
+        //如果部门是商务部，初始化222工作流，因为有些经销商是OEM，他们的直属部门是商务部
+        if(type == 'C'){
+            Group.withNewSession{
+                departmentService.initWorkflow2(this)
             }
         }
     }

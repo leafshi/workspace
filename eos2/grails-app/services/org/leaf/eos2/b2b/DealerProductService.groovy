@@ -145,5 +145,9 @@ class DealerProductService {
         }
         return dealerProductInstance
     }
+    def delete2(id) {
+        def dealerProductInstance = DealerProduct.get(id)
+        	dealerProductInstance.delete()
+    }
 }
 

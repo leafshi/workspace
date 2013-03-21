@@ -15,7 +15,7 @@
             <div class="list">
                 <g:render template="/b2b/dealerProduct/list" />
             </div>
-            <div class="paginateButtons">
+            <div class="pagination">
                 <g:paginate total="${dealerProductInstanceTotal}" />
             </div>
         </div>

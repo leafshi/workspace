@@ -75,9 +75,11 @@ class SalesOrder {
     def beforeUpdate(){
     	def current_status = this.status
     	def before_status = this.getPersistentValue('status')
+    	//提交到办事处时，更新交期
     	if(current_status == '待审批（办事处）' && (before_status == '草稿' || before_status == '未通过') ){
     		salesOrderTriggerService.refreshDeliveryLimitation(this);
     	}
+    	//当需要商务部审批时，调用接口将订单传到ERP
         else if(current_status == '待审批（商务部）' && before_status == '待审批（办事处）' ){
         	salesOrderTriggerService.createOutBoundMessage(this.id, this.owner.id);
         }

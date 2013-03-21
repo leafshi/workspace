@@ -94,6 +94,7 @@ def roleOfDepartmentCommercial = new Role(name:"Role - Department Of Commercial"
 	.addToPermissions("salesOrder220:show")
 	.addToPermissions("salesOrder221:show")
 	.addToPermissions("salesOrder224:show")
+	.addToPermissions("salesOrder222:show")
 	
 	.addToPermissions("workflowApproval:check")
 	.addToPermissions("workflowApproval:approval")
@@ -109,6 +110,10 @@ def roleOfDepartmentCommercial = new Role(name:"Role - Department Of Commercial"
 	.addToPermissions("salesOrder224Ajax:getDealerDepartment")
 	.addToPermissions("salesOrder224Ajax:workflowHistory")
 	.addToPermissions("salesOrder224Ajax:outBoundMessage")
+	
+	.addToPermissions("salesOrder222Ajax:getDealerDepartment")
+	.addToPermissions("salesOrder222Ajax:workflowHistory")
+	.addToPermissions("salesOrder222Ajax:outBoundMessage")
 	
 	.addToPermissions("report:run")
 	.addToPermissions("report:view")
@@ -312,6 +317,7 @@ def user3510_1 = new User(username: "B3510",  passwordHash: new Sha512Hash("B351
 def staff10210 = new Staff(serialNumber : '10210', name :'李晓辉', department : dept3830).save(flush:true)
 def staff10854 = new Staff(serialNumber : '10854', name :'王波', department : dept3310).save(flush:true)
 def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : dept3210).save(flush:true)
+def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dept3002).save(flush:true)
 
    
         def role_dealer = new Role(name:"Dealer Role", isAdmin : false)
@@ -516,6 +522,10 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
        
         def ownerGD0020 = new User(username: "GD0020".toLowerCase(),  passwordHash: new Sha512Hash("GD0020").toHex(), profile:profile_dealer, role : role_dealer).save(flush:true)
         def dealerGD0020 = new Dealer(department:dept3220, serialNumber:'GD0020', name:'东莞市昊泰电器有限公司', alias:'东莞昊泰', shortcut:'HT', salesMan:staff13073, head:'', contact:'', address1 : '东莞市东城区竹主山鸿怡花园C座3D-307  0769-22667676', address2 : '张孝祥  0769-22667676   13018608615', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'2451', owner : ownerGD0020  ).save(flush:true)
+		
+		//OEM
+        def ownerOEM001 = new User(username: "OEM001".toLowerCase(),  passwordHash: new Sha512Hash("OEM001").toHex(), profile:profile_department, role : role_dealer_222).save(flush:true)
+        def dealerOEM001 = new Dealer(department:dept3002, serialNumber:'OEM001', name:'OEM', alias:'OEM', shortcut:'OEM001', salesMan:staffOEM01, head:'', contact:'', address1 : '上海市清东新区衡安路668号良信电器', address2 : 'leaf.shi Tel:13818310340', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'1452', owner : ownerOEM001  ).save(flush:true)
 	
         /*init contract*/
         def recordType21 = new RecordType (serialNumber : '221', name : '行业特价申请', domain : 'contract',  isActive : true, description : '').save(flush:true)
@@ -674,7 +684,7 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
             .addToBomDetails(new BomDetail(serialNumber: '0040', product:p3008804, dosage:1, quota : 1))
             .addToBomDetails(new BomDetail(serialNumber: '0050', product:p3008017, dosage:1, quota : 1))
             .save(flush:true)
-        //222 test product
+        //222 测试产品
         def p3002061 = new Product(serialNumber:'3002061', name:'小型断路器 RoHS', standard:'NDM1-63 C6/1', unit : '台', price : 27.490000, isIncludeTax: true, isActive:true)
             .addToCategories(new ProductCategory(category : category11_04))
             .addToCategories(new ProductCategory(category : category12_001))
@@ -820,6 +830,29 @@ def staff13073 = new Staff(serialNumber : '13073', name :'刘妙', department : 
 			, closeDate : null
 			, description : null
 			, owner : ownerAH0008
+			, createdBy : user_admin
+			, lastModifiedBy : user_admin
+        
+        ).save(flush:true);
+        
+        def dealerProduct_OEM001_3002061_2 = new DealerProduct(
+			  dealer : dealerOEM001
+			, product : p3002061
+			, unit1 : '台'
+			, unit2 : ''
+			, currency : 'RMB'
+			, price : new BigDecimal(20.050000)
+			, componentPricing : false
+			, approvalDate : new Date() - 365 * 1
+			, lastTransactionDate : null
+			, isIncludeTax : true
+			, firstTransactionDate : null
+			, commissionOfUnit	: new BigDecimal(0)
+			, commissionPercent : new BigDecimal(0)
+			, beginDate	: new Date() - 365 * 1
+			, closeDate : null
+			, description : null
+			, owner : ownerOEM001
 			, createdBy : user_admin
 			, lastModifiedBy : user_admin
         

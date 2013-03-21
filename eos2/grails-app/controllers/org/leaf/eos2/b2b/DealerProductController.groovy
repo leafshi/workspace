@@ -26,7 +26,7 @@ class DealerProductController {
             flash.message = "dealerProduct.created"
             flash.args = [dealerProductInstance.id]
             flash.defaultMessage = "DealerProduct ${dealerProductInstance.id} created"
-            redirect(action: "/b2b/dealerProduct/show", id: dealerProductInstance.id)
+            redirect(action: "show", id: dealerProductInstance.id)
         }
         else {
             render(view: "/b2b/dealerProduct/create", model: [dealerProductInstance: dealerProductInstance])
@@ -94,7 +94,7 @@ class DealerProductController {
         def dealerProductInstance = dealerProductService.delete(params.id)
         if (dealerProductInstance) {
             try {
-                dealerProductInstance.delete()
+                dealerProductService.delete2(params.id)
                 flash.message = "dealerProduct.deleted"
                 flash.args = [params.id]
                 flash.defaultMessage = "DealerProduct ${params.id} deleted"

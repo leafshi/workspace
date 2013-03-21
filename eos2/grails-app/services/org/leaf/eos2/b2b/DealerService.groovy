@@ -11,7 +11,7 @@ class DealerService {
     static transactional = true 
 
     def initShareRole(dealerInstance){
-		log.info("init share role")
+		log.info("init share role for dealer : ${dealerInstance}")
 		//Dealer.withTransaction{ status ->
 			def currentDeptInstance = Department.get((dealerInstance?.department?.id)?:-1L)
 			def group_id = this.group_id((currentDeptInstance?.id)?:-1L)
@@ -51,7 +51,7 @@ class DealerService {
     
     
     def share(owner_id, group_id, object_name){
-    	log.info("owner[${owner_id}] share object [${object_name}] to group [${group_id}]")
+    	//log.info("owner[${owner_id}] share object [${object_name}] to group [${group_id}]")
     	
 		def shareRoleInstance = new ShareRole(domain : object_name, readable :true, editable:false, deletable:false)
 		
@@ -59,7 +59,7 @@ class DealerService {
 		def mymap = ['user.id' : owner_id, 'group.id' : group_id]
 		def myargs =  [shareRoleInstance, mymap]
 		mybind.invoke(shareRoleInstance, 'bind', (Object[]) myargs)
-			shareRoleInstance.save(flush:true)
+		shareRoleInstance.save(flush:true)
     }
     
     

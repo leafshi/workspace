@@ -60,7 +60,7 @@ class SalesOrder222AjaxService {
         	createAlias 'product', 'p'
         	
             projections {
-                groupProperty('p.id')
+                groupProperty('p.serialNumber')
             }
             
             join "product"
@@ -78,29 +78,33 @@ class SalesOrder222AjaxService {
             order("p.serialNumber", "asc")
             maxResults(10)
         }
-        
-        def productList = Product.withCriteria{
-        
-            projections {
-                property('id')
-                property('name')
-                property('serialNumber')
-                property('standard')
-                property('price')
-            }
-            
-            order("serialNumber", "asc")
-            inList("id", dealerProductList)
-            maxResults(10)
+        log.info("dealerProductList=${dealerProductList}")
+        if(dealerProductList.size() > 0){
+			def productList = Product.withCriteria{
+		
+				projections {
+					property('id')
+					property('name')
+					property('serialNumber')
+					property('standard')
+					property('price')
+				}
+				inList("serialNumber", dealerProductList)
+				order("serialNumber", "asc")
+				maxResults(10)
+			}
+			log.info("productList=${productList}")
+			productList.each{ productInstance -> 
+				log.info("productInstance=${productInstance}")
+				productInstance[4] = this.productPrice(productInstance[0])
+				log.info("productInstance=${productInstance}")
+			}
+			log.info("productList=${productList}")
+			return productList
+        }else{
+        	return [];
         }
-        log.info("productList=${productList}")
-        productList.each{ productInstance -> 
-        	log.info("productInstance=${productInstance}")
-        	productInstance[4] = this.productPrice(productInstance[0])
-        	log.info("productInstance=${productInstance}")
-        }
-        log.info("productList=${productList}")
-		return productList
+		
     }
     
     //get product category, recordtype serial number is 2
@@ -147,7 +151,7 @@ class SalesOrder222AjaxService {
 			}
             
             eq("p.id", productId)
-            order("beginDate", "desc")
+            order("approvalDate", "desc")
             maxResults(1)
         }
         return price ?: 0
