@@ -13,6 +13,7 @@ class SalesOrder220Service {
 	static transactional = false
    
    	def utilityService
+   	def salesOrderCalculaterService
 
     //record type
     @Transactional(readOnly = true)
@@ -76,8 +77,10 @@ class SalesOrder220Service {
 		def success = false
 		def error_times = 0
 		def error_times_limit = 3
+		salesOrderCalculaterService.calculate(salesOrderInstance);
 		while (error_times < error_times_limit){
 			salesOrderInstance.serialNumber = "EB220-" + new Date().format('yyyyMMdd') + '-' + this.lastSerialNumber()
+			
 			if(salesOrderInstance.validate() && salesOrderInstance.save(flush:true)){
 				success = true
 				break;
@@ -138,6 +141,8 @@ class SalesOrder220Service {
 			salesOrderInstance.save(flush: true)  
 
 			salesOrderInstance.properties = params
+			
+			salesOrderCalculaterService.calculate(salesOrderInstance);
 	
 			//get user
 			def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
