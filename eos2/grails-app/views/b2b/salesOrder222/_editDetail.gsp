@@ -59,6 +59,9 @@
        			<span name="salesOrderDetails[${i}].deliveryCycle">
        				${salesOrderDetailInstance?.deliveryCycle}
        			</span>
+       			<span name="salesOrderDetails[${i}].firstDeliveryDate" style="display:none;">
+       				${include(controller : 'salesOrder222Ajax', action : 'firstDeliveryDate', params : [productId : salesOrderDetailInstance?.product?.id] )}
+       			</span>
 			</li>
 		</ul>
 	</td>

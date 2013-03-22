@@ -6,6 +6,8 @@ import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 class SalesOrder224AjaxController {
 
 	def salesOrder224AjaxService
+	
+	def salesOrderCalculaterService
 
 	//添加单身
 	def addDetail = {
@@ -32,13 +34,7 @@ class SalesOrder224AjaxController {
 			salesOrderDetailInstance.openDetail = salesOrder224AjaxService.productHasBom(productId)
 						
 			salesOrderDetailInstance.deliveryCycle = salesOrder224AjaxService.productDeliveryCycle(productId)?:0
-			salesOrderDetailInstance.deliveryLimitation = new Date().plus ( salesOrder224AjaxService.productDeliveryCycle(params.int('productId').toLong()) )
-			//如果不是工作日，延时到下个周一
-			if(salesOrderDetailInstance.deliveryLimitation.day == 0){
-				salesOrderDetailInstance.deliveryLimitation = salesOrderDetailInstance.deliveryLimitation.next()
-			}else if(salesOrderDetailInstance.deliveryLimitation.day == 6){
-				salesOrderDetailInstance.deliveryLimitation = salesOrderDetailInstance.deliveryLimitation + 2
-			}
+			salesOrderDetailInstance.deliveryLimitation = salesOrderCalculaterService.firstDeliveryDate(salesOrderDetailInstance.deliveryCycle)
 			
 			salesOrderDetailInstance.quantity = 0
 			salesOrderDetailInstance.amount = 0
@@ -199,6 +195,12 @@ class SalesOrder224AjaxController {
     def outBoundMessage = {
 		def outBoundMessageInstanceList = salesOrder224AjaxService.outBoundMessage(params.int('salesOrderId').toLong())
         render view : '/b2b/salesOrder224/outBoundMessage', model : [outBoundMessageInstanceList : outBoundMessageInstanceList]
+    }
+    
+    def firstDeliveryDate = {
+    	def deliveryCycle = salesOrder224AjaxService.productDeliveryCycle(params.int('productId').toLong())
+    	def firstDeliveryDate = salesOrderCalculaterService.firstDeliveryDate(deliveryCycle)
+    	render "${firstDeliveryDate.format('yyyy-MM-dd')}"
     }
 
 }

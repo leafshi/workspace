@@ -240,5 +240,49 @@ class SalesOrderCalculaterService {
 		}		
     	
     }
+    
+    //计算最小交货日期
+    def firstDeliveryDate(deliveryCycle){
+    	
+    	def firstSaturday, firstWorkDay, today = new Date(), firstDeliveryDate;
+    	def holidays = 0;
+    
+    	//计算第一天工作日和第一个星期六
+    	switch(today.day){
+    		case 0:
+    			firstWorkDay = today.plus(1);
+    			firstSaturday = today.plus(6);
+    			break;
+    		case 1:
+    		case 2:
+    		case 3:
+    		case 4:
+    		case 5:
+    			firstWorkDay = today;
+    			firstSaturday = today.plus(6 - today.day);
+    			break;
+    		case 6:
+    			firstWorkDay = today.plus(2);
+    			firstSaturday = today.plus(7);
+    			break;
+    	}
+    	//最小交货日期=第一个工作日+交期
+    	firstDeliveryDate = firstWorkDay.plus(deliveryCycle);
+    	
+    	//当最小交货日期 大于 第一个星期六，加两天
+    	while(firstDeliveryDate > firstSaturday){
+    		firstDeliveryDate = firstDeliveryDate.plus(2)
+    		firstSaturday = firstSaturday.plus(7)
+    	}
+    	//遇到星期六，星期天，顺延到下个星期一
+		if(firstDeliveryDate.day == 0){//如果是星期天 + 1天
+			firstDeliveryDate = firstDeliveryDate.next()
+		}else if(firstDeliveryDate.day == 6){//如果是星期六 + 2天
+			firstDeliveryDate = firstDeliveryDate.plus(2)
+		}
+		
+    	return firstDeliveryDate
+    	
+    }
 
 }
