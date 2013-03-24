@@ -14,7 +14,8 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:render template="/shiro/user/show" />	
+			<g:render template="/shiro/user/show" />
+			<g:render template="/shiro/user/shareRole" />	
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${userInstance?.id}" />

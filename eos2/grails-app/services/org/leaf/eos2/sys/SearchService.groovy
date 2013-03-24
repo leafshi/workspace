@@ -78,4 +78,15 @@ class SearchService {
             order("serialNumber", "asc")
         }
     } 
+    
+    //搜索用户
+    @Transactional(readOnly = true)
+    def searchUser(term) {
+        return User.withCriteria{
+			ilike("username", term + "%")
+            maxResults(30)
+            order("username", "asc")
+        }
+    } 
+    
 }

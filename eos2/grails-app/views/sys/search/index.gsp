@@ -48,9 +48,22 @@
 		<div>
 			<br/>
 			<div id="radio">
+				<shiro:hasPermission permission="search:searchProduct">
 				<input type="radio" id="searchProduct" name="radio" checked="checked"/><label for="searchProduct"><g:message code="product.label" /></label>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="search:searchContract">
 				<input type="radio" id="searchContract" name="radio"  /><label for="searchContract"><g:message code="contract.label" /></label>
+				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="search:searchSalesOrder">
 				<input type="radio" id="searchSalesOrder" name="radio" /><label for="searchSalesOrder"><g:message code="salesOrder.label" /></label>
+				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="search:searchUser">
+				<input type="radio" id="searchUser" name="radio" /><label for="searchUser"><g:message code="user.label" /></label>
+				</shiro:hasPermission>
+			
 			</div>
 			<br/>
 			<div>
