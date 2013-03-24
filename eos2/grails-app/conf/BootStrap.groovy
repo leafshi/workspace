@@ -7,6 +7,7 @@ import org.leaf.eos2.shiro.Role
 
 import org.leaf.eos2.admin.Profile
 import org.leaf.eos2.admin.RecordType
+import org.leaf.eos2.admin.Help
 
 import org.leaf.eos2.b2b.Department
 import org.leaf.eos2.b2b.Staff
@@ -857,6 +858,22 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
 			, lastModifiedBy : user_admin
         
         ).save(flush:true);
+        
+    	def help_initShareRole = new Help(
+    		  title:'如何重置共享规则'
+    		, content : '''
+当经销商更换办事处时，共享规则需要相应的改变，以前是在数据库里面写SQL脚本来判断，然后用SQL脚本来更新。
+现在只要在经销商显示页面点击“Init Share Role”，就可以了。
+它的步骤时删除经销当前的共享规则，然后共享给所属办事处以及办事处的所有上级部门。
+			'''
+    	).save(flush:true);
+    	
+    	def help_viewDealerShareRole = new Help(
+    		  title:'如何查看共享规则'
+    		, content : '''
+在经销商所有人【即：用户】显示页面，可以查看用户共享规则的详细内容。
+			'''
+    	).save(flush:true);
 	}
     def destroy = {
     }

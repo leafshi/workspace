@@ -65,6 +65,11 @@
 				<li><a href="#"><span>---</span></a></li>
 				<li><a href="${createLink(controller: 'loginHistory', action : 'index')}"><span><g:message code="loginHistory.label" default="Login History"/></span></a></li>
 				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="help:index">
+				<li><a href="#"><span>---</span></a></li>
+				<li><a href="${createLink(controller: 'help', action : 'index')}"><span><g:message code="help.label" default="Help"/></span></a></li>
+				</shiro:hasPermission>
 
 			</ul>
         </li>
