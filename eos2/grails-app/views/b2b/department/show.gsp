@@ -15,6 +15,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<g:render template="/b2b/department/show" />
+			<g:render template="/b2b/department/workflow" />
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${departmentInstance?.id}" />
