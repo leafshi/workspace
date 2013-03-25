@@ -842,7 +842,7 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
 			, unit1 : '台'
 			, unit2 : ''
 			, currency : 'RMB'
-			, price : new BigDecimal(20.050000)
+			, price : new BigDecimal(10.050000)
 			, componentPricing : false
 			, approvalDate : new Date() - 365 * 1
 			, lastTransactionDate : null
