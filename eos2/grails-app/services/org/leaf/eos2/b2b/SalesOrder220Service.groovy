@@ -136,23 +136,27 @@ class SalesOrder220Service {
         def success = false
 
 		SalesOrder.withTransaction{ status ->
-			//delete details
-			SalesOrderDetail.findAllBySalesOrder(salesOrderInstance).each { it.delete(flush:true)}
-			salesOrderInstance.save(flush: true)  
+			try{
+				//delete details
+				SalesOrderDetail.findAllBySalesOrder(salesOrderInstance).each { it.delete(flush:true)}
+				salesOrderInstance.save(flush: true)  
 
-			salesOrderInstance.properties = params
-			
-			salesOrderCalculaterService.calculate(salesOrderInstance);
+				salesOrderInstance.properties = params
+				//生新计算金额
+				salesOrderCalculaterService.calculate(salesOrderInstance);
 	
-			//get user
-			def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
-			//set instance params
-			salesOrderInstance.lastModifiedBy = currentUser
-			salesOrderInstance.lastUpdated = new java.util.Date()
-			//save
-			if(salesOrderInstance.validate() && salesOrderInstance.save(flush:true)){
+				//get user
+				def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
+				//set instance params
+				salesOrderInstance.lastModifiedBy = currentUser
+				salesOrderInstance.lastUpdated = new java.util.Date()
+				//save
+				salesOrderInstance.validate() 
+				salesOrderInstance.save(flush:true)
 				success = true
-			}else{
+			}catch(e){
+				success = false
+				log.error("update salesorder 220 for instance ${salesOrderInstance} error : ${e}")
 				status.setRollbackOnly()
 			}
 		}
