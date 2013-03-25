@@ -22,6 +22,7 @@ class SalesOrder220Controller {
 
     def save = {
         def salesOrderInstance = new SalesOrder(params)
+        
         if (salesOrder220Service.insert(salesOrderInstance)) {
             flash.message = "salesOrder.created"
             flash.args = [salesOrderInstance.id]
