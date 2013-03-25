@@ -111,6 +111,11 @@
 				<shiro:hasPermission permission="dealer:index">
 				<li><a href="${createLink(controller: 'dealer', action : 'index')}"><span><g:message code="dealer.label" default="Dealer"/></span></a></li>
 				</shiro:hasPermission>
+
+				<shiro:hasPermission permission="dealerProduct:index">
+				<li><a href="${createLink(controller: 'dealerProduct', action : 'index')}"><span><g:message code="dealerProduct.label" default="Dealer Product"/></span></a></li>
+				</shiro:hasPermission>
+
 				
 				<shiro:hasPermission permission="staff:index">
 				<li><a href="${createLink(controller: 'staff', action : 'index')}"><span><g:message code="staff.label" default="Staff"/></span></a></li>
