@@ -51,6 +51,11 @@
 				<li><a href="${createLink(controller: 'shareRole', action : 'index')}"><span><g:message code="shareRole.label" default="ShareRole"/></span></a></li>
 				</shiro:hasPermission>
 				
+				<shiro:hasPermission permission="workflow:index">
+				<li><a href="${createLink(controller: 'workflow', action : 'index')}"><span><g:message code="workflow.label" default="Workflow"/></span></a></li>
+				</shiro:hasPermission>
+
+				
 				<shiro:hasPermission permission="obConfig:index">
 				<li><a href="#"><span>---</span></a></li>
 				<li><a href="${createLink(controller: 'obConfig', action : 'index')}"><span><g:message code="obConfig.label" default="Outbound Config"/></span></a></li>
@@ -93,8 +98,6 @@
 				<shiro:hasPermission permission="bom:index">
 				<li><a href="${createLink(controller: 'bom', action : 'index')}"><span><g:message code="bom.label" default="BOM"/></span></a></li>
 				</shiro:hasPermission>
-				
-				
 
 				<shiro:hasPermission permission="industry:index">
 				<li><a href="#"><span>---</span></a></li>
@@ -121,16 +124,7 @@
 			</ul>
         </li>
         </shiro:hasPermission>
-        <!--END b2b-->
-        
-        <!--BEGIN workflow-->
-        <shiro:hasPermission permission="menu:workflow">
-		<shiro:hasPermission permission="workflow:index">
-		<li><a href="${createLink(controller: 'workflow', action : 'index')}"><span><g:message code="workflow.label" default="Workflow"/></span></a></li>
-		</shiro:hasPermission>
-		</shiro:hasPermission>
-		<!--end workflow-->		
-		
+        <!--END b2b-->		
 		
         <!--BEGIN MY ORDER-->
         <shiro:hasPermission permission="menu:mySalesOrder">
