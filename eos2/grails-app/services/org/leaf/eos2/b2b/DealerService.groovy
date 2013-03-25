@@ -8,42 +8,43 @@ import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 
 class DealerService {
 
-    static transactional = true 
+    static transactional = false 
 
     def initShareRole(dealerInstance){
 		log.info("init share role for dealer : ${dealerInstance}")
-		def success = false
 		Dealer.withTransaction{ status ->
-			//删除所有共享规则
-			ShareRole.findAllByUser(dealerInstance.owner).each{shareRoleInstance ->
-				shareRoleInstance.delete(flush:true);
-			}
-			//找到经销商所属部门
-			def currentDeptInstance = Department.get((dealerInstance?.department?.id)?:-1L)
-			//找到办事处用户组
-			def group_id = this.group_id((currentDeptInstance?.id)?:-1L)
-			//共享给所有人所属部门的组
-			if(group_id > 0){
-				success = share(dealerInstance.owner.id, group_id, 'dealer')
-				success = share(dealerInstance.owner.id, group_id, 'salesOrder')
-				success = share(dealerInstance.owner.id, group_id, 'contract')
-				success = share(dealerInstance.owner.id, group_id, 'outBound')
-				success = share(dealerInstance.owner.id, group_id, 'creditControl')
-			}
-			//共享给上级部门
-			def parentDept = Department.get((currentDeptInstance?.parentDept?.id)?:-1L)
-			while(parentDept){
-				def parent_group_id = this.group_id( parentDept.id)
-				if(parent_group_id > 0){
-					success = share(dealerInstance.owner.id, parent_group_id, 'dealer')
-					success = share(dealerInstance.owner.id, parent_group_id, 'salesOrder')
-					success = share(dealerInstance.owner.id, parent_group_id, 'contract')
-					success = share(dealerInstance.owner.id, parent_group_id, 'outBound')
-					success = share(dealerInstance.owner.id, parent_group_id, 'creditControl')
+			try{
+				//删除所有共享规则
+				ShareRole.findAllByUser(dealerInstance.owner).each{shareRoleInstance ->
+					shareRoleInstance.delete(flush:true);
 				}
-				parentDept = Department.get((parentDept?.parentDept?.id)?:-1L)
-			}
-			if(!success){
+				//找到经销商所属部门
+				def currentDeptInstance = Department.get((dealerInstance?.department?.id)?:-1L)
+				//找到办事处用户组
+				def group_id = this.group_id((currentDeptInstance?.id)?:-1L)
+				//共享给所有人所属部门的组
+				if(group_id > 0){
+					share(dealerInstance.owner.id, group_id, 'dealer')
+					share(dealerInstance.owner.id, group_id, 'salesOrder')
+					share(dealerInstance.owner.id, group_id, 'contract')
+					share(dealerInstance.owner.id, group_id, 'outBound')
+					share(dealerInstance.owner.id, group_id, 'creditControl')
+				}
+				//共享给上级部门
+				def parentDept = Department.get((currentDeptInstance?.parentDept?.id)?:-1L)
+				while(parentDept){
+					def parent_group_id = this.group_id( parentDept.id)
+					if(parent_group_id > 0){
+						share(dealerInstance.owner.id, parent_group_id, 'dealer')
+						share(dealerInstance.owner.id, parent_group_id, 'salesOrder')
+						share(dealerInstance.owner.id, parent_group_id, 'contract')
+						share(dealerInstance.owner.id, parent_group_id, 'outBound')
+						share(dealerInstance.owner.id, parent_group_id, 'creditControl')
+					}
+					parentDept = Department.get((parentDept?.parentDept?.id)?:-1L)
+				}
+			}catch(e){
+				log.error("initShareRole for dealer ${dealerInstance} error : ${e}")
 				status.setRollbackOnly()
 			}
 		}
@@ -69,7 +70,8 @@ class DealerService {
 		def mymap = ['user.id' : owner_id, 'group.id' : group_id]
 		def myargs =  [shareRoleInstance, mymap]
 		mybind.invoke(shareRoleInstance, 'bind', (Object[]) myargs)
-		return shareRoleInstance.validate() && shareRoleInstance.save(flush:true)
+		shareRoleInstance.validate()
+		shareRoleInstance.save(flush:true)
     }
     
     
