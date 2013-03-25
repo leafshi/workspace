@@ -2,6 +2,8 @@ package org.leaf.eos2.b2b
 
 class DepartmentController {
 
+	def departmentService
+
     def index = { redirect(action: "list", params: params) }
 
     // the delete, save and update actions only accept POST requests
@@ -91,19 +93,24 @@ class DepartmentController {
     def delete = {
         def departmentInstance = Department.get(params.id)
         if (departmentInstance) {
-            try {
-                departmentInstance.delete()
-                flash.message = "department.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "Department ${params.id} deleted"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "department.not.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "Department ${params.id} could not be deleted"
-                redirect(action: "show", id: params.id)
-            }
+			if(departmentService.delete(departmentInstance)){
+				flash.message = "department.deleted"
+				flash.args = [params.id]
+				flash.defaultMessage = "Department ${params.id} deleted"
+				redirect(action: "list")
+			}
+			else {
+				/*
+				departmentInstance.errors.allErrors.each {
+        			log.error("${it}")
+        			log.error(departmentInstance.errors.getFieldError("id"))
+    			}
+    			*/
+				flash.message = "department.delete.hasDealer"
+				flash.args = [params.id]
+				flash.defaultMessage = "Department ${params.id} has dealer"
+				redirect(action: "show", id : params.id)
+			}
         }
         else {
             flash.message = "department.not.found"
