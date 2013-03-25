@@ -1,4 +1,8 @@
 <%@ page import="org.leaf.eos2.admin.ShareRole" %>
+<g:set var="shareRoleInstanceList" value="${ShareRole.findAllByUser(userInstance)}" />
+
+<g:if test="${shareRoleInstanceList.size() > 0}" >
+
 <table>
 	<caption><g:message code="shareRole.label" /></caption>
 	<thead>
@@ -11,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<g:each in="${ShareRole.findAllByUser(userInstance)}" status="i" var="shareRoleInstance">
+		<g:each in="${shareRoleInstanceList}" status="i" var="shareRoleInstance">
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 			<td>${fieldValue(bean: shareRoleInstance, field: "group")}</td>
 			<td>${fieldValue(bean: shareRoleInstance, field: "domain")}</td>
@@ -22,3 +26,5 @@
 		</g:each>
 	</tbody>
 </table>
+
+</g:if>
