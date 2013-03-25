@@ -10,6 +10,8 @@ import org.hibernate.FetchMode as FM
 class SalesOrder222AjaxService {
 
 	static transactional = true
+	
+	def utilityService
 
     //get dealer department
     @Transactional(readOnly = true)
@@ -55,6 +57,20 @@ class SalesOrder222AjaxService {
     @Transactional(readOnly = true)
     def searchProduct(term) {
     
+    	def currentUserId = utilityService.currentUserId()
+    	
+    	def dealerId = Dealer.withCriteria(uniqueResult : true){	
+    		projections {
+    			property('id')
+    		}
+    		eq("owner.id", currentUserId)
+    		maxResults(1)
+    	}
+
+		dealerId = dealerId?: -1L;
+		
+		log.info("searchProduct for dealer ${dealerId}")
+    
     	def dealerProductList = DealerProduct.withCriteria{
         
         	createAlias 'product', 'p'
@@ -74,6 +90,7 @@ class SalesOrder222AjaxService {
                 not{like("p.serialNumber", '2%')}
                 not{like("p.serialNumber", '4%')}
             }
+            eq("dealer.id", dealerId)
             eq("p.isActive", true)
             order("p.serialNumber", "asc")
             maxResults(10)
@@ -131,6 +148,20 @@ class SalesOrder222AjaxService {
     @Transactional(readOnly = true)
     def productPrice (productId){
     
+    	def currentUserId = utilityService.currentUserId()
+    	
+    	def dealerId = Dealer.withCriteria(uniqueResult : true){	
+    		projections {
+    			property('id')
+    		}
+    		eq("owner.id", currentUserId)
+    		maxResults(1)
+    	}
+
+		dealerId = dealerId?: -1L;
+		
+		log.info("productPrice for dealer ${dealerId} and product ${productId}")
+    
         def price = DealerProduct.withCriteria(uniqueResult:true){
         
         	createAlias 'product', 'p'
@@ -151,6 +182,7 @@ class SalesOrder222AjaxService {
 			}
             
             eq("p.id", productId)
+            eq("dealer.id", dealerId)
             order("approvalDate", "desc")
             maxResults(1)
         }
