@@ -151,6 +151,10 @@ def roleOfDepartmentCommercial = new Role(name:"Role - Department Of Commercial"
 	.addToPermissions("menu:news")	
 	.addToPermissions("entity:*")
 	
+	.addToPermissions("dealerProduct:index")
+	.addToPermissions("dealerProduct:list")
+	.addToPermissions("dealerProduct:show")
+	
 	.save(flush:true)
 
 def roleDepartmentApproval = new Role(name:"Role - Department Of Branch", isAdmin : false)
@@ -228,6 +232,11 @@ def roleDepartmentApproval = new Role(name:"Role - Department Of Branch", isAdmi
 	.addToPermissions("entity:list")
 	.addToPermissions("entity:show")
 	
+	.addToPermissions("dealerProduct:index")
+	.addToPermissions("dealerProduct:list")
+	.addToPermissions("dealerProduct:show")
+
+	
 	.save(flush:true)
 
 def roleDepartmentReadonly = new Role(name:"Role - Department Of Region", isAdmin : false)
@@ -295,6 +304,8 @@ def roleDepartmentReadonly = new Role(name:"Role - Department Of Region", isAdmi
 	.addToPermissions("entity:index")
 	.addToPermissions("entity:list")
 	.addToPermissions("entity:show")
+
+	.addToPermissions("dealerProduct:index")
 
 	.save(flush:true)
 
@@ -471,11 +482,14 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
 		.addToPermissions("resetMyPassword:resetPassword")
 		.addToPermissions("resetMyPassword:reset")
 
-	.addToPermissions("menu:news")
-	.addToPermissions("entity:index")
-	.addToPermissions("entity:list")
-	.addToPermissions("entity:show")
+		.addToPermissions("menu:news")
+		.addToPermissions("entity:index")
+		.addToPermissions("entity:list")
+		.addToPermissions("entity:show")
 
+	.addToPermissions("dealerProduct:index")
+	.addToPermissions("dealerProduct:list")
+	.addToPermissions("dealerProduct:show")
 
         .save(flush:true)     
         /*init dealer*/

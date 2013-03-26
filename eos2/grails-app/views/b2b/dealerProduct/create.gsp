@@ -23,7 +23,9 @@
                     <g:render template="/b2b/dealerProduct/edit" />
                 </div>
                 <div class="buttons">
+                	<shiro:hasPermission permission="dealerProduct:create">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'create', 'default': 'Create')}" /></span>
+                	</shiro:hasPermission>
                 </div>
             </g:form>
         </div>
