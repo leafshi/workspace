@@ -63,6 +63,10 @@
 				<shiro:hasPermission permission="search:searchUser">
 				<input type="radio" id="searchUser" name="radio" /><label for="searchUser"><g:message code="user.label" /></label>
 				</shiro:hasPermission>
+				
+				<shiro:hasPermission permission="search:searchDealer">
+				<input type="radio" id="searchDealer" name="radio" /><label for="searchDealer"><g:message code="dealer.label" /></label>
+				</shiro:hasPermission>
 			
 			</div>
 			<br/>

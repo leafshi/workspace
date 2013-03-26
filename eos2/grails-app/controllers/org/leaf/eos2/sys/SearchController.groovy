@@ -31,5 +31,9 @@ class SearchController {
     def searchUser = {
     	render template : '/shiro/user/list', model : [userInstanceList : searchService.searchUser(params.term)]
     }
+	//搜索经销商
+    def searchDealer = {
+    	render template : '/b2b/dealer/list', model : [dealerInstanceList : searchService.searchDealer(params.term)]
+    }
     
 }

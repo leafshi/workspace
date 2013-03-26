@@ -14,7 +14,7 @@
 	<tbody>
 		<g:each in="${dealerInstanceList}" status="i" var="dealerInstance">
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-			<td><g:link action="show" id="${dealerInstance.id}">${fieldValue(bean: dealerInstance, field: "department")}</g:link></td>
+			<td><g:link controller="dealer" action="show" id="${dealerInstance.id}">${fieldValue(bean: dealerInstance, field: "department")}</g:link></td>
 			<td>${fieldValue(bean: dealerInstance, field: "serialNumber")}</td>
 			<td>${fieldValue(bean: dealerInstance, field: "name")}</td>
 			<td>${fieldValue(bean: dealerInstance, field: "alias")}</td>

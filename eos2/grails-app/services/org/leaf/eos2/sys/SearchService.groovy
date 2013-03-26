@@ -14,6 +14,8 @@ import org.leaf.eos2.b2b.Product
 import org.leaf.eos2.b2b.Contract
 import org.leaf.eos2.b2b.SalesOrder
 
+import org.leaf.eos2.b2b.Dealer
+
 class SearchService {
 
 	def shareRoleService
@@ -86,6 +88,16 @@ class SearchService {
 			ilike("username", term + "%")
             maxResults(30)
             order("username", "asc")
+        }
+    } 
+    
+    //搜索用户
+    @Transactional(readOnly = true)
+    def searchDealer(term) {
+        return Dealer.withCriteria{
+			ilike("serialNumber", term + "%")
+            maxResults(30)
+            order("serialNumber", "asc")
         }
     } 
     
