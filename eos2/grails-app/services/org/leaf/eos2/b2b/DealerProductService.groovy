@@ -11,7 +11,7 @@ import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 
 
 class DealerProductService {
-    static transactional = true
+    static transactional = false
 
 	def shareRoleService
 
@@ -112,19 +112,26 @@ class DealerProductService {
     }
     
     def update(dealerProductInstance) {
-        //get user
-        def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
-        def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
-        //set instance params
-		BindDynamicMethod mybind = new BindDynamicMethod();
-		def mymap = ['lastModifiedBy.id' : currentUser.id];
-		def myargs =  [dealerProductInstance, mymap];
-		mybind.invoke(dealerProductInstance, 'bind', (Object[]) myargs);
-        //validate
-        dealerProductInstance.validate()
-        //save
-        dealerProductInstance.save(flush: true)
+    	DealerProduct.withTransaction{ status ->
+    		try{
+				//get user
+				def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
+				def currentUserRole = Role.get(currentUser.role.id)
+				log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
+				//set instance params
+				BindDynamicMethod mybind = new BindDynamicMethod();
+				def mymap = ['lastModifiedBy.id' : currentUser.id];
+				def myargs =  [dealerProductInstance, mymap];
+				mybind.invoke(dealerProductInstance, 'bind', (Object[]) myargs);
+				//validate
+				dealerProductInstance.validate()
+				//save
+				dealerProductInstance.save(flush: true)
+			}catch(e){
+				log.error("update dealerProduct ${dealerProductInstance} error : ${e}")
+				status.setRollbackOnly();
+			}
+        }
     }
     
     def delete(id) {
@@ -145,9 +152,16 @@ class DealerProductService {
         }
         return dealerProductInstance
     }
+    @Transactional(readOnly = false)
     def delete2(id) {
-        def dealerProductInstance = DealerProduct.get(id)
-        	dealerProductInstance.delete()
+    	DealerProduct.withTransaction{ status ->
+			try{
+				def dealerProductInstance = DealerProduct.get(id)
+					dealerProductInstance.delete(flush:true)
+			}catch(e){
+				log.error("delete dealer product for instance ${id} error : ${e}")
+			}
+		}
     }
 }
 
