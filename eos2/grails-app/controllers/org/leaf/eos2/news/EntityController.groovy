@@ -22,10 +22,7 @@ class EntityController {
 
     def save = {
         def entityInstance = new Entity(params)
-            entityInstance.readers.each{reader ->
-            	reader.visible = (reader.visible == true) ? true:false;
-            }
-        if (!entityInstance.hasErrors() && entityInstance.save()) {
+        if (!entityInstance.hasErrors() && entityService.save(entityInstance)) {
             flash.message = "entity.created"
             flash.args = [entityInstance.id]
             flash.defaultMessage = "Entity ${entityInstance.id} created"

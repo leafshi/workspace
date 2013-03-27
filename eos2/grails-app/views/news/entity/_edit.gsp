@@ -1,38 +1,37 @@
 <%@ page import="org.leaf.eos2.news.Entity" %>
+<div class="fieldcontain ${hasErrors(bean: entityInstance, field: 'level', 'error')} required">
+	<g:select name="level" value="${fieldValue(bean: entityInstance, field: 'level')}" from="${['紧急', '重要', '普通']}" style="width:513px;margin-left:200px;"/>
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: entityInstance, field: 'title', 'error')} required">
-	<label for="title">
-		<g:message code="entity.title.label" default="Title" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select name="level" value="${fieldValue(bean: entityInstance, field: 'level')}" from="${['紧急', '重要', '普通']}"/>
-	<g:textField name="title" maxlength="100" value="${fieldValue(bean: entityInstance, field: 'title')}" />
+	<g:textField name="title" maxlength="100" style="width:500px;margin-left:200px;" value="${fieldValue(bean: entityInstance, field: 'title')}" placeholder="${message(code:'entity.title.label', default:'Title')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: entityInstance, field: 'content', 'error')} required">
-	<label for="content">
-		<g:message code="entity.content.label" default="Content" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textArea name="content" rows="5" cols="40" value="${fieldValue(bean: entityInstance, field: 'content')}" />
+	<div name="contentDiv" contenteditable="true" class="textArea" >${entityInstance?.content}</div>
+	<g:hiddenField name="content" value="${fieldValue(bean: entityInstance, field: 'content')}" />
 </div>
 
 <!--created by-->
 <div class="fieldcontain ${hasErrors(bean: entityInstance, field: 'createdBy', 'error')} required">
-	<label for="createdBy">
-		<g:message code="entity.createdBy.label" default="Created By" />
-		<span class="required-indicator">*</span>
-	</label>
-	<span>${entityInstance?.createdBy?.encodeAsHTML()}</span>
 	<g:hiddenField name="createdBy.id" value="${entityInstance?.createdBy?.id}" />
 </div>
 
 <!--last modified by-->
 <div class="fieldcontain ${hasErrors(bean: entityInstance, field: 'lastModifiedBy', 'error')} required">
-	<label for="lastModifiedBy">
-		<g:message code="entity.lastModifiedBy.label" default="Last Modified By" />
-		<span class="required-indicator">*</span>
-	</label>
-	<span>${entityInstance?.lastModifiedBy?.encodeAsHTML()}</span>
 	<g:hiddenField name="lastModifiedBy.id" value="${entityInstance?.lastModifiedBy?.id}" />
 </div>
+
+<script>
+$(document).ready(function(){
+	$("div[name='contentDiv']").height('500px');
+});
+$("div[name='contentDiv']").keyup(function(){
+    $("input[name='content']").val( $(this).html().replace( /<br>/g, '\n' ) );
+});
+
+$("form").submit(function() {
+	$("input[name='content']").val($("div[name='contentDiv']").html());
+	return true;
+});
+</script>

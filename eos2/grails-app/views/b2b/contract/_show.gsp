@@ -55,7 +55,9 @@
 	<tr>
 		<td colspan="2">
 			<span id="description-label" class="property-label"><g:message code="contract.description.label" default="Description" /></span>
-			<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${contractInstance}" field="description"/></span>
+			<span class="property-value" aria-labelledby="description-label">
+				${contractInstance?.description?.replaceAll("\n", "<br/>")}
+			</span>
 		</td>
 	</tr>
 	<tr>

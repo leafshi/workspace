@@ -12,7 +12,7 @@ import org.hibernate.criterion.CriteriaSpecification
 
 class EntityService {
 
-	static transactional = true
+	static transactional = false
 	
 	def utilityService
 	
@@ -37,6 +37,27 @@ class EntityService {
 	    return entityInstance
     }
     
+    def save(Entity entityInstance){
+    	def result = false;
+		Entity.withTransaction{ status ->
+			try{
+				entityInstance.readers.each{reader ->
+					if(isAdminOrCommercial(reader.reader.id)){
+						reader.visible = true;
+					}
+					reader.visible = (reader.visible == true) ? true:false;
+				}
+				//保存
+				entityInstance.save(flush:true)
+				result = true
+			}catch(e){
+				log.error("save entity for instance ${entityInstance} error, ${e}");
+				status.setRollbackOnly()
+			}
+		}
+		return result;
+    }
+    
     def edit(Entity entityInstance){
         def currentUserId = utilityService.currentUserId()
 
@@ -54,18 +75,25 @@ class EntityService {
         def success = false
 
 		Entity.withTransaction{ status ->
-			//delete details
-			Reader.findAllByEntity(entityInstance).each { it.delete(flush:true)}
-			entityInstance.save(flush:true)
+			try{
+				//delete details
+				Reader.findAllByEntity(entityInstance).each { it.delete(flush:true)}
+				entityInstance.save(flush:true)
 			
-            entityInstance.properties = params
-            entityInstance.readers.each{reader ->
-            	reader.visible = (reader.visible == true) ? true:false;
-            }
-            
-			if(entityInstance.validate() && entityInstance.save(flush:true)){
+				entityInstance.properties = params
+				entityInstance.readers.each{reader ->
+					if(isAdminOrCommercial(reader.reader.id)){
+						reader.visible = true;
+					}
+					reader.visible = (reader.visible == true) ? true:false;
+				}
+			
+				entityInstance.validate() 
+				entityInstance.save(flush:true)
 				success = true
-			}else{
+			}catch(e){
+				success = false
+				log.error("update entity for instance ${entityInstance} error, ${e}")
 				status.setRollbackOnly()
 			}
 		}
@@ -97,7 +125,6 @@ class EntityService {
 		}
 		
 		def entityInstanceList = Entity.withCriteria{
-		
 			if(params?.max) maxResults(params.int('max'))
 			if(params?.offset) firstResult(params.int('offset'))
 			if(params?.sort && params?.order) order(params?.sort, params?.order)
@@ -167,4 +194,22 @@ class EntityService {
 		else
         	return Entity.get(id)
     }
+    
+    @Transactional(readOnly = true)
+    def isAdminOrCommercial(userId) {
+    	log.info("judge user ${userId} is admin or commercial")
+    	def result = false
+        //get current user
+        def userInstance = User.get( userId)
+        //user role
+        def roleInstance = Role.get(userInstance?.role?.id?:-1L)
+        
+        if(roleInstance.isAdmin || roleInstance.name.contains('Commercial')){
+        	result = true
+        }
+        
+        return result;
+        
+    }
+
 }

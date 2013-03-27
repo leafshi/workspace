@@ -1,35 +1,71 @@
-<div>
-	<g:radioGroup name="selectAllAndNone" values="['All', 'None']" value="None" labels="['-全部选中 -', '-全部取消-']">
-		<g:message code="${it.label}" />: ${it.radio}
-	</g:radioGroup>
-</div>
-<g:each in="${entityInstance.readers.sort{ it?.reader?.username}}" status="i" var="readerInstance">
-	<span class="entity_readers">
-		<!--check box-->
-		<g:if test="${readerInstance?.visible == true }">
-			<g:checkBox name="readers[${i}].visible" value="${true}" />
-		</g:if>
-		<g:else>
-			<g:checkBox name="readers[${i}].visible" value="${false}" />
-		</g:else>
-		<!--label-->
-		<label for="readers[${i}].visible">
-			${fieldValue(bean: readerInstance, field: "reader")}
-		</label>
+<shiro:hasPermission permission="entity:readers">
 
-		<!--reader id-->
-		<g:hiddenField name="readers[${i}].reader.id" value="${readerInstance?.reader?.id}"/>
-	</span>
+<g:set var="visibleAll" value="${true}" />
+<g:each in="${entityInstance.readers.sort{ it?.reader?.username}}" status="i" var="readerInstance">
+	<g:if test="${readerInstance.visible != true}">
+		<g:set var="visibleAll" value="${false}" />
+	</g:if>
 </g:each>
+
+
+<table>
+	<thead>
+		<tr>
+			<th><g:message code="reader.reader.label" default="Reader" /></th>
+			<th><g:message code="reader.department.label" default="Department" /></th>
+			<th><g:message code="reader.dealer.label" default="Dealer" /></th>
+			<th>
+				<g:message code="reader.visible.label" default="Visible" />
+				<g:checkBox name="visibleAll" value="${visibleAll}" />
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	<g:each in="${entityInstance.readers.sort{ it?.reader?.username}}" status="i" var="readerInstance">
+		<g:set var="style" value="${readerInstance?.visible ? 'color:green':'color:red'}" />
+		<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+			<td style="${style}">
+				${fieldValue(bean: readerInstance, field: "reader")}
+				<g:hiddenField name="readers[${i}].reader.id" value="${readerInstance?.reader?.id}" />
+			</td>
+			<td style="${style}">
+				<g:include controller="entityExtend" action="userDepartmentName" id="${readerInstance?.reader?.id}" />
+			</td>
+			<td style="${style}">
+				<g:include controller="entityExtend" action="userDealerName" id="${readerInstance?.reader?.id}" />
+			</td>
+			<td style="${style}">
+				<g:checkBox name="readers[${i}].visible" value="${readerInstance?.visible}" />
+			</td>
+		</tr>
+	</g:each>
+	</tbody>
+</table>
 <script type="text/javascript">
-$(document).ready(function() {
-	$("input[name='selectAllAndNone']").click(function(){
-		var selected_value = $(this).val();
-		if(selected_value == 'All'){
-			$(".entity_readers > input[type='checkbox']").attr('checked', true);
+$(document).ready(function(){
+	$("input[type='checkBox'][name^='readers']").click(function(){
+	
+		if($(this).attr('checked') ){
+			$(this).parent('td').parent('tr').children('td').css('color', 'green')
 		}else{
-			$(".entity_readers > input[type='checkbox']").attr('checked', false);
+			$(this).parent('td').parent('tr').children('td').css('color','red')
 		}
 	})
-});
+	
+	$("input[type='checkBox'][name='visibleAll']").click(function(){
+		if($(this).attr('checked')){
+			$("input[type='checkBox'][name^='readers']").each(function(){
+				$(this).parent('td').parent('tr').children('td').css('color', 'green')
+				$(this).attr('checked', true)
+			})
+			
+		}else{
+			$("input[type='checkBox'][name^='readers']").each(function(){
+				$(this).parent('td').parent('tr').children('td').css('color', 'red')
+				$(this).attr('checked', false)
+			})
+		}
+	})
+})
 </script>
+</shiro:hasPermission>

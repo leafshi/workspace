@@ -26,7 +26,9 @@
                 	<g:render template="/news/entity/edit_readers" />
                 </div>
                 <div class="buttons" style="position:relative;margin:10px 0 0 0;">
+                	<shiro:hasPermission permission="entity:save">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', 'default': 'Create')}" /></span>
+                	</shiro:hasPermission>
                 </div>
             </g:form>
         </div>

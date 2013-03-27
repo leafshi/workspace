@@ -27,8 +27,13 @@
                 	<g:render template="/news/entity/edit_readers" />
                 </div>
                 <div class="buttons">
+                	<shiro:hasPermission permission="entity:update">
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', 'default': 'Update')}" /></span>
+                    </shiro:hasPermission>
+                    
+                    <shiro:hasPermission permission="entity:delete">
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', 'default': 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', 'default': 'Are you sure?')}');" /></span>
+                	</shiro:hasPermission>
                 </div>
             </g:form>
         </div>

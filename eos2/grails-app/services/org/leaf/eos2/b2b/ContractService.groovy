@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.*
 
 class ContractService {
 
-    static transactional = true
+    static transactional = false
 
 	def shareRoleService
 
@@ -97,33 +97,38 @@ class ContractService {
     }
 
     def save(contractInstance) {
-        //get user
-        def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        
-        //set instance params
-        
-        //validate
-        contractInstance.validate()
-        
-        //save
-        contractInstance.save(flush: true)
-
+		Contract.withTransaction{ status ->
+			try {
+				//get user
+				def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
+				//set instance params
+				//validate
+				contractInstance.validate()
+				//save
+				contractInstance.save(flush: true)
+			}catch(e){
+				log.error("create contract, ${e}")
+				status.setRollbackOnly()
+			}
+		}
     }
     
     def update(contractInstance) {
-        //get user
-        def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
-        def currentUserRole = Role.get(currentUser.role.id)
-        log.info("currentUserRole.isAdmin=${currentUserRole.isAdmin}")
-        
-        //set instance params
-        contractInstance.lastUpdated = new java.util.Date()
-        
-        //validate
-        contractInstance.validate()
-        
-        //save
-        contractInstance.save(flush: true)
+		Contract.withTransaction{ status ->
+			try {
+				//get user
+				def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
+				//set instance params
+				contractInstance.lastUpdated = new java.util.Date()
+				//validate
+				contractInstance.validate()
+				//save
+				contractInstance.save(flush: true)
+			}catch(e){
+				log.error("update contract for instance ${contractInstance} error, ${e}")
+				status.setRollbackOnly()
+			}
+		}
     }
     
     def delete(id) {
