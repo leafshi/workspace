@@ -92,14 +92,12 @@ class EntityController {
     def delete = {
         def entityInstance = Entity.get(params.id)
         if (entityInstance) {
-            try {
-                entityInstance.delete()
+            if(entityService.delete(entityInstance)){
                 flash.message = "entity.deleted"
                 flash.args = [params.id]
                 flash.defaultMessage = "Entity ${params.id} deleted"
                 redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
+            } else {
                 flash.message = "entity.not.deleted"
                 flash.args = [params.id]
                 flash.defaultMessage = "Entity ${params.id} could not be deleted"

@@ -195,6 +195,25 @@ class EntityService {
         	return Entity.get(id)
     }
     
+    def delete(entityInstance){
+    	def result = false;
+		Entity.withTransaction{ status ->
+			try{
+				Reader.findAllByEntity(entityInstance).each{ readerInstance ->
+					readerInstance.delete(flush:true);
+				}
+				//保存
+				entityInstance.delete(flush:true)
+				result = true
+			}catch(e){
+				log.error("save entity for instance ${entityInstance} error, ${e}");
+				status.setRollbackOnly()
+			}
+		}
+		return result;
+    	
+    }
+    
     @Transactional(readOnly = true)
     def isAdminOrCommercial(userId) {
     	log.info("judge user ${userId} is admin or commercial")
