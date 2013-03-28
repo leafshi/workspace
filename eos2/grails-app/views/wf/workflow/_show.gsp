@@ -49,7 +49,12 @@
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 			<td>${fieldValue(bean: workflowStepInstance, field: "serialNumber")}</td>
 			<td>${fieldValue(bean: workflowStepInstance, field: "name")}</td>
-			<td>${fieldValue(bean: workflowStepInstance, field: "assignee")}</td>
+			<td>
+				<g:link controller="workflowStep" action="edit" id="${workflowStepInstance.id}">
+					${fieldValue(bean: workflowStepInstance, field: "assignee")}
+					(<g:message code="default.button.edit.label" default="Edit" />)
+				</g:link>
+			</td>
 			<td><g:formatBoolean boolean="${workflowStepInstance.lockRecord}" /></td>
 			<td><g:formatBoolean boolean="${workflowStepInstance.isBegin}" /></td>
 		</tr>

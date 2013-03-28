@@ -6,6 +6,7 @@ import org.leaf.eos2.shiro.User
 import org.leaf.eos2.shiro.Role
 
 import org.leaf.eos2.admin.Profile
+import org.leaf.eos2.admin.Group
 import org.leaf.eos2.admin.RecordType
 import org.leaf.eos2.admin.Help
 
@@ -544,8 +545,8 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
         def dealerGD0020 = new Dealer(department:dept3220, serialNumber:'GD0020', name:'东莞市昊泰电器有限公司', alias:'东莞昊泰', shortcut:'HT', salesMan:staff13073, head:'', contact:'', address1 : '东莞市东城区竹主山鸿怡花园C座3D-307  0769-22667676', address2 : '张孝祥  0769-22667676   13018608615', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'2451', owner : ownerGD0020  ).save(flush:true)
 		
 		//OEM
-        def ownerOEM001 = new User(username: "OEM001".toLowerCase(),  passwordHash: new Sha512Hash("OEM001").toHex(), profile:profile_department, role : role_dealer_222).save(flush:true)
-        def dealerOEM001 = new Dealer(department:dept3002, serialNumber:'OEM001', name:'OEM', alias:'OEM', shortcut:'OEM001', salesMan:staffOEM01, head:'', contact:'', address1 : '上海市清东新区衡安路668号良信电器', address2 : 'leaf.shi Tel:13818310340', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'1452', owner : ownerOEM001  ).save(flush:true)
+        def ownerOEM001 = new User(username: "SH0157".toLowerCase(),  passwordHash: new Sha512Hash("SH0157").toHex(), profile:profile_department, role : role_dealer_222).save(flush:true)
+        def dealerOEM001 = new Dealer(department:dept3002, serialNumber:'SH0157', name:'SH0157', alias:'SH0157', shortcut:'SH0157', salesMan:staffOEM01, head:'', contact:'', address1 : '上海市清东新区衡安路668号良信电器', address2 : 'leaf.shi Tel:13818310340', approvalStatus:'已核准', pricingMode:'', pricingStrategy:'1452', owner : ownerOEM001  ).save(flush:true)
 	
         /*init contract*/
         def recordType21 = new RecordType (serialNumber : '221', name : '行业特价申请', domain : 'contract',  isActive : true, description : '').save(flush:true)

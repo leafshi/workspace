@@ -23,7 +23,9 @@
 			<td>${fieldValue(bean: workflowHistoryInstance, field: "lastModifiedBy")}, ${formatDate(date: workflowHistoryInstance?.lastUpdated, formatName: "custom.datetime.format")}</td>
 			<td>
 				<shiro:hasPermission permission="workflowApproval:check">
+				<g:if test="${workflowHistoryInstance?.step?.name != '待审批（商务部）'}" >
 				<g:each in="${workflowHistoryInstance?.step?.actions}" status="j" var="workflowActionInstance">
+				
 				<g:set 
 					var="check_approval_result" 
 					value="${include(controller : 'workflowApproval', action : 'check', params : [historyId :workflowHistoryInstance?.id , actionId : workflowActionInstance?.id, ownerId : ownerId, version : workflowHistoryInstance?.version] )}" />
@@ -47,6 +49,7 @@
 						</g:else>
 					</g:if>
 				</g:each>
+				</g:if>
 				</shiro:hasPermission>
 			</td>
 		</tr>
