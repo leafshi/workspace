@@ -17,7 +17,7 @@ class Reader {
     }
     
     String toString(){
-    	return "$reader.name"
+    	return "$reader.username"
     }
     
     static mapping = {

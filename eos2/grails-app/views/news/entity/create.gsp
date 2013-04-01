@@ -4,8 +4,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <title><g:message code="entity.create.label" default="Create Entity" /></title>
-		<g:javascript src="jquery-ui-1.9.1.custom.min.js"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ui-lightness/jquery-ui-1.9.1.custom.css')}" type="text/css">
     </head>
     <body>
         <div class="body">
@@ -21,9 +19,6 @@
             <g:form action="save" method="post" >
                 <div class="dialog">
                     <g:render template="/news/entity/edit" />
-                </div>
-                <div class="list">
-                	<g:render template="/news/entity/edit_readers" />
                 </div>
                 <div class="buttons" style="position:relative;margin:10px 0 0 0;">
                 	<shiro:hasPermission permission="entity:save">

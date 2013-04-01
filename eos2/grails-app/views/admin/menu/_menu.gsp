@@ -8,7 +8,7 @@
         <!--END HOME-->
         
         <!--current object -->
-        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'salesOrder222','auth', 'report', 'buildInfo', 'search', 'resetMyPassword'].contains(controllerName)}">
+        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'salesOrder222','auth', 'report', 'buildInfo', 'search', 'resetMyPassword', 'reader'].contains(controllerName)}">
 			<g:set var="entityName" value="${message(code: controllerName+'.label')}" />
 			<shiro:hasPermission permission="${controllerName}:list">
 			<li><g:link class="${controllerName}" action="list"><span style="color:blue;"><g:message code="default.list.label" args="[entityName]" /></span></g:link></li>

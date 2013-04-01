@@ -52,4 +52,31 @@ class EntityExtendService {
 		
 		return dealerName;
     }
+    
+    @Transactional(readOnly = true)
+    def searchUser(term) {
+        
+        def userList = User.withCriteria{
+        	
+        	projections{
+        		property("id")
+				property("username")
+				property("username")
+				property("username")
+			}
+			ilike("username", term + "%")
+            maxResults(10)
+            order("username", "asc")
+		}
+		
+		userList.each{ user ->
+			log.info("user is ${user}")
+			user.putAt(2, "[经销商-${userDealerName(user[0])}]")
+			user.putAt(3, "[部门-${userDepartmentName(user[0])}]")
+		}
+		
+				
+		return userList;
+    }
+    
 }

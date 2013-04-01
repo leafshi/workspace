@@ -29,11 +29,7 @@ class EntityService {
 	         def myargs =  [entityInstance, mymap]
 	         mybind.invoke(entityInstance, 'bind', (Object[]) myargs)
 	    }
-	    
-	    User.listOrderByUsername().each{ userInstance ->
-	    	entityInstance.addToReaders(new Reader(reader : userInstance, visible :false));
-	    }
-	    
+	    	    
 	    return entityInstance
     }
     
@@ -42,9 +38,6 @@ class EntityService {
 		Entity.withTransaction{ status ->
 			try{
 				entityInstance.readers.each{reader ->
-					if(isAdminOrCommercial(reader.reader.id)){
-						reader.visible = true;
-					}
 					reader.visible = (reader.visible == true) ? true:false;
 				}
 				//保存
@@ -104,31 +97,44 @@ class EntityService {
     def list(Object params) {
 		//get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        //get user role
-        def currentUserRole = Role.get(currentUser.role.id)
+        //判断用户是否是商务部和管理员
+        def isAdminOrCommercial = isAdminOrCommercial(currentUser.id)
         
-        def entityIdList = Reader.withCriteria{
+        def entityInstanceList;
         
-        	createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
-        	
-        	projections{
-				groupProperty("entity.id")
+        if(isAdminOrCommercial){
+			entityInstanceList = Entity.withCriteria{
+				if(params?.max) maxResults(params.int('max'))
+				if(params?.offset) firstResult(params.int('offset'))
+				if(params?.sort && params?.order) order(params?.sort, params?.order)
 			}
-			
-        	fetchMode "entity", FM.EAGER
-        	
-        	if(currentUserRole.isAdmin == false) {
-        		eq('reader.id', currentUser.id)
-        		eq('visible', true)
-        	}
-        	
-		}
+        }else{
+        
+			def entityIdList = Reader.withCriteria{
 		
-		def entityInstanceList = Entity.withCriteria{
-			if(params?.max) maxResults(params.int('max'))
-			if(params?.offset) firstResult(params.int('offset'))
-			if(params?.sort && params?.order) order(params?.sort, params?.order)
-			inList("id", entityIdList)			
+				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
+			
+				projections{
+					groupProperty("entity.id")
+				}
+			
+				fetchMode "entity", FM.EAGER
+			
+				if(isAdminOrCommercial(currentUser.id) == false) {
+					eq('reader.id', currentUser.id)
+					eq('visible', true)
+				}
+			
+			}
+		
+			entityIdList = entityIdList ?: [-1L]
+		
+			entityInstanceList = Entity.withCriteria{
+				if(params?.max) maxResults(params.int('max'))
+				if(params?.offset) firstResult(params.int('offset'))
+				if(params?.sort && params?.order) order(params?.sort, params?.order)
+				inList("id", entityIdList)			
+			}
 		}
 		
 		return entityInstanceList;
@@ -139,60 +145,73 @@ class EntityService {
     
 		//get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        //get user role
-        def currentUserRole = Role.get(currentUser.role.id)
+
+        //判断用户是否是商务部和管理员
+        def isAdminOrCommercial = isAdminOrCommercial(currentUser.id)
         
-        def entityIdList = Reader.withCriteria{
+        def entityInstanceCount = 0;
         
-        	createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
-        	
-        	projections{
-				groupProperty("entity.id")
-			}
+        if(isAdminOrCommercial){
+			entityInstanceCount = Entity.count()
+        }else{
+        
+			def entityIdList = Reader.withCriteria{
+		
+				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
 			
-        	fetchMode "entity", FM.EAGER
-        	
-        	if(currentUserRole.isAdmin == false) {
-        		eq('reader.id', currentUser.id)
-        		eq('visible', true)
-        	}
-        	
+				projections{
+					groupProperty("entity.id")
+				}
+			
+				fetchMode "entity", FM.EAGER
+			
+				if(isAdminOrCommercial(currentUser.id) == false) {
+					eq('reader.id', currentUser.id)
+					eq('visible', true)
+				}
+			
+			}
+		
+			entityInstanceCount = entityIdList.size();
 		}
-		log.info("entityIdList=${entityIdList}");
-		if (entityIdList == null)
-			return 0
-		else
-        	return entityIdList.size();
+
+		return entityInstanceCount;
     }
     
     @Transactional(readOnly = true)
     def show(id) {
         //get current user
         def currentUser = User.findByUsername( SecurityUtils.getSubject().getPrincipal() )
-        //user role
-        def currentUserRole = Role.get(currentUser.role.id)
         
-        def entityIdList = Reader.withCriteria{
+        //判断用户是否是商务部和管理员
+        def isAdminOrCommercial = isAdminOrCommercial(currentUser.id)
         
-        	createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
-        	
-        	projections{
-				groupProperty("entity.id")
-			}
+        def entityInstance;
+        
+        if(isAdminOrCommercial){
+			entityInstance = Entity.get(id)
+        }else{
+        
+			def entityId = Reader.withCriteria(uniqueResult:true){
+		
+				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
 			
-        	fetchMode "entity", FM.EAGER
-        	
-        	if(currentUserRole.isAdmin == false) {
-        		eq('reader.id', currentUser.id)
-        		eq('visible', true)
-        	}
-        	eq("entity.id", id.toLong())
+				projections{
+					groupProperty("entity.id")
+				}
+			
+				fetchMode "entity", FM.EAGER
+			
+				eq("entity.id", id.toLong())
+			
+			}
+		
+			entityId = entityId ?: -1L
+		
+			entityInstance = Entity.get(entityId)
 		}
-		log.info("entityIdList=${entityIdList}")
-		if (entityIdList == null || entityIdList == [])
-			return null
-		else
-        	return Entity.get(id)
+        
+		return entityInstance   
     }
     
     def delete(entityInstance){

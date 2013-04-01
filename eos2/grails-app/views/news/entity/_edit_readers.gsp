@@ -1,13 +1,3 @@
-<shiro:hasPermission permission="entity:readers">
-
-<g:set var="visibleAll" value="${true}" />
-<g:each in="${entityInstance.readers.sort{ it?.reader?.username}}" status="i" var="readerInstance">
-	<g:if test="${readerInstance.visible != true}">
-		<g:set var="visibleAll" value="${false}" />
-	</g:if>
-</g:each>
-
-
 <table>
 	<thead>
 		<tr>
@@ -16,15 +6,13 @@
 			<th><g:message code="reader.dealer.label" default="Dealer" /></th>
 			<th>
 				<g:message code="reader.visible.label" default="Visible" />
-				<g:checkBox name="visibleAll" value="${visibleAll}" />
 			</th>
 		</tr>
 	</thead>
 	<tbody>
-	<g:each in="${entityInstance.readers.sort{ it?.reader?.username}}" status="i" var="readerInstance">
-		<g:set var="style" value="${readerInstance?.visible ? 'color:green':'color:red'}" />
+	<g:each in="${entityInstance?.readers?.sort{ it?.reader?.username}}" status="i" var="readerInstance">
 		<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-			<td style="${style}">
+			<td>
 				${fieldValue(bean: readerInstance, field: "reader")}
 				<g:hiddenField name="readers[${i}].reader.id" value="${readerInstance?.reader?.id}" />
 			</td>
@@ -41,31 +29,96 @@
 	</g:each>
 	</tbody>
 </table>
+<div id="search_user_dialog" title="Search User" style="display:none;">
+	<table>
+		<thead>
+			<tr>
+				<th><g:message code="reader.reader.label" /></th>
+				<th><g:message code="reader.department.label" /></th>
+				<th><g:message code="reader.dealer.label" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<div id="searchUser" contenteditable="true" class="searchDiv" ></div>
+					<div id="searchUserId" style="display:none;">
+				</td>
+				<td>
+					<span id="searchUserDepartment"></span>
+				</td>
+				<td>
+					<span id="searchUserDealer"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
 <script type="text/javascript">
+
+function initSearchUser(){
+	$("#searchUser").autocomplete({
+        minLength: 0,
+        source: function(request, response) {
+            $.ajax({
+                url: "${createLink(controller:'entityExtend', action: 'searchUser')}",
+                data: { term: request.term },
+                dataType: "json",
+                type: "POST",
+                success: function( data ) {
+                    response( $.map( data, function( item ) {
+                        return {
+                          id : item[0]
+                    	, value: $.trim(item[1])
+                		, label: $.trim(item[1])+'|'+$.trim(item[2]) + '|' + $.trim(item[3])
+                		, department : $.trim(item[2])
+                		, dealer :  $.trim(item[3])
+					}}));
+                }
+            });
+        },
+        select: function( event, ui ) {
+			$("#searchUserId").html(ui.item.id);
+			$("#searchUserDepartment").html(ui.item.department);
+			$("#searchUserDealer").html(ui.item.dealer);
+        }
+    }).click(function () {
+        $(this).autocomplete('search', $(this).html());
+    });;
+
+}
+function initSearchDialog(){
+	$("#search_user_dialog").dialog({modal: true, width:'90%', buttons: {
+		"${message(code:'salesOrder.page.addDetail.dialog.confirm', default:'Confirm!')}": function() {
+			if($("#searchProductId").val() == ''){
+				alert("请选择一个用户");
+				$("#searchUser").autocomplete('search', $("#searchUser").html()).focus();
+			}else{
+				//addDetail();
+				$( this ).dialog( "close" );
+			}
+		},
+		"${message(code:'salesOrder.page.delete.dialog.cancel', default:'Cancel!')}": function() {
+			$( this ).dialog( "close" );
+		}
+	}});
+	event.returnValue = null;
+}
 $(document).ready(function(){
-	$("input[type='checkBox'][name^='readers']").click(function(){
+
+	//绑定ESC按键
+	initSearchUser();
+	//初始化搜索窗口
+	$(document).bind('keydown', 'esc',function (event){
+		initSearchDialog();
+	});
 	
-		if($(this).attr('checked') ){
-			$(this).parent('td').parent('tr').children('td').css('color', 'green')
-		}else{
-			$(this).parent('td').parent('tr').children('td').css('color','red')
-		}
-	})
-	
-	$("input[type='checkBox'][name='visibleAll']").click(function(){
-		if($(this).attr('checked')){
-			$("input[type='checkBox'][name^='readers']").each(function(){
-				$(this).parent('td').parent('tr').children('td').css('color', 'green')
-				$(this).attr('checked', true)
-			})
-			
-		}else{
-			$("input[type='checkBox'][name^='readers']").each(function(){
-				$(this).parent('td').parent('tr').children('td').css('color', 'red')
-				$(this).attr('checked', false)
-			})
-		}
-	})
+	//定义错误处理
+	$(document).ajaxError(function(event, request, settings) {
+	    $.unblockUI();
+        alert("未知错误，请联系管理员");
+    });
 })
 </script>
-</shiro:hasPermission>

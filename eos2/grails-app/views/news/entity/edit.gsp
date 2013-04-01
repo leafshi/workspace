@@ -23,9 +23,6 @@
                 <div class="dialog">
                     <g:render template="/news/entity/edit" />
                 </div>
-                <div class="list">
-                	<g:render template="/news/entity/edit_readers" />
-                </div>
                 <div class="buttons">
                 	<shiro:hasPermission permission="entity:update">
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', 'default': 'Update')}" /></span>
