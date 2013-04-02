@@ -110,30 +110,19 @@ class EntityService {
 			}
         }else{
         
-			def entityIdList = Reader.withCriteria{
+			entityInstanceList = Entity.withCriteria{
 		
-				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
+				createAlias 'readers', 'readers'//, CriteriaSpecification.LEFT_JOIN
 			
 				projections{
-					groupProperty("entity.id")
+					property("id")
 				}
 			
-				fetchMode "entity", FM.EAGER
+				fetchMode "readers", FM.EAGER
 			
-				if(isAdminOrCommercial(currentUser.id) == false) {
-					eq('reader.id', currentUser.id)
-					eq('visible', true)
-				}
+				eq('readers.reader.id', currentUser.id)
+				eq('readers.visible', true)
 			
-			}
-		
-			entityIdList = entityIdList ?: [-1L]
-		
-			entityInstanceList = Entity.withCriteria{
-				if(params?.max) maxResults(params.int('max'))
-				if(params?.offset) firstResult(params.int('offset'))
-				if(params?.sort && params?.order) order(params?.sort, params?.order)
-				inList("id", entityIdList)			
 			}
 		}
 		
@@ -155,24 +144,20 @@ class EntityService {
 			entityInstanceCount = Entity.count()
         }else{
         
-			def entityIdList = Reader.withCriteria{
+			entityInstanceCount = Entity.withCriteria(uniqueResult:true){
 		
-				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
+				createAlias 'readers', 'readers'//, CriteriaSpecification.LEFT_JOIN
 			
 				projections{
-					groupProperty("entity.id")
+					count("id")
 				}
 			
-				fetchMode "entity", FM.EAGER
+				fetchMode "readers", FM.EAGER
 			
-				if(isAdminOrCommercial(currentUser.id) == false) {
-					eq('reader.id', currentUser.id)
-					eq('visible', true)
-				}
+				eq('readers.reader.id', currentUser.id)
+				eq('readers.visible', true)
 			
 			}
-		
-			entityInstanceCount = entityIdList.size();
 		}
 
 		return entityInstanceCount;
@@ -192,23 +177,18 @@ class EntityService {
 			entityInstance = Entity.get(id)
         }else{
         
-			def entityId = Reader.withCriteria(uniqueResult:true){
+			entityInstance = Entity.withCriteria(uniqueResult:true){
 		
-				createAlias 'entity', 'entity', CriteriaSpecification.LEFT_JOIN
+				createAlias 'readers', 'readers'//, CriteriaSpecification.LEFT_JOIN
+						
+				fetchMode "readers", FM.EAGER
 			
-				projections{
-					groupProperty("entity.id")
-				}
-			
-				fetchMode "entity", FM.EAGER
-			
-				eq("entity.id", id.toLong())
+				eq('readers.reader.id', currentUser.id)
+				eq('readers.visible', true)
+				eq("id", id.toLong())
 			
 			}
-		
-			entityId = entityId ?: -1L
-		
-			entityInstance = Entity.get(entityId)
+
 		}
         
 		return entityInstance   
@@ -238,7 +218,7 @@ class EntityService {
     	log.info("judge user ${userId} is admin or commercial")
     	def result = false
         //get current user
-        def userInstance = User.get( userId)
+        def userInstance = User.get(userId)
         //user role
         def roleInstance = Role.get(userInstance?.role?.id?:-1L)
         
