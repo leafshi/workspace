@@ -28,9 +28,11 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', 'default': 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', 'default': 'Are you sure?')}');" /></span>
                 	</shiro:hasPermission>
                 	
+                    <shiro:hasPermission permission="reader:create">
                 	<g:link controller="reader" action="create" params="['entity.id': entityInstance?.id]" >
                 		Create Reader
                 	</g:link>
+                	</shiro:hasPermission>
                 </div>
             </g:form>
         </div>
