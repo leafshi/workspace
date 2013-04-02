@@ -40,6 +40,14 @@
 					<shiro:hasPermission permission="${controllerName}:delete">
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 					</shiro:hasPermission>
+
+					<shiro:hasPermission permission="${controllerName}:forceDelete">
+					<g:actionSubmit class="delete" action="forceDelete" value="${message(code: 'default.button.forceDelete.label', default: 'Force Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					</shiro:hasPermission>
+					
+					<shiro:hasPermission permission="${controllerName}:clearErpSerialNumber">
+					<g:actionSubmit class="edit" action="clearErpSerialNumber" value="ClEAR ERP SERIAL NUMBER" onclick="return confirm('ClEAR ERP SERIAL NUMBER?');" />
+					</shiro:hasPermission>
 				</fieldset>
 			</g:form>
 		</div>

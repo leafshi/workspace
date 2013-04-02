@@ -4,11 +4,12 @@ class SalesOrder220Controller {
 
 	def salesOrder220Service
 	def salesOrderService
+	def salesOrderExtendService
 
     def index = { redirect(action: "list", params: params) }
 
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST", forceDelete :"POST", clearErpSerialNumber : "POST"]
 
     def list = {
         params.max = Math.min(params.max ? params.max.toInteger() : 30,  100)
@@ -126,5 +127,27 @@ class SalesOrder220Controller {
             redirect(controller : 'salesOrder', action: "show", id: params.id)
         }
 
+    }
+    
+    def forceDelete = {
+        if(salesOrderExtendService.forceDelete(params.id)) {
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'salesOrder.label', default: 'SalesOrder'), params.id])
+            redirect(controller : 'salesOrder', action: "list")
+        }else {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'salesOrder.label', default: 'SalesOrder'), params.id])
+            redirect(controller : 'salesOrder', action: "show", id: params.id)
+        }
+    	
+    }
+    
+    def clearErpSerialNumber = {
+        if(salesOrderExtendService.clearErpSerialNumber(params.id)) {
+            flash.message = "clear erp serial number success"
+            redirect(controller : 'salesOrder', action: "show", id: params.id)
+        }else {
+            flash.message = "clear erp serial number failed"
+            redirect(controller : 'salesOrder', action: "show", id: params.id)
+        }
+    	
     }
 }
