@@ -113,11 +113,7 @@ class EntityService {
 			entityInstanceList = Entity.withCriteria{
 		
 				createAlias 'readers', 'readers'//, CriteriaSpecification.LEFT_JOIN
-			
-				projections{
-					property("id")
-				}
-			
+						
 				fetchMode "readers", FM.EAGER
 			
 				eq('readers.reader.id', currentUser.id)
