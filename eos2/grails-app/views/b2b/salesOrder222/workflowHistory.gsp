@@ -50,6 +50,12 @@
 				</g:each>
 				</g:if>
 				</shiro:hasPermission>
+				<!--rollback-->
+				<shiro:hasPermission permission="workflowApproval:rollback">
+					<g:link controller="workflowApproval" action="rollback" params="["objectName": 'salesOrder', "objectId": objectId,
+                               "historyId": workflowHistoryInstance?.id ]" onclick="return rollback();">Rollback</g:link>
+				</shiro:hasPermission>
+				<!--end rollback-->
 			</td>
 		</tr>
 	</g:each>
@@ -105,4 +111,15 @@ function open_approval_dialog2(historyId, actionId, version, stepName, actionNam
 		}
 	});
 }
+function rollback(){
+	$.blockUI(); 
+	
+	if(confirm('Are you sure?')){
+		return true;
+	}else{
+		$.unblockUI();
+		return false;
+	}
+}
+
 </script>

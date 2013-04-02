@@ -4,6 +4,8 @@ class WorkflowApprovalController {
 
 	def workflowStepDispatcherService
 	
+	def workflowStepRollbackService
+		
 	//跳到审批页面，现已不使用
 	def confirm = {
 		def action = WorkflowAction.get(params.actionId) 
@@ -52,6 +54,15 @@ class WorkflowApprovalController {
 	//执行审批
   	def approval = {
 		workflowStepDispatcherService.checkWorkFlowStep(params.objectName, params.objectId, params.historyId, params.actionId, params.ownerId, params.description, params.version)
+		redirect(controller : params.objectName, action: "show", id: params.objectId)
+	}
+	
+	def rollback = {
+		//初始化
+		//def workflowStepRollbackService = WorkflowStepRollbackService.init1(params.objectName, params.int('objectId').toLong(), params.int('historyId').toLong());
+		//执行
+		workflowStepRollbackService.rollback(params.objectName, params.int('objectId').toLong(), params.int('historyId').toLong())
+		//返回
 		redirect(controller : params.objectName, action: "show", id: params.objectId)
 	}
 }

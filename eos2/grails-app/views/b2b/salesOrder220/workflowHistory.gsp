@@ -1,4 +1,5 @@
 <%@ page import="org.leaf.eos2.wf.WorkflowHistory" %>
+
 <table id="workflowHistoryInstanceList">
 	<caption><g:message code="workflowHistory.label" default="Workflow History" /></caption>
 	<thead>
@@ -22,6 +23,7 @@
 			<td>${fieldValue(bean: workflowHistoryInstance, field: "createdBy")}, ${formatDate(date: workflowHistoryInstance?.dateCreated, formatName: "custom.datetime.format")}</td>
 			<td>${fieldValue(bean: workflowHistoryInstance, field: "lastModifiedBy")}, ${formatDate(date: workflowHistoryInstance?.lastUpdated, formatName: "custom.datetime.format")}</td>
 			<td>
+				<!--approval-->
 				<shiro:hasPermission permission="workflowApproval:check">
 				<g:if test="${workflowHistoryInstance?.step?.name != '待审批（商务部）'}" >
 				<g:each in="${workflowHistoryInstance?.step?.actions}" status="j" var="workflowActionInstance">
@@ -51,6 +53,13 @@
 				</g:each>
 				</g:if>
 				</shiro:hasPermission>
+				<!--end approval-->
+				<!--rollback-->
+				<shiro:hasPermission permission="workflowApproval:rollback">
+					<g:link controller="workflowApproval" action="rollback" params="["objectName": 'salesOrder', "objectId": objectId,
+                               "historyId": workflowHistoryInstance?.id ]" onclick="return rollback();">Rollback</g:link>
+				</shiro:hasPermission>
+				<!--end rollback-->
 			</td>
 		</tr>
 	</g:each>
@@ -68,7 +77,7 @@ function open_approval_dialog2(historyId, actionId, version, stepName, actionNam
 	$("#approval_dialog2").dialog({
 		modal: true, 
 		width:'auto', 
-		title: stepName + "." +actionName + "-${message(code:'workflowAction.refuse.tip.label')}",
+		title: stepName + "." + actionName + "-${message(code:'workflowAction.refuse.tip.label')}",
 		buttons: {
 			"${message(code: 'default.button.approval', default: 'Approval')}": function() {
 				if($.trim($("#approval_dialog2 :input[name='description']").val()) == ''){
@@ -105,5 +114,15 @@ function open_approval_dialog2(historyId, actionId, version, stepName, actionNam
 			}
 		}
 	});
+}
+function rollback(){
+	$.blockUI(); 
+	
+	if(confirm('Are you sure?')){
+		return true;
+	}else{
+		$.unblockUI();
+		return false;
+	}
 }
 </script>
