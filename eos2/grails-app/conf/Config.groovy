@@ -75,6 +75,7 @@ environments {
 	test {
         grails.logging.jul.usebridge = true
     	grails.serverURL = "http://eos2.sh-liangxin.com"
+    	//grails.serverURL = "http://192.168.5.34:8080/eos2"
     	ws.yifeigateway.url = "http://192.168.1.88/yifeigateway/YiFeiGateway.asmx?wsdl"
 	}
     production {

@@ -142,10 +142,7 @@ class SalesOrder221Service {
 
 				salesOrderInstance.properties = params
 				salesOrderCalculaterService.calculate(salesOrderInstance);
-				//get user
-				def currentUser = User.findByUsername(SecurityUtils.getSubject().getPrincipal())
-				//set instance params
-				salesOrderInstance.lastModifiedBy = currentUser
+
 				salesOrderInstance.lastUpdated = new java.util.Date()
 				//save
 				salesOrderInstance.validate()

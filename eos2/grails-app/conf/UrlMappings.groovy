@@ -31,5 +31,8 @@ class UrlMappings {
 		"503" (view:"/error/503")//: Service Unavailable
 		"504" (view:"/error/504")//: Gateway Time-out
 		"505" (view:"/error/505")//: HTTP Version not supported 
+		
+		
+		
 	}
 }

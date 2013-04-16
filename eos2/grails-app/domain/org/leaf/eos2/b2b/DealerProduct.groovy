@@ -10,11 +10,11 @@ class DealerProduct {
 	String unit2				//小单位			MB005
 	String currency				//币种			MB004
 	BigDecimal price			//单价			MB008
+	Boolean	isIncludeTax		//含税			MB013
 	Boolean componentPricing	//分量计价		MB007
 	Date approvalDate			//核价日			MB009
-	Date lastTransactionDate	//上次销货日		MB010
-	Boolean	isIncludeTax		//含税			MB013
 	Date firstTransactionDate	//初次交易日		MB014
+	Date lastTransactionDate	//上次销货日		MB010
 	BigDecimal commissionOfUnit	//佣金单价		MB015
 	BigDecimal commissionPercent//佣金百分比		MB016
 	Date beginDate				//生效日期		MB017
