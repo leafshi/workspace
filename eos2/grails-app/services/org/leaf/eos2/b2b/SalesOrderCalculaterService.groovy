@@ -74,7 +74,7 @@ class SalesOrderCalculaterService {
     		//数量 = 单身.数量 * 组成用量 / 工时底数
     		def quantity = new BigDecimal(0);
     			quantity = salesOrderDetailInstance.quantity * SalesOrderDetailDetailInstance.dosage / SalesOrderDetailDetailInstance.quota;
-    			quantity = quantity.setScale(2, BigDecimal.ROUND_HALF_UP);
+    			quantity = quantity.setScale(3, BigDecimal.ROUND_HALF_UP);
     			
     		if(quantity != SalesOrderDetailDetailInstance.quantity){
     			log.error("子单身数量不正确，客户端=${SalesOrderDetailDetailInstance.quantity}，服务器=${quantity}");
