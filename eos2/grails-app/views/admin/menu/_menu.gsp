@@ -8,7 +8,7 @@
         <!--END HOME-->
         
         <!--current object -->
-        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'salesOrder222','auth', 'report', 'buildInfo', 'search', 'resetMyPassword', 'reader', 'workflowApproval'].contains(controllerName)}">
+        <g:if test="${!['index', 'salesOrder220', 'salesOrder221', 'salesOrder224', 'salesOrder222','auth', 'report', 'buildInfo', 'search', 'resetMyPassword', 'reader', 'workflowApproval', 'dashboardLoginHistory'].contains(controllerName)}">
 			<g:set var="entityName" value="${message(code: controllerName+'.label')}" />
 			<shiro:hasPermission permission="${controllerName}:list">
 			<li><g:link class="${controllerName}" action="list"><span style="color:blue;"><g:message code="default.list.label" args="[entityName]" /></span></g:link></li>
@@ -198,7 +198,26 @@
         </li>
         </shiro:hasPermission>
 
+        <!--BEGIN dashboard-->
+        <shiro:hasPermission permission="menu:dashboard">
+        <li>
+        	<a href="#" onclick="javascript:none()" class="parent"><span>Dashboard</span></a>
+			<ul>
+			
+				<shiro:hasPermission permission="loginHistory:browserPercent">
+				<li><a href="${createLink(controller: 'dashboardLoginHistory', action : 'browserPercent')}"><span>Login History - Browser Percent</span></a></li>
+				</shiro:hasPermission>
 
+				<shiro:hasPermission permission="loginHistory:platformPercent">
+				<li><a href="${createLink(controller: 'dashboardLoginHistory', action : 'platformPercent')}"><span>Login History - Platform Percent</span></a></li>
+				</shiro:hasPermission>
+
+			</ul>
+        </li>
+        </shiro:hasPermission>
+        <!--END dashboard-->
+        
+        
         <!--BEGIN SIGNOUT-->
         <li class="last">
             <a href="${createLink(controller: 'auth', action : 'signOut')}" onclick="return confirm('${message(code: 'default.button.signOut.confirm', default: 'Are you sure?')}');"><span><g:message code="default.signOut.label" default="signOut"/>, <shiro:principal/></span></a>
