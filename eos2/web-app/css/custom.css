@@ -544,3 +544,20 @@ input[type="submit"].btn.small {
 	
 	margin-left:200px;
 }
+
+.searchDiv{
+	width:50%;
+	padding:2px;
+	background:#fff;
+	font:20px arial,"\5b8b\4f53";
+	word-wrap:break-word;
+	line-height:1;
+	border:1px solid #AAA;
+	outline:0;
+    
+	min-height:20px;
+	height:auto !important;
+	height:20px;
+	overflow:visible; 
+	
+}
