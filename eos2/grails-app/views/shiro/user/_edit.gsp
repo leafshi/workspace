@@ -35,3 +35,38 @@
 	</label>
 	<g:select id="role" name="role.id" from="${org.leaf.eos2.shiro.Role.list()}" optionKey="id" value="${userInstance?.role?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'phone', 'error')} required">
+	<label for="phone">
+		<g:message code="user.phone.label" default="Phone" />
+	</label>
+	<g:textField name="phone" maxlength="11" required="" value="${userInstance?.phone}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'mail', 'error')} required">
+	<label for="phone">
+		<g:message code="user.mail.label" default="Mail" />
+	</label>
+	<g:textField name="mail" maxlength="50" required="" value="${userInstance?.mail}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'registerECS', 'error')} ">
+	<label for="registerECS">
+		<g:message code="user.registerECS.label" default="Register ECS?" />
+	</label>
+	<g:checkBox name="registerECS" value="${userInstance?.registerECS}" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'activateECS', 'error')} ">
+	<label for="activateECS">
+		<g:message code="user.activateECS.label" default="Activate ECS?" />
+	</label>
+	<g:checkBox name="activateECS" value="${userInstance?.activateECS}" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'isActive', 'error')} ">
+	<label for="isActive">
+		<g:message code="user.isActive.label" default="Active?" />
+	</label>
+	<g:checkBox name="isActive" value="${userInstance?.isActive}" />
+</div>

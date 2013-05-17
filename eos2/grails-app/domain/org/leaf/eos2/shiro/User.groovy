@@ -14,7 +14,15 @@ class User {
     Department department
     Group group
     Role role
-
+    
+    String phone
+    String mail
+    
+    Boolean registerECS
+    Boolean activateECS
+    
+    Boolean isActive
+    
     Date dateCreated
     Date lastUpdated
     
@@ -41,6 +49,9 @@ class User {
             def group = Group.findByName(departmentName)
             this.group = group
         }
+        this.registerECS = false
+        this.activateECS = false
+        this.isActive = true
     }
 	
 	def beforeUpdate(){
@@ -55,6 +66,15 @@ class User {
         department(nullable:true)
 		group(nullable:true)
 		role(nullable:false)
+		
+		phone(nullable:true, blank: false, maxSize:11)
+		mail(nullable:true, blank: false, maxSize:50)
+		
+		registerECS(nullable:true)
+		activateECS(nullable:true)
+		
+		isActive(nullable:true)
+		
     }
 	
     static mapping = {

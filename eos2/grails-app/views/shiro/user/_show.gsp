@@ -35,6 +35,42 @@
 		<span class="property-value" aria-labelledby="role-label">${userInstance.role}</span>
 	</li>
 	</g:if>
+
+	<g:if test="${userInstance?.phone}">
+	<li class="fieldcontain">
+		<span id="roles-label" class="property-label"><g:message code="user.phone.label" default="Phone" /></span>
+		<span class="property-value" aria-labelledby="phone-label">${userInstance.phone}</span>
+	</li>
+	</g:if>
+
+	<g:if test="${userInstance?.mail}">
+	<li class="fieldcontain">
+		<span id="roles-label" class="property-label"><g:message code="user.mail.label" default="Mail" /></span>
+		<span class="property-value" aria-labelledby="mail-label">${userInstance.mail}</span>
+	</li>
+	</g:if>
+
+	<g:if test="${userInstance?.registerECS}">
+	<li class="fieldcontain">
+		<span id="roles-label" class="property-label"><g:message code="user.registerECS.label" default="Register ECS" /></span>
+		<span class="property-value" aria-labelledby="registerECS-label">${userInstance.registerECS}</span>
+	</li>
+	</g:if>
+
+	<g:if test="${userInstance?.activateECS}">
+	<li class="fieldcontain">
+		<span id="roles-label" class="property-label"><g:message code="user.activateECS.label" default="Activate ECS" /></span>
+		<span class="property-value" aria-labelledby="activateECS-label">${userInstance.activateECS}</span>
+	</li>
+	</g:if>
+
+	<g:if test="${userInstance?.isActive}">
+	<li class="fieldcontain">
+		<span id="roles-label" class="property-label"><g:message code="user.isActive.label" default="Active?" /></span>
+		<span class="property-value" aria-labelledby="isActive-label">${userInstance.isActive}</span>
+	</li>
+	</g:if>
+
 			
 	<g:if test="${userInstance?.dateCreated}">
 	<li class="fieldcontain">
