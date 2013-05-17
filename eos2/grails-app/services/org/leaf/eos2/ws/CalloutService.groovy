@@ -25,7 +25,13 @@ class CalloutService {
                //异步？
                 def asynchronous = outBoundMessage.asynchronous
                 //获取出站XML
-                def inputXml = getInputXml(outBoundMessage.method, outBoundMessage.asynchronous, outBoundMessage.objectId)
+                def inputXml = getInputXml(
+                  outBoundMessage.method
+                , outBoundMessage.asynchronous
+                , outBoundMessage.objectId
+                , outBoundMessage.assessor
+                , outBoundMessage.autoApprove
+                )
                 //log.info("inputXml=${inputXml}")
                 //callout
                 def outputXml = start(inputXml)
@@ -49,8 +55,8 @@ class CalloutService {
         
     }
     //获取出站消息
-    def getInputXml(method, asynchronous, objectId){
-        def inputXml = generateRequestService."${method}"(objectId.toLong(), asynchronous)
+    def getInputXml(method, asynchronous, objectId, assessor, autoApprove){
+        def inputXml = generateRequestService."${method}"(objectId.toLong(), asynchronous, assessor, autoApprove)
         return inputXml
     }
     //出站

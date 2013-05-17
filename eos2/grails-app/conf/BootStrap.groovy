@@ -904,6 +904,19 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
 在经销商所有人【即：用户】显示页面，可以查看用户共享规则的详细内容。
 			'''
     	).save(flush:true);
+    	
+        //出站消息配置--订单
+        new ObConfig(
+            objectName:'salesOrder'
+            , method : 'transferSalesOrder'
+            , asynchronous : false 
+            , priority : 1
+            , defaultSendErrorLimit : 1
+            , defaultGetErrorLimit : 1
+            , assessor : '14181'
+            , autoApprove : true
+        ).save(flush:true)
+
 	}
     def destroy = {
     }

@@ -135,6 +135,8 @@ class OutBoundService {
                 property("defaultGetErrorLimit")
                 property("priority")
                 property("asynchronous")
+                property("assessor")
+                property("autoApprove")
             }
             eq("objectName", objectName)
             eq("method", method)
@@ -150,6 +152,8 @@ class OutBoundService {
             obConfig.add(3)
             obConfig.add(5)
             obConfig.add(false)
+            obConfig.add("")
+            obConfig.add(false)
         }
  
         def fmapResult = [:]
@@ -157,6 +161,8 @@ class OutBoundService {
             fmapResult.put("defaultGetErrorLimit", obConfig[1])
             fmapResult.put("priority", obConfig[2])
             fmapResult.put("asynchronous", obConfig[3])
+            fmapResult.put("assessor", obConfig[4])
+            fmapResult.put("autoApprove", obConfig[5])
 
 
         return fmapResult
@@ -240,7 +246,7 @@ class OutBoundService {
     def showXml (Long outBoundMessageId){
         //获取出站消息
         def outBoundMessage = OutBound.get(outBoundMessageId)
-        def inputXml = generateRequestService."${outBoundMessage.method}"(outBoundMessage.objectId.toLong(), outBoundMessage.asynchronous)
+        def inputXml = generateRequestService."${outBoundMessage.method}"(outBoundMessage.objectId.toLong(), outBoundMessage.asynchronous, outBoundMessage.assessor, outBoundMessage.autoApprove)
         return inputXml
     }
 

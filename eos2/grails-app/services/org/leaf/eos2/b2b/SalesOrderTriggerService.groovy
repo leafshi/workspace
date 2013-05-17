@@ -19,7 +19,7 @@ class SalesOrderTriggerService {
 				  objectName:'salesOrder'
 				, objectId : objectId
 				, method : 'transferSalesOrder'
-				, asynchronous : false 
+				, asynchronous : false
 			)
 			BindDynamicMethod mybind = new BindDynamicMethod()
 			def mymap = ['createdBy.id' : currentUserId, 'lastModifiedBy.id' : currentUserId, 'owner.id' : ownerId]

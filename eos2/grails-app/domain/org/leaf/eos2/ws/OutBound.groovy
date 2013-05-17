@@ -12,6 +12,10 @@ class OutBound {
     String method//方法
     boolean asynchronous//是否采取异步的方式
     Integer priority//优先级
+    
+    String assessor//审核员
+    Boolean autoApprove//自动审核
+    
     String status//状态
     String result//结果
     String error//错误
@@ -50,6 +54,9 @@ class OutBound {
         retryGetError(nullable:true, scale:0, max : 255)
         retryGetErrorLimit(nullable:true, scale:0, max : 255)
         stage(nullable:true, blank:true, maxSize : 20)
+        
+        assessor(nullable:true, blank:true, maxSize : 10)
+		autoApprove(nullable:true)
     }
 
     def beforeInsert() {
@@ -65,6 +72,10 @@ class OutBound {
         priority = config.get("priority")
 
         asynchronous = config.get("asynchronous")
+        
+        assessor = config.get("assessor")
+        
+        autoApprove = config.get("autoApprove")
 
         stage = '待发送'
    }

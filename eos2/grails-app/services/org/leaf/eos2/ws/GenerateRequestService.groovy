@@ -15,7 +15,7 @@ class GenerateRequestService {
 
     def yifeiEncodeService
 
-    def transferSalesOrder (Long salesOrderId, boolean asynchronous) {
+    def transferSalesOrder (Long salesOrderId, boolean asynchronous, String assessor, boolean autoApprove) {
 
         //get object instance
         def salesOrderInstance = SalesOrder.withCriteria{
@@ -191,10 +191,11 @@ class GenerateRequestService {
         def waitingForResult = "<WaitingForResult>${asynchronous?'N':'Y'}</WaitingForResult>"
 
         def inputXml = """
-            <STD_IN Origin="Leaf">
+            <STD_IN Origin="${autoApprove?'Y':'N'}">
                 <Factory>Leader</Factory>
                 ${waitingForResult} 
                 <ObjectID>INCO1</ObjectID>
+                <User>${assessor}</User>
                 <Service Name="SetData">
                     <Operate>Insert</Operate>
                     ${inputData}
@@ -205,7 +206,7 @@ class GenerateRequestService {
         return inputXml
     }
 
-    def creditControl(Long dealerId, boolean asynchronous){
+    def creditControl(Long dealerId, boolean asynchronous, String assessor, boolean autoApprove){
         def dealer = Dealer.withCriteria(uniqueResult:true){
             projections{
                 property("serialNumber")
@@ -215,7 +216,7 @@ class GenerateRequestService {
         }
         def waitingForResult = "<WaitingForResult>${asynchronous?'N':'Y'}</WaitingForResult>"
         def inputXml = """
-            <STD_IN Origin="Leaf">
+            <STD_IN Origin="${assessor}">
                 <Service Name="GetData">
                     <Factory>Leader</Factory>
                     ${waitingForResult}
