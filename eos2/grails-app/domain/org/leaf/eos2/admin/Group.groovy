@@ -17,8 +17,8 @@ class Group {
 	static hasMany = [ users : User ]
 
     static constraints = {
-        name(nullable:false, blank:false, unique:true, maxSize:20)
-        department(nullable:false)
+        name(nullable:false, blank:false, maxSize:20)
+        department(nullable:false, unique : true)
 		isActive(nullable:true)
 		description(nullable:true, blank:true, maxSize:255)
     }
