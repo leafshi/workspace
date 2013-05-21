@@ -540,7 +540,7 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
         def dealerBJ0002 = new Dealer(department:dept3510, serialNumber:'BJ0002', name:'北京索普尼科技有限公司', alias:'北京索普尼', shortcut:'SPN', salesMan:staff10210, head:'冯西平', contact:'赵鉴华', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'' , pricingStrategy:'142', owner : ownerBJ0002 ).save(flush:true)
        
         def ownerBJ0003 = new User(username: "BJ0003".toLowerCase(),  passwordHash: new Sha512Hash("BJ0003").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
-        def dealerBJ0003 = new Dealer(department:dept3510, serialNumber:'BJ0003', name:'北京东方博飞电力技术有限责任公司', alias:'北京东方博飞', shortcut:'DFBF', salesMan:staff10210, head:'冯西平', contact:'刘建中', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'142' , pricingStrategy:'', owner : ownerBJ0003 ).save(flush:true)
+        def dealerBJ0003 = new Dealer(department:dept3510, serialNumber:'BJ0003', name:'北京东方博飞电力技术有限责任公司', alias:'北京东方博飞', shortcut:'DFBF', salesMan:staff10210, head:'冯西平', contact:'刘建中', address1 : '', address2 : '', approvalStatus:'不准交易'     , pricingMode:'' , pricingStrategy:'142', owner : ownerBJ0003 ).save(flush:true)
        
         def ownerBJ0004 = new User(username: "BJ0004".toLowerCase(),  passwordHash: new Sha512Hash("BJ0004").toHex(), profile:profile_dealer, role : role_dealer_222).save(flush:true)
         def dealerBJ0004 = new Dealer(department:dept3510, serialNumber:'BJ0004', name:'北京动力源科技股份有限公司', alias:'动力源', shortcut:'DLY', salesMan:staff10210, head:'赖华明', contact:'采购田源 010-63795656', address1 : '提货人：汲怀磊 010-82387299-602/13261788805', address2 : '赖华明  13601038908', approvalStatus:'已核准'     , pricingMode:'' , pricingStrategy:'1452', owner : ownerBJ0004 ).save(flush:true)
@@ -808,8 +808,10 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
             , method : 'transferSalesOrder'
             , asynchronous : false 
             , priority : 1
-            , defaultSendErrorLimit : 1
-            , defaultGetErrorLimit : 1
+            , defaultSendErrorLimit : 3
+            , defaultGetErrorLimit : 3
+            , assessor : '14181'
+            , autoApprove : true
         ).save(flush:true)
         //出站消息配置--信用额
         new ObConfig(
@@ -819,6 +821,8 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
             , priority : 2
             , defaultSendErrorLimit : 1
             , defaultGetErrorLimit : 1
+            , assessor : '14181'
+            , autoApprove : true
         ).save(flush:true)
         
         def dealerProduct_AH0008_3002061_1 = new DealerProduct(
@@ -905,18 +909,6 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
 			'''
     	).save(flush:true);
     	
-        //出站消息配置--订单
-        new ObConfig(
-            objectName:'salesOrder'
-            , method : 'transferSalesOrder'
-            , asynchronous : false 
-            , priority : 1
-            , defaultSendErrorLimit : 1
-            , defaultGetErrorLimit : 1
-            , assessor : '14181'
-            , autoApprove : true
-        ).save(flush:true)
-
 	}
     def destroy = {
     }
