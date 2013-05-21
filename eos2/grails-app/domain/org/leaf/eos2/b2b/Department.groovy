@@ -31,7 +31,7 @@ class Department {
 
     def afterInsert (){
         Group.withNewSession{
-            new Group(name:name, department: this, isActive:true).save(flush:true)
+            new Group(name:this.name, department: this, isActive:true).save(flush:true)
         }
         //如果部门是办事处，初始化工作流
         if(type == 'B'){
