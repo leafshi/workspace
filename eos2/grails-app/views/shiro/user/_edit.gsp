@@ -49,24 +49,3 @@
 	</label>
 	<g:textField name="mail" maxlength="50" required="" value="${userInstance?.mail}"/>
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'registerECS', 'error')} ">
-	<label for="registerECS">
-		<g:message code="user.registerECS.label" default="Register ECS?" />
-	</label>
-	<g:checkBox name="registerECS" value="${userInstance?.registerECS}" />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'activateECS', 'error')} ">
-	<label for="activateECS">
-		<g:message code="user.activateECS.label" default="Activate ECS?" />
-	</label>
-	<g:checkBox name="activateECS" value="${userInstance?.activateECS}" />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'isActive', 'error')} ">
-	<label for="isActive">
-		<g:message code="user.isActive.label" default="Active?" />
-	</label>
-	<g:checkBox name="isActive" value="${userInstance?.isActive}" />
-</div>

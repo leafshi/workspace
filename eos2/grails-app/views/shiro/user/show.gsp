@@ -22,6 +22,16 @@
 					<g:link class="edit" action="edit" id="${userInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 					<g:actionSubmit class="edit" action="resetPassword" value="${message(code: 'user.resetPassword', default: 'Reset Password')}" />
+
+					<g:link class="edit" controller="userExtend" action="activeUser" id="${userInstance?.id}">Active</g:link>
+					<g:link class="edit" controller="userExtend" action="deactivateUser" id="${userInstance?.id}">deactivateUser</g:link>
+
+					<g:link class="edit" controller="userExtend" action="registerECSUser" id="${userInstance?.id}">registerECSUser</g:link>
+					<g:link class="edit" controller="userExtend" action="modifyECSUser" id="${userInstance?.id}">modifyECSUser</g:link>
+
+					<g:link class="edit" controller="userExtend" action="activateECSUser" id="${userInstance?.id}">activateECSUser</g:link>
+					<g:link class="edit" controller="userExtend" action="deactivateECSUser" id="${userInstance?.id}">deactivateECSUser</g:link>
+
 				</fieldset>
 			</g:form>
 		</div>

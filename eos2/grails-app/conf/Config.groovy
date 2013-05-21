@@ -126,8 +126,16 @@ cxf{
 			clientInterface="org.yifeigateway.dcms.YiFeiGateWayServiceSoap"
 			serviceEndpointAddress="${ws.yifeigateway.url}"
 		}
+		
+		eOSWebServiceClient{
+            //used in wsdl2java
+            wsdl = "docs/EOSWebServiceImplPort.xml" //only used for wsdl2java script target
+			clientInterface="com.digiwin.webservice.EOSWebService"
+			serviceEndpointAddress="http://192.168.1.97:8080/ecs/services/EOSWebServiceImplPort?wsdl"
+		}
+		
 	}
 }
-
-
-
+//added by leaf
+grails.gorm.failOnError=true
+grails.gorm.autoFlush = true

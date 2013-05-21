@@ -1,0 +1,132 @@
+<?xml version="1.0" ?><wsdl:definitions name="EOSWebServiceImplService" targetNamespace="http://webservice.digiwin.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://webservice.digiwin.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://webservice.digiwin.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://webservice.digiwin.com/" schemaLocation="http://192.168.1.97:8080/ecs/services/EOSWebServiceImplPort?xsd=eoswebservice_schema1.xsd"></import>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="registerUserResponse">
+    <wsdl:part element="tns:registerUserResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deactivateUser">
+    <wsdl:part element="tns:deactivateUser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateUserLogin">
+    <wsdl:part element="tns:validateUserLogin" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyUser">
+    <wsdl:part element="tns:modifyUser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerUser">
+    <wsdl:part element="tns:registerUser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyUserResponse">
+    <wsdl:part element="tns:modifyUserResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="activateUser">
+    <wsdl:part element="tns:activateUser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deactivateUserResponse">
+    <wsdl:part element="tns:deactivateUserResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="activateUserResponse">
+    <wsdl:part element="tns:activateUserResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateUserLoginResponse">
+    <wsdl:part element="tns:validateUserLoginResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EOSWebService">
+    <wsdl:operation name="validateUserLogin">
+      <wsdl:input message="tns:validateUserLogin" name="validateUserLogin">
+    </wsdl:input>
+      <wsdl:output message="tns:validateUserLoginResponse" name="validateUserLoginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="modifyUser">
+      <wsdl:input message="tns:modifyUser" name="modifyUser">
+    </wsdl:input>
+      <wsdl:output message="tns:modifyUserResponse" name="modifyUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerUser">
+      <wsdl:input message="tns:registerUser" name="registerUser">
+    </wsdl:input>
+      <wsdl:output message="tns:registerUserResponse" name="registerUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deactivateUser">
+      <wsdl:input message="tns:deactivateUser" name="deactivateUser">
+    </wsdl:input>
+      <wsdl:output message="tns:deactivateUserResponse" name="deactivateUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activateUser">
+      <wsdl:input message="tns:activateUser" name="activateUser">
+    </wsdl:input>
+      <wsdl:output message="tns:activateUserResponse" name="activateUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EOSWebServiceImplServiceSoapBinding" type="tns:EOSWebService">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap12:binding>
+    <wsdl:operation name="modifyUser">
+      <soap12:operation soapAction="urn:ModifyUser" style="document"></soap12:operation>
+      <wsdl:input name="modifyUser">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output name="modifyUserResponse">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateUserLogin">
+      <soap12:operation soapAction="urn:ValidateUserLogin" style="document"></soap12:operation>
+      <wsdl:input name="validateUserLogin">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output name="validateUserLoginResponse">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerUser">
+      <soap12:operation soapAction="urn:RegisterUser" style="document"></soap12:operation>
+      <wsdl:input name="registerUser">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output name="registerUserResponse">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deactivateUser">
+      <soap12:operation soapAction="urn:DeactivateUser" style="document"></soap12:operation>
+      <wsdl:input name="deactivateUser">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output name="deactivateUserResponse">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activateUser">
+      <soap12:operation soapAction="urn:ActivateUser" style="document"></soap12:operation>
+      <wsdl:input name="activateUser">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output name="activateUserResponse">
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EOSWebServiceImplService">
+    <wsdl:port binding="tns:EOSWebServiceImplServiceSoapBinding" name="EOSWebServiceImplPort">
+      <soap12:address location="http://192.168.1.97:8080/ecs/services/EOSWebServiceImplPort"></soap12:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
