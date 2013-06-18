@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__fintUserId_12_0</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__fdtmBegin_123_1</property>
+            <property name="value">2013-05-01</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__fdtmEnd_124_2</property>
+            <property name="value">2013-05-31</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__fchrDealerSerialNumber_125_3</property>
+            <property name="value">JS0005</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__fintMaxRows_126_4</property>
+            <property name="value">2000</property>
+        </structure>
+        <structure>
+            <property name="name">fchrDealerSerialNumber_125_5</property>
+            <property name="value">JS0005</property>
+        </structure>
+        <structure>
+            <property name="name">fchrDealerSerialNumber_125_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">fintMaxRows_126_6</property>
+            <property name="value">2000</property>
+        </structure>
+        <structure>
+            <property name="name">fintMaxRows_126_type_</property>
+            <property name="value">integer</property>
+        </structure>
+        <structure>
+            <property name="name">fdtmEnd_124_7</property>
+            <property name="value">2013-05-31</property>
+        </structure>
+        <structure>
+            <property name="name">fdtmEnd_124_type_</property>
+            <property name="value">date</property>
+        </structure>
+        <structure>
+            <property name="name">fintUserId_12_8</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">fintUserId_12_type_</property>
+            <property name="value">integer</property>
+        </structure>
+        <structure>
+            <property name="name">fdtmBegin_123_9</property>
+            <property name="value">2013-05-01</property>
+        </structure>
+        <structure>
+            <property name="name">fdtmBegin_123_type_</property>
+            <property name="value">date</property>
+        </structure>
+    </list-property>
+</report>
