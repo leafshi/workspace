@@ -29,8 +29,6 @@ class CalloutService {
                   outBoundMessage.method
                 , outBoundMessage.asynchronous
                 , outBoundMessage.objectId
-                , outBoundMessage.assessor
-                , outBoundMessage.autoApprove
                 )
                 //log.info("inputXml=${inputXml}")
                 //callout
@@ -55,8 +53,8 @@ class CalloutService {
         
     }
     //获取出站消息
-    def getInputXml(method, asynchronous, objectId, assessor, autoApprove){
-        def inputXml = generateRequestService."${method}"(objectId.toLong(), asynchronous, assessor, autoApprove)
+    def getInputXml(method, asynchronous, objectId){
+        def inputXml = generateRequestService."${method}"(objectId.toLong(), asynchronous)
         return inputXml
     }
     //出站
