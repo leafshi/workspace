@@ -52,61 +52,33 @@ class ProductFromPdmEndpoint {
     
     Boolean transformFromERP(String productSerialNumber){
     	def result = false;
-    	Product.withTransaction{ status ->
-    		try{
-        		def productInstance = Product.findBySerialNumber(productSerialNumber)
-        		
-        		if(!productInstance){
-        			productInstance = new Product(serialNumber: productSerialNumber)
-        		}
-        	
-        		def sqlInstance = Sql.newInstance(
-        			"jdbc:sqlserver://192.168.1.22;databaseName=etl;"
-        			, "sa"
-        			, "sa"
-        			, "com.microsoft.sqlserver.jdbc.SQLServerDriver") 
-        		
-        		sqlInstance.eachRow("""
-					SELECT
-					  RTRIM(MB.MB001) AS SerialNumber
-					, RTRIM(MB.MB002) AS ProductName
-					, RTRIM(MB.MB003) AS Standard
-					, RTRIM(MB.MB004) AS Unit
-					, MB.MB047 AS Price
-					, MB.MB101 AS IsIncludeTax
-					, MB.MB109 AS IsActive
-					
-					, RTRIM(MB.MB005) AS CATEGORY1
-					, RTRIM(MB.MB006) AS CATEGORY2
-					, RTRIM(MB.MB007) AS CATEGORY3
-					, RTRIM(MB.MB008) AS CATEGORY4
-					, RTRIM(MB.MB200) AS CATEGORY5
-					
-					FROM [Leader].[dbo].INVMB MB
-					WITH(NOLOCK)
-					WHERE RTRIM(MB.MB001) = ${productSerialNumber}
-				"""
-        		){ row ->
-        			productInstance.name = row.ProductName
-        			productInstance.standard = row.Standard
-        			productInstance.unit = row.Unit
-        			productInstance.price = row.Price
-        			productInstance.isIncludeTax = (row.IsIncludeTax == 'Y')?true:false
-        			productInstance.isActive = (row.IsActive == 'Y')?true:false
-        			
-        			if(row.CATEGORY1 == ''){
-        				ProductCategory
-        			}
-        		}
-        		
-        		productInstance.validate()
-        		productInstance.save(flush:true)
-        		result = true
-        	}catch(e){
-        		status.setRollbackOnly()
-        		log.error("get product from erp error:${e}")
-        	}
-        }
+    	def sqlInstance
+		try{
+
+			def dbProperty = [
+			  url : "jdbc:sqlserver://192.168.1.31;databaseName=etl;"
+			, user : "sa"
+			, password : "P@55word"
+			, driver : "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+			]			
+			
+		
+			sqlInstance = Sql.newInstance(
+			  dbProperty.url
+			, dbProperty.user
+			, dbProperty.password
+			, dbProperty. driver) 
+			
+			sqlInstance.execute("""
+				EXECUTE SYNC_JOB_PRODUCT_FROM_ERP '${productSerialNumber}'
+			"""
+			)
+			result = true
+		}catch(e){
+			log.error("get product from erp error:${e}")
+		}finally{
+			sqlInstance.close()
+		}
         return result
     
     }
