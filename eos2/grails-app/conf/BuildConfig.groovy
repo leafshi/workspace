@@ -48,6 +48,12 @@ grails.project.dependency.resolution = {
         compile ":google-visualization:0.6.1"
 
         build ":tomcat:$grailsVersion"
+        
+        //权限管理
+        compile (":shiro:1.1.4"){
+        	excludes 'quartz'
+        }
+
                 
     }
 }
