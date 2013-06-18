@@ -14,8 +14,8 @@ class BomDetail {
         
     static constraints = {
         bom(blank:false, nullable: false)
-        serialNumber(maxSize:4, nullable:false, blank:false)
-        product(blank:false, nullable: false, unique:['bom', 'serialNumber'])
+        serialNumber(maxSize:4, nullable:false, blank:false, unique:['bom'])
+        product(blank:false, nullable: false)
         dosage(nullable:false, min:1)
         quota(nullable:false, min:1)
     }
