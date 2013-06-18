@@ -810,8 +810,6 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
             , priority : 1
             , defaultSendErrorLimit : 3
             , defaultGetErrorLimit : 3
-            , assessor : '14181'
-            , autoApprove : true
         ).save(flush:true)
         //出站消息配置--信用额
         new ObConfig(
@@ -821,8 +819,6 @@ def staffOEM01 = new Staff(serialNumber : 'OEM01', name :'OEM', department : dep
             , priority : 2
             , defaultSendErrorLimit : 1
             , defaultGetErrorLimit : 1
-            , assessor : '14181'
-            , autoApprove : true
         ).save(flush:true)
         
         def dealerProduct_AH0008_3002061_1 = new DealerProduct(
